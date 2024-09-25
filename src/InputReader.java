@@ -6,13 +6,14 @@ import java.util.List;
 
 public class InputReader {
 
-    private int numberOfVMRequests;   // Aantal VM-aanvragen
-    private int serverCapacity;       // Capaciteit van de server
-    private List<Request> vmRequests; // Lijst met VM-aanvragen
+    private static int numberOfVMRequests;
+    private static int serverCapacity;
+    private List<Request> vmRequests;
 
     public InputReader(String testInstance) {
         vmRequests = new ArrayList<>();
-        readInputFile(testInstance);
+        String relativePath = "TestInstances/" + testInstance;
+        readInputFile(relativePath);
     }
 
     private void readInputFile(String fileName) {
@@ -28,27 +29,32 @@ public class InputReader {
             while ((line = br.readLine()) != null) {
                 String[] data = line.split("\\s+");
 
-                int vmId = Integer.parseInt(data[0]);         // VM ID
-                int startTime = Integer.parseInt(data[1]);    // Starttijd van de VM
-                int endTime = Integer.parseInt(data[2]);      // Eindtijd van de VM
-                int capacityRequest = Integer.parseInt(data[3]); // RequestWeight
+                int vmId = Integer.parseInt(data[0]);
+                int startTime = Integer.parseInt(data[1]);
+                int endTime = Integer.parseInt(data[2]);
+                int capacityRequest = Integer.parseInt(data[3]);
 
                 Request request = new Request(vmId, startTime, endTime, capacityRequest);
                 vmRequests.add(request);
-
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     public int getNumberOfVMRequests() {
         return numberOfVMRequests;
     }
+
     public int getServerCapacity() {
         return serverCapacity;
     }
 
-
-
+    public void PrintVMRequests() {
+        for (Request request : vmRequests) {
+            System.out.println(request);
+        }
+    }
 }
+
