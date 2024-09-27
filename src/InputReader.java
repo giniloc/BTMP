@@ -50,6 +50,10 @@ public class InputReader {
     public int getServerCapacity() {
         return serverCapacity;
     }
+    public List<Request> getRequests() {
+        return this.vmRequests;
+    }
+
 
     public void PrintVMRequests() {
         for (Request request : vmRequests) {
