@@ -45,5 +45,7 @@ public class Main {
         } else {
             System.out.println("No overlapping intervals found.");
         }
+        BCHT bcht = new BCHT(inputReader);
+        bcht.applyHeuristic(requests);
     }
 }

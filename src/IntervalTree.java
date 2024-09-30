@@ -3,9 +3,11 @@ import java.util.List;
 
 public class IntervalTree {
     private IntervalNode root;
+    private int maxEndTime;
 
     public IntervalTree() {
         this.root = null;
+        this.maxEndTime = 0;
     }
 
     public IntervalNode getRoot() {
@@ -21,15 +23,18 @@ public class IntervalTree {
             return node;
         }
 
-        // Vergelijk de starttijd om te bepalen waar het node ingevoegd wordt
+        // Compare starttime
         if (node.getInterval().getStartTime() < root.getInterval().getStartTime()) {
             root.setLeft(insert(root.getLeft(), node));
         } else {
             root.setRight(insert(root.getRight(), node));
         }
 
-        // Update de maxSubtreeWeight om het maximale eindpunt in de subtree bij te houden
+        // Update maxendtime
         root.setMaxEndTime(Math.max(root.getMaxEndTime(), node.getInterval().getEndTime()));
+        if (root.getMaxEndTime() > this.maxEndTime) {
+            this.maxEndTime = root.getMaxEndTime();
+        }
 
         return root;
     }
@@ -80,7 +85,7 @@ public class IntervalTree {
             overlappingNodes.add(root);
         }
 
-        // if the maximum end time of the left child is greater than the start time of the new interval,
+        // if the maximum endtime of the left child is greater than the starttime of the new interval,
         // then there is overlap in the left subtree
         if (root.getLeft() != null && root.getLeft().getMaxEndTime() >= newInterval.getStartTime()) {
             findOverlappingNodes(root.getLeft(), newInterval, overlappingNodes);
@@ -89,4 +94,16 @@ public class IntervalTree {
         // Also check the right subtree
         findOverlappingNodes(root.getRight(), newInterval, overlappingNodes);
     }
+    //TODO: max endtime bijhouden om dan makkelijk het verschil in busy time te berekenen met nieuwe in te voegen request
+    public int calculateExtraBusyTime(Interval newInterval) {
+        // Check if the new interval ends after the current maxEndTime
+        if (newInterval.getEndTime() > this.maxEndTime) {
+            // The extra busy time is the difference between the new interval's end time and the current maxEndTime
+            return newInterval.getEndTime() - this.maxEndTime;
+        } else {
+            // If the new interval's end time is less than or equal to the maxEndTime, there is no extra busy time
+            return 0;
+        }
+    }
+
 }
