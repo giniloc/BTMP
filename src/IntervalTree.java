@@ -3,11 +3,9 @@ import java.util.List;
 
 public class IntervalTree {
     private IntervalNode root;
-    private int maxEndTime;
 
     public IntervalTree() {
         this.root = null;
-        this.maxEndTime = 0;
     }
 
     public IntervalNode getRoot() {
@@ -30,11 +28,9 @@ public class IntervalTree {
             root.setRight(insert(root.getRight(), node));
         }
 
-        // Update maxendtime
+        // Update maxendtime for the node, this is needed for searching the tree
         root.setMaxEndTime(Math.max(root.getMaxEndTime(), node.getInterval().getEndTime()));
-        if (root.getMaxEndTime() > this.maxEndTime) {
-            this.maxEndTime = root.getMaxEndTime();
-        }
+
 
         return root;
     }
@@ -94,12 +90,11 @@ public class IntervalTree {
         // Also check the right subtree
         findOverlappingNodes(root.getRight(), newInterval, overlappingNodes);
     }
-    //TODO: max endtime bijhouden om dan makkelijk het verschil in busy time te berekenen met nieuwe in te voegen request
     public int calculateExtraBusyTime(Interval newInterval) {
         // Check if the new interval ends after the current maxEndTime
-        if (newInterval.getEndTime() > this.maxEndTime) {
+        if (newInterval.getEndTime() > root.getMaxEndTime()) {
             // The extra busy time is the difference between the new interval's end time and the current maxEndTime
-            return newInterval.getEndTime() - this.maxEndTime;
+            return newInterval.getEndTime() - root.getMaxEndTime();
         } else {
             // If the new interval's end time is less than or equal to the maxEndTime, there is no extra busy time
             return 0;
