@@ -8,9 +8,11 @@ public class InputReader {
     private static int numberOfVMRequests;
     private static int serverCapacity;
     private List<Request> vmRequests;
+    private String testInstance;
 
     public InputReader(String testInstance) {
-        vmRequests = new ArrayList<>();
+        this.vmRequests = new ArrayList<>();
+        this.testInstance = testInstance;
         String relativePath = "TestInstances/" + testInstance;
         readInputFile(relativePath);
     }
@@ -59,5 +61,9 @@ public class InputReader {
             System.out.println(request);
         }
     }
+    public String getTestInstance() {
+        return this.testInstance;
+    }
+
 }
 

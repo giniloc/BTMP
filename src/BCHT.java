@@ -3,31 +3,30 @@ import java.util.List;
 
 public class BCHT {
     private InputReader inputReader;
-    private List<IntervalTree> intervalTrees;  // Lijst van servers
+    private Solution solution;
 
     public BCHT(InputReader inputReader) {
         this.inputReader = inputReader;
-        this.intervalTrees = new ArrayList<>();
+        this.solution = new Solution();
     }
 
     public void applyHeuristic(List<Request> requests) {
         for (Request request : requests) {
             Interval interval = new Interval(request.getStartTime(), request.getEndTime());
-            IntervalNode node = new IntervalNode(interval, request.getWeight());
+            IntervalNode node = new IntervalNode(interval, request.getWeight(), request.getVmId());
 
-            // Zoek naar de beste server (IntervalTree) om de nieuwe request in te plannen
             IntervalTree bestTree = null;
 
-            for (IntervalTree intervalTree : intervalTrees) {
+            for (IntervalTree intervalTree : solution.getIntervalTrees()) {
                 List<IntervalNode> overlappingNodes = intervalTree.findAllOverlapping(intervalTree.getRoot(), interval);
                 int sum = 0;
                 for (IntervalNode overlappingNode : overlappingNodes) {
                     sum += overlappingNode.getWeight();
                 }
 
-                // Check of de server capaciteit heeft voor deze request
+                // Check if server has enough capacity for request
                 if (sum + request.getWeight() <= inputReader.getServerCapacity()) {
-                    // Zoek de server met de minste 'extra busy time' als deze request daar wordt toegevoegd
+                    // seararch for server with least extra busy time
                     if (bestTree == null ||
                             intervalTree.calculateExtraBusyTime(interval) < bestTree.calculateExtraBusyTime(interval)) {
                         bestTree = intervalTree;
@@ -35,19 +34,29 @@ public class BCHT {
                 }
             }
 
-            // Als geen bestaande server geschikt is, voeg een nieuwe server toe als beste server
+            // if no bestTree was found, create a new one
             if (bestTree == null) {
                 bestTree = new IntervalTree();
-                intervalTrees.add(bestTree);
+                solution.add(bestTree);
             }
 
-            // Voeg de nieuwe request toe aan de gekozen server (bestTree), of de nieuwe server die net is aangemaakt
+            // add request to bestTree
             bestTree.setRoot(bestTree.insert(bestTree.getRoot(), node));
         }
         // Print tree in order
-        for (IntervalTree intervalTree : intervalTrees) {
-            System.out.println("Server: " + intervalTrees.indexOf(intervalTree));
-            IntervalTree.inOrder(intervalTree.getRoot());
-        }
+//        for (IntervalTree intervalTree : solution.getIntervalTrees()) {
+//            System.out.println("Server: " + solution.getIntervalTrees().indexOf(intervalTree));
+//            IntervalTree.inOrder(intervalTree.getRoot());
+//        }
+        int totalBusyTime = 0;
+        int counter = 0;
+//        for (IntervalTree intervalTree : solution.getIntervalTrees()) {
+//            totalBusyTime += intervalTree.calculateTotalBusyTime();
+//            System.out.println("Busy time for server " + counter + ":" + intervalTree.calculateTotalBusyTime());
+//            counter++;
+//        }
+        System.out.println("Total busy time: " + totalBusyTime);
+        SolutionWriter.writeSolutionToFile(solution, inputReader.getTestInstance(), "BCHT");
+
     }
 }

@@ -8,10 +8,11 @@ public class IntervalNode {
     private IntervalNode left;
     private IntervalNode right;
     private IntervalNode parent;
+    private int ID;
     private int maxEndTime;
     Color color;
 
-    public IntervalNode(Interval interval, int weight) {
+    public IntervalNode(Interval interval, int weight, int ID) {
         this.interval = interval;
         this.weight = weight;
         this.color = Color.RED; //new nodes are standard RED
@@ -19,6 +20,7 @@ public class IntervalNode {
         this.left = null;
         this.right = null;
         this.parent = null;
+        this.ID = ID;
     }
 
     public Interval getInterval() {
@@ -76,5 +78,8 @@ public class IntervalNode {
         } else {
             return "BLACK";
         }
+    }
+    public int getID() {
+        return ID;
     }
 }

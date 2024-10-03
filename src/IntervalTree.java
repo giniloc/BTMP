@@ -100,5 +100,8 @@ public class IntervalTree {
             return 0;
         }
     }
+    public int calculateTotalBusyTime() {
+        return (root.getMaxEndTime() - root.getInterval().getStartTime());
+    }
 
 }
