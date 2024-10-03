@@ -1,3 +1,13 @@
+/**
+ * This class represents a node in the Interval Tree.
+ *
+ * The implementation of the Interval Tree and its nodes is based on code from GeeksforGeeks.
+ * Original Source: https://www.geeksforgeeks.org/interval-tree/
+ *
+ * Copyright belongs to GeeksforGeeks, and the code has been adapted for use in this project.
+ */
+
+
 enum Color {
     RED, BLACK
 }
