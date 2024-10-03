@@ -6,7 +6,7 @@ import java.util.List;
 
 public class SolutionWriter {
 
-    public static void writeSolutionToFile(Solution solution, String testInstanceName, String heuristicName) {
+    public static void writeSolutionToFile(Solution solution, String testInstanceName, String heuristicName, int totalTime) {
         try {
             String directoryPath = "Solutions";
             File directory = new File(directoryPath);
@@ -16,10 +16,8 @@ public class SolutionWriter {
             // Sanitize test instance name  (remove special characters)
             String sanitizedTestInstanceName = testInstanceName.replaceAll("[^a-zA-Z0-9.-]", "_");
 
-            // Bestandsnaam samenstellen
             String fileName = directoryPath + File.separator + sanitizedTestInstanceName + "_" + heuristicName + ".txt";
 
-            // Schrijf de oplossing weg naar het bestand
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
                 List<IntervalTree> intervalTrees = solution.getIntervalTrees();
 
@@ -29,7 +27,7 @@ public class SolutionWriter {
                     writeTasksForServer(intervalTrees.get(i).getRoot(), writer);
                     writer.newLine();  // Extra newline to separate servers
                 }
-
+                writer.write("Total busy time: " + totalTime);
                 System.out.println("Solution successfully written to " + fileName);
             }
 

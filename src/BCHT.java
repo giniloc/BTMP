@@ -50,13 +50,13 @@ public class BCHT {
 //        }
         int totalBusyTime = 0;
         int counter = 0;
-//        for (IntervalTree intervalTree : solution.getIntervalTrees()) {
-//            totalBusyTime += intervalTree.calculateTotalBusyTime();
-//            System.out.println("Busy time for server " + counter + ":" + intervalTree.calculateTotalBusyTime());
-//            counter++;
-//        }
-        System.out.println("Total busy time: " + totalBusyTime);
-        SolutionWriter.writeSolutionToFile(solution, inputReader.getTestInstance(), "BCHT");
+        for (IntervalTree intervalTree : solution.getIntervalTrees()) {
+            totalBusyTime += intervalTree.calculateTotalBusyTime();
+           // System.out.println("Busy time for server " + counter + ":" + intervalTree.calculateTotalBusyTime());
+            counter++;
+        }
+        //System.out.println("Total busy time: " + totalBusyTime);
+        SolutionWriter.writeSolutionToFile(solution, inputReader.getTestInstance(), "BCHT", totalBusyTime);
 
     }
 }
