@@ -12,7 +12,7 @@ public class SolutionWriter {
 
     public static void writeSolutionToFile(Solution solution, String testInstanceName, String heuristicName, int totalTime) {
         try {
-            String directoryPath = "Solutions";
+            String directoryPath = "SolutionsBestCapacity"; // Change this to "Solutions" to write all solutions for BCHT Heuristic
             File directory = new File(directoryPath);
             if (!directory.exists()) {
                 directory.mkdir();
