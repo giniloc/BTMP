@@ -6,8 +6,10 @@
  *
  * Copyright belongs to GeeksforGeeks, and the code has been adapted for use in this project.
  */
+package Utils;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class IntervalTree {
     private IntervalNode root;

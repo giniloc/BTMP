@@ -1,3 +1,4 @@
+package Utils;
 public class Interval {
 
     private int startTime;

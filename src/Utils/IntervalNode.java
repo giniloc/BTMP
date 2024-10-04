@@ -7,6 +7,7 @@
  * Copyright belongs to GeeksforGeeks, and the code has been adapted for use in this project.
  */
 
+package Utils;
 
 enum Color {
     RED, BLACK

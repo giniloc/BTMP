@@ -1,3 +1,4 @@
+package Utils;
 public class Request {
 
     private int vmId;
