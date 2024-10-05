@@ -9,9 +9,7 @@
 
 package Utils;
 
-enum Color {
-    RED, BLACK
-}
+
 public class IntervalNode {
 
     private Interval interval;
@@ -21,12 +19,11 @@ public class IntervalNode {
     private IntervalNode parent;
     private int ID;
     private int maxEndTime;
-    Color color;
+
 
     public IntervalNode(Interval interval, int weight, int ID) {
         this.interval = interval;
         this.weight = weight;
-        this.color = Color.RED; //new nodes are standard RED
         this.maxEndTime = interval.getEndTime();
         this.left = null;
         this.right = null;
@@ -71,9 +68,6 @@ public class IntervalNode {
         return "Interval [" + interval.getStartTime() + ", " + interval.getEndTime() + "], Capacity: " + weight;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
-    }
 
     public IntervalNode getParent() {
         return parent;
@@ -83,13 +77,6 @@ public class IntervalNode {
         this.parent = y;
     }
 
-    public String getColor() {
-        if (color == Color.RED) {
-            return "RED";
-        } else {
-            return "BLACK";
-        }
-    }
     public int getID() {
         return ID;
     }

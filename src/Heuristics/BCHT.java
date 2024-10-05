@@ -17,7 +17,9 @@ public class BCHT {
             Interval interval = new Interval(request.getStartTime(), request.getEndTime());
             IntervalNode node = new IntervalNode(interval, request.getWeight(), request.getVmId());
 
+
             IntervalTree bestTree = null;
+
 
             for (IntervalTree intervalTree : solution.getIntervalTrees()) {
                 List<IntervalNode> overlappingNodes = intervalTree.findAllOverlapping(intervalTree.getRoot(), interval);
