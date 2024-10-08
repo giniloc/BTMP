@@ -113,7 +113,7 @@ public class RBIntervalTree {
                     grandparent.setRed(true);
                     parent.setRed(false);
                     uncle.setRed(false);
-                    node = grandparent;
+                    node = grandparent; //this is to fix double red problems. The while loop will continue from the grandparent.
                 } else {
                     if (node == parent.getRight()) {
                         // Case 2: Left rotate
@@ -132,7 +132,7 @@ public class RBIntervalTree {
                     grandparent.setRed(true);
                     parent.setRed(false);
                     uncle.setRed(false);
-                    node = grandparent;
+                    node = grandparent; //this is to fix double red problems. The while loop will continue from the grandparent.
                 } else {
                     if (node == parent.getLeft()) {
                         // Case 2: Right rotate

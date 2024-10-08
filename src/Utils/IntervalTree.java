@@ -26,6 +26,7 @@ public class IntervalTree {
         this.root = root;
     }
 
+
     public IntervalNode insert(IntervalNode root, IntervalNode node) {
         if (root == null) {
             return node;
@@ -74,6 +75,7 @@ public class IntervalTree {
     private boolean doIntervalsOverlap(Interval interval1, Interval interval2) {
         return (interval1.getStartTime() < interval2.getEndTime() && interval2.getStartTime() < interval1.getEndTime());
     }
+
     public List<IntervalNode> findAllOverlapping(IntervalNode root, Interval newInterval) {
         List<IntervalNode> overlappingNodes = new ArrayList<>();
         findOverlappingNodes(root, newInterval, overlappingNodes);
@@ -100,6 +102,7 @@ public class IntervalTree {
         // Also check the right subtree
         findOverlappingNodes(root.getRight(), newInterval, overlappingNodes);
     }
+
     public int calculateExtraBusyTime(Interval newInterval) {
         // Check if the new interval ends after the current maxEndTime
         if (newInterval.getEndTime() > root.getMaxEndTime()) {
@@ -110,6 +113,7 @@ public class IntervalTree {
             return 0;
         }
     }
+
     public int calculateTotalBusyTime() {
         return (root.getMaxEndTime() - root.getInterval().getStartTime());
     }

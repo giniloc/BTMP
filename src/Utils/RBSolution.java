@@ -6,7 +6,6 @@ import java.util.List;
 public class RBSolution {
     private List<RBIntervalTree> intervalTrees;  // List of servers
 
-
     public RBSolution() {
             this.intervalTrees = new ArrayList<>();
         }
