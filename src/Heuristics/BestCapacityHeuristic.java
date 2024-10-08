@@ -51,7 +51,7 @@ public class BestCapacityHeuristic {
             }
 
             // Add request to bestTree
-            bestTree.setRoot(bestTree.insert(bestTree.getRoot(), node));
+            bestTree.insert(node);
         }
 
         int totalBusyTime = 0;

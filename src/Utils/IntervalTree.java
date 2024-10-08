@@ -28,18 +28,18 @@ public class IntervalTree {
 
     public void insert(IntervalNode node) {
         IntervalNode newNode = new IntervalNode(node.getInterval(), node.getWeight(), node.getID());
-        this.root = insert(this.root, newNode);
+        this.root = insertRecursive(this.root, newNode);
     }
-    public IntervalNode insert(IntervalNode current, IntervalNode node) {
+    private IntervalNode insertRecursive(IntervalNode current, IntervalNode node) {
         if (current == null) {
             return node;
         }
 
         // Compare starttime
         if (node.getInterval().getStartTime() < current.getInterval().getStartTime()) {
-            current.setLeft(insert(current.getLeft(), node));
+            current.setLeft(insertRecursive(current.getLeft(), node));
         } else {
-            current.setRight(insert(current.getRight(), node));
+            current.setRight(insertRecursive(current.getRight(), node));
         }
 
         // Update maxendtime for the node, this is needed for searching the tree
