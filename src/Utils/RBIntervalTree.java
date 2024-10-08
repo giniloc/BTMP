@@ -6,7 +6,6 @@ import java.util.List;
 
 public class RBIntervalTree {
 
-
     private RBIntervalNode root;
 
     public RBIntervalTree() {
@@ -72,10 +71,9 @@ public class RBIntervalTree {
     }
 
     // Insert a new node into the RBIntervalTree
-    public void insert(IntervalNode node) {
-        RBIntervalNode newNode = new RBIntervalNode(node.getInterval(), node.getWeight(), node.getID(), Color.RED);
-        this.root = insertRecursive(this.root, newNode);
-        fixInsertion(newNode);
+    public void insert(RBIntervalNode node) {
+        this.root = insertRecursive(this.root, node);
+        fixInsertion(node);
     }
 
     // Recursive function to insert the new node in the correct position

@@ -27,8 +27,7 @@ public class IntervalTree {
     }
 
     public void insert(IntervalNode node) {
-        IntervalNode newNode = new IntervalNode(node.getInterval(), node.getWeight(), node.getID());
-        this.root = insertRecursive(this.root, newNode);
+        this.root = insertRecursive(this.root, node);
     }
     private IntervalNode insertRecursive(IntervalNode current, IntervalNode node) {
         if (current == null) {
