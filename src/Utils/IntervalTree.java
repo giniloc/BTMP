@@ -27,49 +27,50 @@ public class IntervalTree {
     }
 
 
-    public IntervalNode insert(IntervalNode root, IntervalNode node) {
-        if (root == null) {
+    public IntervalNode insert(IntervalNode current, IntervalNode node) {
+        if (current == null) {
             return node;
         }
 
         // Compare starttime
-        if (node.getInterval().getStartTime() < root.getInterval().getStartTime()) {
-            root.setLeft(insert(root.getLeft(), node));
+        if (node.getInterval().getStartTime() < current.getInterval().getStartTime()) {
+            current.setLeft(insert(current.getLeft(), node));
         } else {
-            root.setRight(insert(root.getRight(), node));
+            current.setRight(insert(current.getRight(), node));
         }
 
         // Update maxendtime for the node, this is needed for searching the tree
-        root.setMaxEndTime(Math.max(root.getMaxEndTime(), node.getInterval().getEndTime()));
+        current.setMaxEndTime(Math.max(current.getMaxEndTime(), node.getInterval().getEndTime()));
 
 
-        return root;
+        return current;
     }
 
-    public static void inOrder(IntervalNode root) {
-        if (root == null) {
-            return;
-        }
-        inOrder(root.getLeft());
-        System.out.println(root);
-        inOrder(root.getRight());
-    }
-    public IntervalNode isOverlapping(IntervalNode root, Interval newInterval) {
-        // Base case
-        if (root == null) {
-            return null;
-        }
-        if (doIntervalsOverlap(root.getInterval(), newInterval)) {
-            return root;
-        }
-        // if the new interval starts before the root interval, check the left subtree
-        if (root.getLeft() != null && root.getLeft().getMaxEndTime() >= newInterval.getStartTime()) {
-            return isOverlapping(root.getLeft(), newInterval);
-        }
-
-        // else search the right subtree
-        return isOverlapping(root.getRight(), newInterval);
-    }
+//    public static void inOrder(IntervalNode root) {
+//        if (root == null) {
+//            return;
+//        }
+//        inOrder(root.getLeft());
+//        System.out.println(root);
+//        inOrder(root.getRight());
+//    }
+//    public IntervalNode isOverlapping(IntervalNode root, Interval newInterval) {
+//        // Base case
+//        if (root == null) {
+//            return null;
+//        }
+//        if (doIntervalsOverlap(root.getInterval(), newInterval)) {
+//            return root;
+//        }
+//        // if the new interval starts before the root interval, check the left subtree
+//        if (root.getLeft() != null && root.getLeft().getMaxEndTime() >= newInterval.getStartTime()) {
+//            return isOverlapping(root.getLeft(), newInterval);
+//            return isOverlapping(root.getLeft(), newInterval);
+//        }
+//
+//        // else search the right subtree
+//        return isOverlapping(root.getRight(), newInterval);
+//    }
 
     // Helper function to check if two intervals overlap
     private boolean doIntervalsOverlap(Interval interval1, Interval interval2) {

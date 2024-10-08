@@ -17,9 +17,7 @@ public class BCHT {
             Interval interval = new Interval(request.getStartTime(), request.getEndTime());
             IntervalNode node = new IntervalNode(interval, request.getWeight(), request.getVmId());
 
-
             IntervalTree bestTree = null;
-
 
             for (IntervalTree intervalTree : solution.getIntervalTrees()) {
                 List<IntervalNode> overlappingNodes = intervalTree.findAllOverlapping(intervalTree.getRoot(), interval);
@@ -47,19 +45,10 @@ public class BCHT {
             // add request to bestTree
             bestTree.setRoot(bestTree.insert(bestTree.getRoot(), node));
         }
-        // Print tree in order
-//        for (IntervalTree intervalTree : solution.getIntervalTrees()) {
-//            System.out.println("Server: " + solution.getIntervalTrees().indexOf(intervalTree));
-//            IntervalTree.inOrder(intervalTree.getRoot());
-//        }
         int totalBusyTime = 0;
-        int counter = 0;
         for (IntervalTree intervalTree : solution.getIntervalTrees()) {
             totalBusyTime += intervalTree.calculateTotalBusyTime();
-           // System.out.println("Busy time for server " + counter + ":" + intervalTree.calculateTotalBusyTime());
-            counter++;
         }
-        //System.out.println("Total busy time: " + totalBusyTime);
         SolutionWriter.writeSolutionToFile(solution, inputReader.getTestInstance(), "BCHT", totalBusyTime);
 
     }
