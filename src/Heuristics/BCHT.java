@@ -43,7 +43,7 @@ public class BCHT {
             }
 
             // add request to bestTree
-            bestTree.setRoot(bestTree.insert(bestTree.getRoot(), node));
+            bestTree.insert(node);
         }
         int totalBusyTime = 0;
         for (IntervalTree intervalTree : solution.getIntervalTrees()) {

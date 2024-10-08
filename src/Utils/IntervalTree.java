@@ -26,7 +26,10 @@ public class IntervalTree {
         this.root = root;
     }
 
-
+    public void insert(IntervalNode node) {
+        IntervalNode newNode = new IntervalNode(node.getInterval(), node.getWeight(), node.getID());
+        this.root = insert(this.root, newNode);
+    }
     public IntervalNode insert(IntervalNode current, IntervalNode node) {
         if (current == null) {
             return node;
