@@ -67,7 +67,7 @@ public class IntervalTree {
 //        // if the new interval starts before the root interval, check the left subtree
 //        if (root.getLeft() != null && root.getLeft().getMaxEndTime() >= newInterval.getStartTime()) {
 //            return isOverlapping(root.getLeft(), newInterval);
-//            return isOverlapping(root.getLeft(), newInterval);
+//
 //        }
 //
 //        // else search the right subtree
@@ -79,9 +79,9 @@ public class IntervalTree {
         return (interval1.getStartTime() < interval2.getEndTime() && interval2.getStartTime() < interval1.getEndTime());
     }
 
-    public List<IntervalNode> findAllOverlapping(IntervalNode root, Interval newInterval) {
+    public List<IntervalNode> findAllOverlapping(Interval newInterval) {
         List<IntervalNode> overlappingNodes = new ArrayList<>();
-        findOverlappingNodes(root, newInterval, overlappingNodes);
+        findOverlappingNodes(this.root, newInterval, overlappingNodes);
         return overlappingNodes;
     }
 

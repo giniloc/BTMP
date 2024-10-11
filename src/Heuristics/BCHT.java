@@ -20,7 +20,7 @@ public class BCHT {
             IntervalTree bestTree = null;
 
             for (IntervalTree intervalTree : solution.getIntervalTrees()) {
-                List<IntervalNode> overlappingNodes = intervalTree.findAllOverlapping(intervalTree.getRoot(), interval);
+                List<IntervalNode> overlappingNodes = intervalTree.findAllOverlapping(interval);
                 int sum = 0;
                 for (IntervalNode overlappingNode : overlappingNodes) {
                     sum += overlappingNode.getWeight();

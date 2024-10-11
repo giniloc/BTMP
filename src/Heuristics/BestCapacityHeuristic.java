@@ -24,7 +24,7 @@ public class BestCapacityHeuristic {
             int bestRemainingCapacity = Integer.MAX_VALUE;  // We want the server with the least remaining capacity
 
             for (IntervalTree intervalTree : solution.getIntervalTrees()) {
-                List<IntervalNode> overlappingNodes = intervalTree.findAllOverlapping(intervalTree.getRoot(), interval);
+                List<IntervalNode> overlappingNodes = intervalTree.findAllOverlapping(interval);
                 int sum = 0;
 
                 for (IntervalNode overlappingNode : overlappingNodes) {
