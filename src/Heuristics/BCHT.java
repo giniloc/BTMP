@@ -1,15 +1,24 @@
 package Heuristics;
-import java.util.List;
+
+import IO.InputReader;
+import IO.SolutionWriter;
 import Utils.*;
-import IO.*;
 
-public class BCHT {
+import java.util.List;
+
+public class BCHT<T extends IIntervalTree<? extends IIntervalNode>> implements IHeuristic {
     private InputReader inputReader;
-    private Solution solution;
+    private IIntervalTreeFactory<T> factory;
+    private Solution<T> solution;
+    private String heuristicName;
 
-    public BCHT(InputReader inputReader) {
+    public String getHeuristicName() { return heuristicName;}
+
+    public BCHT(InputReader inputReader, IIntervalTreeFactory<T> factory, String heuristicName) {
         this.inputReader = inputReader;
-        this.solution = new Solution();
+        this.solution = new Solution<>();
+        this.factory = factory;
+        this.heuristicName = heuristicName;
     }
 
     public void applyHeuristic(List<Request> requests) {
@@ -17,20 +26,19 @@ public class BCHT {
             Interval interval = new Interval(request.getStartTime(), request.getEndTime());
             IntervalNode node = new IntervalNode(interval, request.getWeight(), request.getVmId());
 
-            IntervalTree bestTree = null;
+            T bestTree = null;
 
-            for (IntervalTree intervalTree : solution.getIntervalTrees()) {
-                List<IntervalNode> overlappingNodes = intervalTree.findAllOverlapping(interval);
+            for (var intervalTree : solution.getIntervalTrees()) {
+                var overlappingNodes = intervalTree.findAllOverlapping(interval);
                 int sum = 0;
-                for (IntervalNode overlappingNode : overlappingNodes) {
+                for (var overlappingNode : overlappingNodes) {
                     sum += overlappingNode.getWeight();
                 }
 
                 // Check if server has enough capacity for request
                 if (sum + request.getWeight() <= inputReader.getServerCapacity()) {
-                    // seararch for server with least extra busy time
-                    if (bestTree == null ||
-                            intervalTree.calculateExtraBusyTime(interval) < bestTree.calculateExtraBusyTime(interval)) {
+                    // search for server with least extra busy time
+                    if (bestTree == null || intervalTree.calculateExtraBusyTime(interval) < bestTree.calculateExtraBusyTime(interval)) {
                         bestTree = intervalTree;
                     }
                 }
@@ -38,18 +46,19 @@ public class BCHT {
 
             // if no bestTree was found, create a new one
             if (bestTree == null) {
-                bestTree = new IntervalTree();
+                bestTree = factory.create(); //new T();
                 solution.add(bestTree);
             }
 
             // add request to bestTree
             bestTree.insert(node);
         }
+
         int totalBusyTime = 0;
-        for (IntervalTree intervalTree : solution.getIntervalTrees()) {
+        for (var intervalTree : solution.getIntervalTrees()) {
             totalBusyTime += intervalTree.calculateTotalBusyTime();
         }
-        SolutionWriter.writeSolutionToFile(solution, inputReader.getTestInstance(), "BCHT", totalBusyTime);
 
+        SolutionWriter.writeSolutionToFile(solution, inputReader.getTestInstance(), this.heuristicName, totalBusyTime);
     }
 }

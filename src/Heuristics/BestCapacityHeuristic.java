@@ -6,13 +6,22 @@ import Utils.*;
 
 import java.util.List;
 
-public class BestCapacityHeuristic {
+public class BestCapacityHeuristic<T extends IIntervalTree<? extends IIntervalNode>> implements IHeuristic {
     private InputReader inputReader;
-    private Solution solution;
+    private IIntervalTreeFactory<T> factory;
+    private Solution<T> solution;
+    private String heuristicName;
 
-    public BestCapacityHeuristic(InputReader inputReader) {
+    public BestCapacityHeuristic(InputReader inputReader, IIntervalTreeFactory<T> factory, String heuristicName) {
         this.inputReader = inputReader;
-        this.solution = new Solution();
+        this.solution = new Solution<>();
+        this.factory = factory;
+        this.heuristicName = heuristicName;
+    }
+
+    @Override
+    public String getHeuristicName() {
+        return this.heuristicName;
     }
 
     public void applyHeuristic(List<Request> requests) {
@@ -20,14 +29,14 @@ public class BestCapacityHeuristic {
             Interval interval = new Interval(request.getStartTime(), request.getEndTime());
             IntervalNode node = new IntervalNode(interval, request.getWeight(), request.getVmId());
 
-            IntervalTree bestTree = null;
+            T bestTree = null;
             int bestRemainingCapacity = Integer.MAX_VALUE;  // We want the server with the least remaining capacity
 
-            for (IntervalTree intervalTree : solution.getIntervalTrees()) {
-                List<IntervalNode> overlappingNodes = intervalTree.findAllOverlapping(interval);
+            for (var intervalTree : solution.getIntervalTrees()) {
+                var overlappingNodes = intervalTree.findAllOverlapping(interval);
                 int sum = 0;
 
-                for (IntervalNode overlappingNode : overlappingNodes) {
+                for (var overlappingNode : overlappingNodes) {
                     sum += overlappingNode.getWeight();
                 }
 
@@ -46,7 +55,7 @@ public class BestCapacityHeuristic {
 
             // If no suitable server was found, create a new server
             if (bestTree == null) {
-                bestTree = new IntervalTree();
+                bestTree = factory.create();
                 solution.add(bestTree);
             }
 
@@ -55,10 +64,10 @@ public class BestCapacityHeuristic {
         }
 
         int totalBusyTime = 0;
-        for (IntervalTree intervalTree : solution.getIntervalTrees()) {
+        for (var intervalTree : solution.getIntervalTrees()) {
             totalBusyTime += intervalTree.calculateTotalBusyTime();
         }
 
-        SolutionWriter.writeSolutionToFile(solution, inputReader.getTestInstance(), "BestCap", totalBusyTime);
+        SolutionWriter.writeSolutionToFile(solution, inputReader.getTestInstance(), this.heuristicName, totalBusyTime);
     }
 }

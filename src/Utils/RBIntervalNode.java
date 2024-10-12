@@ -2,43 +2,63 @@ package Utils;
 
 public class RBIntervalNode extends IntervalNode {
     private Color color;
-    private RBIntervalNode parent;
-    private RBIntervalNode left;
-    private RBIntervalNode right;
 
-    public RBIntervalNode(Interval interval, int weight, int vmId, Color color) {
+
+    public RBIntervalNode(Interval interval, int weight, int vmId) {
         super(interval, weight, vmId);
-        this.color = color;
+        this.color = Color.RED;
     }
 
+    // Constructor to create an RBIntervalNode from an existing IntervalNode
+    public RBIntervalNode(IntervalNode intervalNode) {
+        super(intervalNode.getInterval(), intervalNode.getWeight(), intervalNode.getID());
+        this.color = Color.RED;  // Default for a new RBNode
+    }
+    @Override
     public RBIntervalNode getParent() {
-        return parent;
+        return (RBIntervalNode) super.getParent();
     }
 
-    public void setParent(RBIntervalNode parent) {
-        this.parent = parent;
+    @Override
+    public void setParent(IntervalNode parent) {
+        super.setParent(parent);
     }
 
+    @Override
     public RBIntervalNode getLeft() {
-        return left;
+        return (RBIntervalNode) super.getLeft();
     }
 
-    public void setLeft(RBIntervalNode left) {
-        this.left = left;
+
+    //safe cast version
+//    @Override
+//    public RBIntervalNode getLeft() {
+//        IntervalNode leftNode = super.getLeft();
+//        if (leftNode instanceof RBIntervalNode) {
+//            return (RBIntervalNode) leftNode;
+//        }
+//        return null;  // Handle gracefully if not an RBIntervalNode
+//    }
+
+    @Override
+    public void setLeft(IntervalNode left) {
+        super.setLeft(left);
     }
 
+    @Override
     public RBIntervalNode getRight() {
-        return right;
+        return (RBIntervalNode) super.getRight();
     }
 
-    public void setRight(RBIntervalNode right) {
-        this.right = right;
+    @Override
+    public void setRight(IntervalNode right) {
+        super.setRight(right);
     }
 
     public void updateMaxEndTime() {
         // Same logic as IntervalNode, update the maxEndTime
-        int leftMax = (left != null) ? left.getMaxEndTime() : Integer.MIN_VALUE;
-        int rightMax = (right != null) ? right.getMaxEndTime() : Integer.MIN_VALUE;
+        int leftMax = (super.getLeft() != null) ? super.getLeft().getMaxEndTime() : Integer.MIN_VALUE;
+        int rightMax = (super.getRight() != null) ? super.getRight().getMaxEndTime() : Integer.MIN_VALUE;
         setMaxEndTime(Math.max(getInterval().getEndTime(), Math.max(leftMax, rightMax)));
     }
 

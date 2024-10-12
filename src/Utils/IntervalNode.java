@@ -10,7 +10,7 @@
 package Utils;
 
 
-public class IntervalNode {
+public class IntervalNode implements IIntervalNode {
 
     private Interval interval;
     private int weight;

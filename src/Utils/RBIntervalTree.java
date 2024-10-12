@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class RBIntervalTree {
+public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
 
     private RBIntervalNode root;
 
@@ -18,6 +18,62 @@ public class RBIntervalTree {
 
     public void setRoot(RBIntervalNode root) {
         this.root = root;
+    }
+
+    // Insert a new node into the RBIntervalTree
+    public void insert(IntervalNode node) {
+        //indien IInterval node => (RBIntervalNode)node
+        var redBlackNode = new RBIntervalNode (node);
+        this.root = insertRecursive(this.root, redBlackNode);
+        fixInsertion(redBlackNode);
+    }
+
+    public List<RBIntervalNode> findAllOverlapping(Interval newInterval) {
+        List<RBIntervalNode> overlappingNodes = new ArrayList<>();
+        findOverlappingNodes(this.root, newInterval, overlappingNodes);
+        return overlappingNodes;
+    }
+
+    public int calculateExtraBusyTime(Interval newInterval) {
+        // Check if the new interval ends after the current maxEndTime
+        if (newInterval.getEndTime() > root.getMaxEndTime()) {
+            return newInterval.getEndTime() - root.getMaxEndTime();
+        } else {
+            return 0;
+        }
+    }
+
+    public int calculateTotalBusyTime() {
+        if (root == null) {
+            return 0;
+        }
+        int minStartTime = findMinStartTime(root);
+
+        int maxEndTime = root.getMaxEndTime();
+
+        return maxEndTime - minStartTime;
+    }
+
+
+    // Helper function to check if two intervals overlap
+    private void findOverlappingNodes(RBIntervalNode root, Interval newInterval, List<RBIntervalNode> overlappingNodes) {
+        if (root == null) {
+            return;
+        }
+
+        // Check if current node's interval overlaps with the new interval
+        if (doIntervalsOverlap(root.getInterval(), newInterval)) {
+            overlappingNodes.add(root);
+        }
+
+        // If the maxEndTime of the left child is greater than or equal to the start time of the new interval,
+        // check the left subtree
+        if (root.getLeft() != null && root.getLeft().getMaxEndTime() >= newInterval.getStartTime()) {
+            findOverlappingNodes(root.getLeft(), newInterval, overlappingNodes);
+        }
+
+        // Always check the right subtree
+        findOverlappingNodes(root.getRight(), newInterval, overlappingNodes);
     }
 
     // Helper function to perform left rotation
@@ -68,12 +124,6 @@ public class RBIntervalTree {
         x.updateMaxEndTime();
 
         return x;
-    }
-
-    // Insert a new node into the RBIntervalTree
-    public void insert(RBIntervalNode node) {
-        this.root = insertRecursive(this.root, node);
-        fixInsertion(node);
     }
 
     // Recursive function to insert the new node in the correct position
@@ -147,55 +197,8 @@ public class RBIntervalTree {
         this.root.setRed(false);  // Root must always be black
     }
 
-    public List<RBIntervalNode> findAllOverlapping(Interval newInterval) {
-        List<RBIntervalNode> overlappingNodes = new ArrayList<>();
-        findOverlappingNodes(this.root, newInterval, overlappingNodes);
-        return overlappingNodes;
-    }
-
-    private void findOverlappingNodes(RBIntervalNode root, Interval newInterval, List<RBIntervalNode> overlappingNodes) {
-        if (root == null) {
-            return;
-        }
-
-        // Check if current node's interval overlaps with the new interval
-        if (doIntervalsOverlap(root.getInterval(), newInterval)) {
-            overlappingNodes.add(root);
-        }
-
-        // If the maxEndTime of the left child is greater than or equal to the start time of the new interval,
-        // check the left subtree
-        if (root.getLeft() != null && root.getLeft().getMaxEndTime() >= newInterval.getStartTime()) {
-            findOverlappingNodes(root.getLeft(), newInterval, overlappingNodes);
-        }
-
-        // Always check the right subtree
-        findOverlappingNodes(root.getRight(), newInterval, overlappingNodes);
-    }
-
-    // Helper function to check if two intervals overlap
     private boolean doIntervalsOverlap(Interval interval1, Interval interval2) {
         return interval1.getStartTime() < interval2.getEndTime() && interval2.getStartTime() < interval1.getEndTime();
-    }
-
-    public int calculateExtraBusyTime(Interval newInterval) {
-        // Check if the new interval ends after the current maxEndTime
-        if (newInterval.getEndTime() > root.getMaxEndTime()) {
-            return newInterval.getEndTime() - root.getMaxEndTime();
-        } else {
-            return 0;
-        }
-    }
-
-    public int calculateTotalBusyTime() {
-        if (root == null) {
-            return 0;
-        }
-        int minStartTime = findMinStartTime(root);
-
-        int maxEndTime = root.getMaxEndTime();
-
-        return maxEndTime - minStartTime;
     }
 
     private int findMinStartTime(RBIntervalNode node) {
@@ -205,6 +208,5 @@ public class RBIntervalTree {
         }
         return node.getInterval().getStartTime();
     }
-
 
 }
