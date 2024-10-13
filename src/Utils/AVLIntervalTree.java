@@ -78,6 +78,8 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
 
         // Update heights of the ancestors
         current.setHeight(1+ Math.max(height(current.getLeft()), height(current.getRight())));
+
+        //update maxEndTime
         int leftMaxEndTime = (current.getLeft() != null) ? current.getLeft().getMaxEndTime() : 0;
         int rightMaxEndTime = (current.getRight() != null) ? current.getRight().getMaxEndTime() : 0;
         current.setMaxEndTime(Math.max(current.getInterval().getEndTime(), Math.max(leftMaxEndTime, rightMaxEndTime)));
@@ -109,11 +111,6 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
 
         return current;
     }
-
-    private int getHeight(AVLIntervalNode node) {
-        return node == null ? 0 : node.getHeight();  // An empty node has height 0
-    }
-
     private int getBalance(AVLIntervalNode node) {
         return node == null ? 0 : height(node.getLeft()) - height(node.getRight());
     }
@@ -134,7 +131,7 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
 
     private AVLIntervalNode leftRotate(AVLIntervalNode y) {
         AVLIntervalNode x = y.getRight();
-        AVLIntervalNode z = x.getLeft();
+        AVLIntervalNode z = x.getLeft(); //In this scenario z can be null
 
         // Perform rotation
         x.setLeft(y);

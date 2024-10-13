@@ -6,7 +6,7 @@ import Utils.*;
 
 public class Main {
     public static void main(String[] args) {
-        InputReader inputReader = new InputReader("n50 t50 LonLr/cap100_n50_t50_LonLr_1.txt");
+        InputReader inputReader = new InputReader("n200 t240 ShSm/cap100_n200_t240_ShSm_4.txt");
         List<Request> requests = inputReader.getRequests();
 
         var treeType = BalancedTreeType.BCHTAVL;//change this to BCHTRB or BCHTAVL to test different tree types
@@ -25,6 +25,7 @@ public class Main {
             case BCHTAVL:
             default:
                 bcht = new BCHT<AVLIntervalTree>(inputReader, new AVLIntervalTreeFactory(), "BCHTAVL");
+              //  bcht = new BestCapacityHeuristic<AVLIntervalTree>(inputReader, new AVLIntervalTreeFactory(), "BCHTAVL");
                 runner.run(bcht, requests);
                 break;
         }
