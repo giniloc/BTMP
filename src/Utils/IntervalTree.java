@@ -17,10 +17,6 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
         this.root = null;
     }
 
-//    public IntervalNode createNode(Interval interval, int weight, int id){
-//        return new IntervalNode(interval, weight, id);
-//    }
-
     public IntervalNode getRoot() {
         return root;
     }
@@ -30,7 +26,10 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
     }
 
     public void insert(IntervalNode node) {
-        this.root = insertRecursive(this.root, node);
+        this.root = insertRecursive(this.root, node, null);
+    }
+    public void delete(IntervalNode node) {
+        this.root = deleteRecursive(this.root, node);
     }
 
     public List<IntervalNode> findAllOverlapping(Interval newInterval) {
@@ -54,32 +53,6 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
         return (root.getMaxEndTime() - root.getInterval().getStartTime());
     }
 
-    //    public static void inOrder(IntervalNode root) {
-//        if (root == null) {
-//            return;
-//        }
-//        inOrder(root.getLeft());
-//        System.out.println(root);
-//        inOrder(root.getRight());
-//    }
-//    public IntervalNode isOverlapping(IntervalNode root, Interval newInterval) {
-//        // Base case
-//        if (root == null) {
-//            return null;
-//        }
-//        if (doIntervalsOverlap(root.getInterval(), newInterval)) {
-//            return root;
-//        }
-//        // if the new interval starts before the root interval, check the left subtree
-//        if (root.getLeft() != null && root.getLeft().getMaxEndTime() >= newInterval.getStartTime()) {
-//            return isOverlapping(root.getLeft(), newInterval);
-//            return isOverlapping(root.getLeft(), newInterval);
-//        }
-//
-//        // else search the right subtree
-//        return isOverlapping(root.getRight(), newInterval);
-//    }
-
     // privates
 
     // Helper function to check if two intervals overlap
@@ -87,16 +60,17 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
         return (interval1.getStartTime() < interval2.getEndTime() && interval2.getStartTime() < interval1.getEndTime());
     }
 
-    private IntervalNode insertRecursive(IntervalNode current, IntervalNode node) {
+    private IntervalNode insertRecursive(IntervalNode current, IntervalNode node, IntervalNode parent) {
         if (current == null) {
+            node.setParent(parent);
             return node;
         }
 
         // Compare starttime
         if (node.getInterval().getStartTime() < current.getInterval().getStartTime()) {
-            current.setLeft(insertRecursive(current.getLeft(), node));
+            current.setLeft(insertRecursive(current.getLeft(), node, current));
         } else {
-            current.setRight(insertRecursive(current.getRight(), node));
+            current.setRight(insertRecursive(current.getRight(), node, current));
         }
 
         // Update maxendtime for the node, this is needed for searching the tree
@@ -104,6 +78,58 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
 
 
         return current;
+    }
+    private IntervalNode deleteRecursive(IntervalNode current, IntervalNode intervalToDelete) {
+        // Search for the node to delete
+        if (intervalToDelete.getInterval().getStartTime() < current.getInterval().getStartTime()) {
+            current.setLeft(deleteRecursive(current.getLeft(), intervalToDelete));
+        } else if (intervalToDelete.getInterval().getStartTime() > current.getInterval().getStartTime()) {
+            current.setRight(deleteRecursive(current.getRight(), intervalToDelete));
+        } else {// Found the node to delete in the tree
+
+            // Case 1: node has no children
+            if (current.getLeft() == null && current.getRight() == null) {
+                return null; // Delete the node
+            }
+
+            // Case 2: node has 1 child
+            if (current.getLeft() == null) {
+                IntervalNode temp = current.getRight();
+                temp.setParent(current.getParent());
+                return temp; // Change node to right child
+            } else if (current.getRight() == null) {
+                IntervalNode temp = current.getLeft();
+                temp.setParent(current.getParent());
+                return temp; // Change node to left child
+            }
+
+            // Case 3: 2 children, find successor(leftmost node in that subtree) and replace node with it
+            IntervalNode successor = findMin(current.getRight());
+            current.setInterval(successor.getInterval());
+            current.setWeight(successor.getWeight());
+            current.setID(successor.getID());
+            successor.setParent(current.getParent());
+            current.setRight(deleteRecursive(current.getRight(), successor));
+        }
+
+        // Change the maxEndTime for the entire tree
+        current.setMaxEndTime(Math.max(current.getInterval().getEndTime(),
+                Math.max(getMaxEndTime(current.getLeft()), getMaxEndTime(current.getRight()))));
+
+        return current;
+    }
+
+    private IntervalNode findMin(IntervalNode node) {
+        while (node.getLeft() != null){
+            node = node.getLeft();
+        }
+        return node;
+    }
+    private int getMaxEndTime(IntervalNode node) {
+        if (node == null) {
+            return Integer.MIN_VALUE;
+        }
+        return node.getMaxEndTime();
     }
 
     private void findOverlappingNodes(IntervalNode root, Interval newInterval, List<IntervalNode> overlappingNodes) {

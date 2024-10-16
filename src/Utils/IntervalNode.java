@@ -62,13 +62,10 @@ public class IntervalNode implements IIntervalNode {
     public int getMaxEndTime() {
         return maxEndTime;
     }
-
     @Override
     public String toString() {
         return "Interval [" + interval.getStartTime() + ", " + interval.getEndTime() + "], Capacity: " + weight;
     }
-
-
     public IntervalNode getParent() {
         return parent;
     }
@@ -76,8 +73,18 @@ public class IntervalNode implements IIntervalNode {
     public void setParent(IntervalNode y) {
         this.parent = y;
     }
-
     public int getID() {
         return ID;
+    }
+    public void setInterval(Interval interval) {
+        this.interval = interval;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public void setID(int id) {
+        this.ID = id;
     }
 }
