@@ -79,13 +79,20 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
 
         return current;
     }
-    private IntervalNode deleteRecursive(IntervalNode current, IntervalNode intervalToDelete) {
+    private IntervalNode deleteRecursive(IntervalNode current, IntervalNode nodeToDelete) {
         // Search for the node to delete
-        if (intervalToDelete.getInterval().getStartTime() < current.getInterval().getStartTime()) {
-            current.setLeft(deleteRecursive(current.getLeft(), intervalToDelete));
-        } else if (intervalToDelete.getInterval().getStartTime() > current.getInterval().getStartTime()) {
-            current.setRight(deleteRecursive(current.getRight(), intervalToDelete));
-        } else {// Found the node to delete in the tree
+        if (nodeToDelete.getInterval().getStartTime() < current.getInterval().getStartTime()) {
+            current.setLeft(deleteRecursive(current.getLeft(), nodeToDelete));
+        } else if (nodeToDelete.getInterval().getStartTime() > current.getInterval().getStartTime()) {
+            current.setRight(deleteRecursive(current.getRight(), nodeToDelete));
+        } else if (nodeToDelete.getID() != current.getID()) {
+            // If startTime is the same but ID is different, keep searching
+            if (nodeToDelete.getID() < current.getID()) {
+                current.setLeft(deleteRecursive(current.getLeft(), nodeToDelete));
+            } else {
+                current.setRight(deleteRecursive(current.getRight(), nodeToDelete));
+            }
+        } else {
 
             // Case 1: node has no children
             if (current.getLeft() == null && current.getRight() == null) {

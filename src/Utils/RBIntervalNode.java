@@ -29,17 +29,6 @@ public class RBIntervalNode extends IntervalNode {
         return (RBIntervalNode) super.getLeft();
     }
 
-
-    //safe cast version
-//    @Override
-//    public RBIntervalNode getLeft() {
-//        IntervalNode leftNode = super.getLeft();
-//        if (leftNode instanceof RBIntervalNode) {
-//            return (RBIntervalNode) leftNode;
-//        }
-//        return null;  // Handle gracefully if not an RBIntervalNode
-//    }
-
     @Override
     public void setLeft(IntervalNode left) {
         super.setLeft(left);
@@ -68,5 +57,32 @@ public class RBIntervalNode extends IntervalNode {
 
     public void setRed(boolean b) {
         this.color = b ? Color.RED : Color.BLACK;
+    }
+
+    public boolean isOnLeft() {
+        return this == this.getParent().getLeft();
+    }
+
+
+    public boolean hasRedChild() {
+        return getLeft() != null && getLeft().isRed() || getRight() != null && getRight().isRed();
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+    public Color getColor() {
+        return color;
+    }
+
+    public boolean hasSibling() {
+        return this.getParent() != null && (this.getParent().getLeft() != this && this.getParent().getRight() != this);
+    }
+
+    public RBIntervalNode getSibling() {
+        if (this.getParent() == null) {
+            return null;
+        }
+        return this.isOnLeft() ? this.getParent().getRight() : this.getParent().getLeft();
     }
 }

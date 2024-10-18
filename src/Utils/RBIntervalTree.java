@@ -27,7 +27,9 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         this.root = insertRecursive(this.root, redBlackNode);
         fixInsertion(redBlackNode);
     }
-
+    public RBIntervalNode delete(RBIntervalNode nodeToDelete) {
+        return deleteRecursive(this.root, nodeToDelete);
+    }
     public List<RBIntervalNode> findAllOverlapping(Interval newInterval) {
         List<RBIntervalNode> overlappingNodes = new ArrayList<>();
         findOverlappingNodes(this.root, newInterval, overlappingNodes);
@@ -196,6 +198,134 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         }
         this.root.setRed(false);  // Root must always be black
     }
+    private RBIntervalNode deleteRecursive(RBIntervalNode current, RBIntervalNode nodeToDelete) {
+        if (current == null) {
+            return null;
+        }
+        // BST deletion process
+        if (nodeToDelete.getInterval().getStartTime() < current.getInterval().getStartTime()) {
+            current.setLeft(deleteRecursive(current.getLeft(), nodeToDelete));
+        } else if (nodeToDelete.getInterval().getStartTime() > current.getInterval().getStartTime()) {
+            current.setRight(deleteRecursive(current.getRight(), nodeToDelete));
+        } else if (nodeToDelete.getID() != current.getID()) {
+            // If startTime is the same but ID is different, keep searching
+            if (nodeToDelete.getID() < current.getID()) {
+                current.setLeft(deleteRecursive(current.getLeft(), nodeToDelete));
+            } else {
+                current.setRight(deleteRecursive(current.getRight(), nodeToDelete));
+            }
+        } else {
+
+            // Case 1: No children (leaf node)
+            if (current.getLeft() == null && current.getRight() == null) {
+                // Check if it's a black node causing "double black"
+                if (!current.isRed()) {
+                    fixDoubleBlack(current);
+                }
+                return null; // Node is deleted, a red node can be safely deleted
+            }
+
+            // Case 2: One child
+            if (current.getLeft() == null || current.getRight() == null) {
+                RBIntervalNode child = (current.getLeft() != null) ? current.getLeft() : current.getRight();
+                if (!current.isRed()) {
+                    if (child.isRed()) {
+                        // Case: Red child replacing black parent
+                        child.setRed(false);  // Recolor the child black
+                    } else {
+                        fixDoubleBlack(current);  // Handle double black situation
+                    }
+                }
+                child.setParent(current.getParent());
+                return child; // Bypass current node
+            }
+
+            // Case 3: Two children, find the in-order successor (smallest in the right subtree)
+            RBIntervalNode successor = findMin(current.getRight());
+            current.setInterval(successor.getInterval()); // Copy data from successor
+            current.setID(successor.getID());
+            current.setWeight(successor.getWeight());
+            current.setRight(
+                    deleteRecursive(current.getRight(), successor)); // Delete successor
+        }
+
+        return current;
+    }
+
+
+    // Handle the "double black" situation
+    private void fixDoubleBlack(RBIntervalNode x) {
+        if (x == root) {
+            return;
+        }
+        RBIntervalNode sibling = getSibling(x);
+        RBIntervalNode parent = x.getParent();
+
+        if (sibling == null) {
+            // No sibling, push double black upwards
+            fixDoubleBlack(parent);
+        } else {
+            if (sibling.isRed()) {
+                // Sibling is red
+                parent.setRed(true);  // Parent becomes red
+                sibling.setRed(false);  // Sibling becomes black
+
+                if (sibling.isOnLeft()) {
+                    rightRotate(parent);
+                } else {
+                    leftRotate(parent);
+                }
+                fixDoubleBlack(x);
+            } else {
+                if (sibling.hasRedChild()) {
+                    if (sibling.getLeft() != null && sibling.getLeft().isRed()) {
+                        if (sibling.isOnLeft()) {
+                            sibling.getLeft().setColor(sibling.getColor());
+                            sibling.setColor(parent.getColor());
+                            rightRotate(parent);
+                        } else {
+                            sibling.getLeft().setColor(parent.getColor());
+                            rightRotate(sibling);
+                            leftRotate(parent);
+                        }
+                    } else {
+                        if (sibling.isOnLeft()) {
+                            sibling.getRight().setColor(parent.getColor());
+                            leftRotate(sibling);
+                            rightRotate(parent);
+                        } else {
+                            sibling.getRight().setColor(sibling.getColor());
+                            sibling.setColor(parent.getColor());
+                            leftRotate(parent);
+                        }
+                    }
+                    parent.setRed(false);
+                } else {
+                    sibling.setRed(true);
+                    if (!parent.isRed()) {
+                        fixDoubleBlack(parent);
+                    } else {
+                        parent.setRed(false);
+                    }
+                }
+            }
+        }
+    }
+    private RBIntervalNode getSibling(RBIntervalNode node) {
+        RBIntervalNode parent = node.getParent();
+        if (parent == null) {
+            return null;
+        }
+        return node == parent.getLeft() ? parent.getRight() : parent.getLeft();
+    }
+
+    private RBIntervalNode findMin(RBIntervalNode node) {
+        while (node.getLeft() != null) {
+            node = node.getLeft();
+        }
+        return node;
+    }
+
 
     private boolean doIntervalsOverlap(Interval interval1, Interval interval2) {
         return interval1.getStartTime() < interval2.getEndTime() && interval2.getStartTime() < interval1.getEndTime();
