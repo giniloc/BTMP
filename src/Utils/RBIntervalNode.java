@@ -85,4 +85,8 @@ public class RBIntervalNode extends IntervalNode {
         }
         return this.isOnLeft() ? this.getParent().getRight() : this.getParent().getLeft();
     }
+
+    public boolean isLeftChild() {
+        return this.getParent() != null && this.getParent().getLeft() == this;
+    }
 }

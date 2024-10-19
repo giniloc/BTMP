@@ -30,6 +30,7 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
     public RBIntervalNode delete(RBIntervalNode nodeToDelete) {
         return deleteRecursive(this.root, nodeToDelete);
     }
+
     public List<RBIntervalNode> findAllOverlapping(Interval newInterval) {
         List<RBIntervalNode> overlappingNodes = new ArrayList<>();
         findOverlappingNodes(this.root, newInterval, overlappingNodes);
@@ -229,7 +230,7 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
             if (current.getLeft() == null || current.getRight() == null) {
                 RBIntervalNode child = (current.getLeft() != null) ? current.getLeft() : current.getRight();
                 if (!current.isRed()) {
-                    if (child.isRed()) {
+                    if (child != null && child.isRed()) {
                         // Case: Red child replacing black parent
                         child.setRed(false);  // Recolor the child black
                     } else {
@@ -249,6 +250,7 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
                     deleteRecursive(current.getRight(), successor)); // Delete successor
         }
 
+        // Return the (possibly updated) node
         return current;
     }
 
@@ -258,7 +260,7 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         if (x == root) {
             return;
         }
-        RBIntervalNode sibling = getSibling(x);
+        RBIntervalNode sibling = x.getSibling();
         RBIntervalNode parent = x.getParent();
 
         if (sibling == null) {
@@ -311,13 +313,79 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
             }
         }
     }
-    private RBIntervalNode getSibling(RBIntervalNode node) {
-        RBIntervalNode parent = node.getParent();
-        if (parent == null) {
-            return null;
-        }
-        return node == parent.getLeft() ? parent.getRight() : parent.getLeft();
-    }
+//    private RBIntervalNode deleteRecursive(RBIntervalNode current, RBIntervalNode nodeToDelete) {
+//        if (current == null) {
+//            return null;
+//        }
+//        // BST deletion process
+//        if (nodeToDelete.getInterval().getStartTime() < current.getInterval().getStartTime()) {
+//            current.setLeft(deleteRecursive(current.getLeft(), nodeToDelete));
+//        } else if (nodeToDelete.getInterval().getStartTime() > current.getInterval().getStartTime()) {
+//            current.setRight(deleteRecursive(current.getRight(), nodeToDelete));
+//        } else if (nodeToDelete.getID() != current.getID()) {
+//            // If startTime is the same but ID is different, keep searching
+//            if (nodeToDelete.getID() < current.getID()) {
+//                current.setLeft(deleteRecursive(current.getLeft(), nodeToDelete));
+//            } else {
+//                current.setRight(deleteRecursive(current.getRight(), nodeToDelete));
+//            }
+//        } else { //Node found
+//            RBIntervalNode replacement = null;
+//            RBIntervalNode x = null;
+//            if (nodeToDelete.getRight() == null && nodeToDelete.getLeft() == null) {
+//                 replacement = null;
+//            }
+//            else if ((nodeToDelete.getRight() == null && nodeToDelete.getLeft() != null) || (nodeToDelete.getRight() != null && nodeToDelete.getLeft() == null)) {
+//                replacement  = nodeToDelete.getRight() != null ? nodeToDelete.getRight() : nodeToDelete.getLeft();
+//            }
+//            else if (nodeToDelete.getRight() != null && nodeToDelete.getLeft() != null) {
+//                replacement = findMin(nodeToDelete.getRight());
+//                x = replacement.getRight();
+//            }
+//            if (nodeToDelete.isRed() && (replacement.isRed() || replacement == null) ) {
+//                //we are done
+//            }
+//            else if (nodeToDelete.isRed() && replacement != null && !replacement.isRed()) {
+//                replacement.setRed(true); // go to correct case
+//            }
+//            else if (!nodeToDelete.isRed() && replacement.isRed()) {
+//                nodeToDelete.setRed(false);
+//            }
+//            else if (!nodeToDelete.isRed() && !replacement.isRed() && x == root) {
+//                //we are done
+//            }
+//            else if (!nodeToDelete.isRed() && !replacement.isRed() && x != root)  {
+//                //go to correct case
+//            }
+//            //case 0
+//            if (x.isRed()){
+//                x.setRed(false);
+//            }
+//            //case 1
+//            else if (!x.isRed() && x.getSibling().isRed()){
+//                x.getSibling().setRed(false);
+//                x.getParent().setRed(true);
+//                if (x.isLeftChild()) {
+//                    leftRotate(x.getParent());
+//                    x.getSibling().setInterval(x.getParent().getRight().getInterval());
+//                    x.getSibling().setID(x.getParent().getRight().getID());
+//                    x.getSibling().setWeight(x.getParent().getRight().getWeight());
+//                    x.getSibling().setLeft(x.getParent().getRight().getLeft());
+//                    x.getSibling().setRight(x.getParent().getRight().getRight());
+//                } else {
+//                    rightRotate(x.getParent());
+//                    x.getSibling().setInterval(x.getParent().getLeft().getInterval());
+//                    x.getSibling().setID(x.getParent().getLeft().getID());
+//                    x.getSibling().setWeight(x.getParent().getLeft().getWeight());
+//                    x.getSibling().setLeft(x.getParent().getLeft().getLeft());
+//                    x.getSibling().setRight(x.getParent().getLeft().getRight());
+//
+//                }
+//
+//            }
+//
+//        }
+//        }
 
     private RBIntervalNode findMin(RBIntervalNode node) {
         while (node.getLeft() != null) {
