@@ -69,12 +69,22 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
             return newNode;
         }
 
-        // Insert the new node into the left or right subtree
         if (newNode.getInterval().getStartTime() < current.getInterval().getStartTime()) {
             current.setLeft(insertRecursive(current.getLeft(), newNode));
-        } else {
+        }
+        else if (newNode.getInterval().getStartTime() == current.getInterval().getStartTime()) {
+            if (newNode.getID() < current.getID()) {
+                current.setLeft(insertRecursive(current.getLeft(), newNode));
+            }
+            else {
+                current.setRight(insertRecursive(current.getRight(), newNode));
+            }
+        }
+        // Ga naar rechts als de StartTime groter is
+        else {
             current.setRight(insertRecursive(current.getRight(), newNode));
         }
+
 
         // Update heights of the ancestors
         current.setHeight(1+ Math.max(height(current.getLeft()), height(current.getRight())));
@@ -203,22 +213,28 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
         y.setHeight(1+ Math.max(height(y.getLeft()), height(y.getRight())));
         x.setHeight(1+ Math.max(height(x.getLeft()), height(x.getRight())));
 
+        updateMaxEndTime(y);
+        updateMaxEndTime(x);
+
         return x;
     }
 
-    private AVLIntervalNode leftRotate(AVLIntervalNode y) {
-        AVLIntervalNode x = y.getRight();
-        AVLIntervalNode z = x.getLeft(); //In this scenario z can be null
+    private AVLIntervalNode leftRotate(AVLIntervalNode x) {
+        AVLIntervalNode y = x.getRight();
+        AVLIntervalNode z = y.getLeft(); //In this scenario z can be null
 
         // Perform rotation
-        x.setLeft(y);
-        y.setRight(z);
+        y.setLeft(x);
+        x.setRight(z);
 
         // Update heights
-        y.setHeight(1+ Math.max(height(y.getLeft()), height(y.getRight())));
         x.setHeight(1 + Math.max(height(x.getLeft()), height(x.getRight())));
+        y.setHeight(1 + Math.max(height(y.getLeft()), height(y.getRight())));
 
-        return x;
+        updateMaxEndTime(x);
+        updateMaxEndTime(y);
+
+        return y;
     }
 
 
