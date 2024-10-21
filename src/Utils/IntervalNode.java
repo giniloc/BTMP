@@ -20,6 +20,10 @@ public class IntervalNode implements IIntervalNode {
     private int ID;
     private int maxEndTime;
 
+    private int minStartTime;
+
+
+
 
     public IntervalNode(Interval interval, int weight, int ID) {
         this.interval = interval;
@@ -29,6 +33,7 @@ public class IntervalNode implements IIntervalNode {
         this.right = null;
         this.parent = null;
         this.ID = ID;
+        this.minStartTime = interval.getStartTime();
     }
 
     public Interval getInterval() {
@@ -37,6 +42,12 @@ public class IntervalNode implements IIntervalNode {
 
     public int getWeight() {
         return weight;
+    }
+    public int getMinStartTime() {
+        return minStartTime;
+    }
+    public void setMinStartTime(int minStartTime) {
+        this.minStartTime = minStartTime;
     }
 
     public IntervalNode getLeft() {

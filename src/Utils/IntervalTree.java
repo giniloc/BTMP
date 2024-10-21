@@ -50,7 +50,7 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
     }
 
     public int calculateTotalBusyTime() {
-        return (root.getMaxEndTime() - root.getInterval().getStartTime());
+        return (root.getMaxEndTime() - root.getMinStartTime());
     }
 
     // privates
@@ -75,7 +75,7 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
 
         // Update maxendtime for the node, this is needed for searching the tree
         current.setMaxEndTime(Math.max(current.getMaxEndTime(), node.getInterval().getEndTime()));
-
+        current.setMinStartTime(Math.min(current.getMinStartTime(), node.getInterval().getStartTime()));
 
         return current;
     }
@@ -122,6 +122,8 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
         // Change the maxEndTime for the entire tree
         current.setMaxEndTime(Math.max(current.getInterval().getEndTime(),
                 Math.max(getMaxEndTime(current.getLeft()), getMaxEndTime(current.getRight()))));
+        current.setMinStartTime(Math.min(current.getInterval().getStartTime(),
+                Math.min(current.getLeft().getMinStartTime(), current.getRight().getMinStartTime())));
 
         return current;
     }
