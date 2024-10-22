@@ -16,10 +16,6 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         return root;
     }
 
-    public void setRoot(RBIntervalNode root) {
-        this.root = root;
-    }
-
     // Insert a new node into the RBIntervalTree
     public void insert(IntervalNode node) {
         //indien IInterval node => (RBIntervalNode)node

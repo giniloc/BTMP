@@ -21,10 +21,6 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
         return root;
     }
 
-    public void setRoot(IntervalNode root) {
-        this.root = root;
-    }
-
     public void insert(IntervalNode node) {
         this.root = insertRecursive(this.root, node, null);
     }

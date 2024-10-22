@@ -16,4 +16,12 @@ public class Solution<T extends IIntervalTree<? extends IIntervalNode>> {
     public void add(T bestTree) {
         this.intervalTrees.add(bestTree);
     }
+
+    public int getTotalBusyTime() {
+        int totalBusyTime = 0;
+        for (var intervalTree : intervalTrees) {
+            totalBusyTime += intervalTree.calculateTotalBusyTime();
+        }
+        return totalBusyTime;
+    }
 }

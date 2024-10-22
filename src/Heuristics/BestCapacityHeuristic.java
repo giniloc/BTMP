@@ -70,4 +70,9 @@ public class BestCapacityHeuristic<T extends IIntervalTree<? extends IIntervalNo
 
         SolutionWriter.writeSolutionToFile(solution, inputReader.getTestInstance(), this.heuristicName, totalBusyTime);
     }
+
+    @Override
+    public Solution getSolution() {
+        return null;
+    }
 }

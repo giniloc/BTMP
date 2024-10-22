@@ -3,6 +3,7 @@ package Heuristics;
 import IO.InputReader;
 import IO.SolutionWriter;
 import Utils.*;
+import localsearch.LocalSearch;
 
 import java.util.List;
 
@@ -59,6 +60,9 @@ public class BCHT<T extends IIntervalTree<? extends IIntervalNode>> implements I
             totalBusyTime += intervalTree.calculateTotalBusyTime();
         }
 
-        SolutionWriter.writeSolutionToFile(solution, inputReader.getTestInstance(), this.heuristicName, totalBusyTime);
+      //  SolutionWriter.writeSolutionToFile(solution, inputReader.getTestInstance(), this.heuristicName, totalBusyTime);
+    }
+    public Solution<T> getSolution() {
+        return solution;
     }
 }

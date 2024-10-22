@@ -10,6 +10,7 @@ package Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
 
@@ -23,9 +24,6 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
         return root;
     }
 
-    public void setRoot(AVLIntervalNode root) {
-        this.root = root;
-    }
     static int height(AVLIntervalNode node) {
         if (node == null) {
             return 0;
@@ -148,17 +146,17 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
             // Node to delete found
             if((current.getLeft() == null) || (current.getRight() == null)){
                 AVLIntervalNode temp = current.getLeft() != null ? current.getLeft() : current.getRight();
-                if (temp == null) {
+                if (temp == null) { // no children
                     temp = current;
                     current = null;
-                } else {
+                } else { // one child
                     current = temp;
                 }
-            } else {
+            } else { // two children
                 AVLIntervalNode temp = findMinNode(current.getRight());
                 current.setInterval(temp.getInterval());
-                current.setWeight(temp.getWeight());
                 current.setID(temp.getID());
+                current.setWeight(temp.getWeight());
                 current.setRight(deleteRecursive(current.getRight(), temp));
             }
         }
@@ -166,6 +164,7 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
             return current;
         }
         current.setHeight(1 + Math.max(height(current.getLeft()), height(current.getRight())));
+        updateMaxEndTime(current);
         int balance = getBalance(current);
 
         if (balance > 1 && getBalance(current.getLeft()) >= 0) {
@@ -191,6 +190,24 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
         }
         return node;
     }
+    public AVLIntervalNode getRandomNode() {
+        List<AVLIntervalNode> nodes = new ArrayList<>();
+        inorderTraversal(root, nodes);
+        if (nodes.isEmpty()) {
+            return null;
+        }
+        Random random = new Random();
+        return nodes.get(random.nextInt(nodes.size()));
+    }
+
+    private void inorderTraversal(AVLIntervalNode node, List<AVLIntervalNode> nodes) {
+        if (node != null) {
+            inorderTraversal(node.getLeft(), nodes);
+            nodes.add(node);
+            inorderTraversal(node.getRight(), nodes);
+        }
+    }
+
 
     private void updateMaxEndTime(AVLIntervalNode node) {
         int leftMaxEndTime = (node.getLeft() != null) ? node.getLeft().getMaxEndTime() : 0;
