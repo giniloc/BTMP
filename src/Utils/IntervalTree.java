@@ -119,7 +119,7 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
         current.setMaxEndTime(Math.max(current.getInterval().getEndTime(),
                 Math.max(getMaxEndTime(current.getLeft()), getMaxEndTime(current.getRight()))));
         current.setMinStartTime(Math.min(current.getInterval().getStartTime(),
-                Math.min(current.getLeft().getMinStartTime(), current.getRight().getMinStartTime())));
+                Math.min(getMinStartTime(current.getLeft()), getMinStartTime(current.getRight()))));
 
         return current;
     }
@@ -135,6 +135,12 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
             return Integer.MIN_VALUE;
         }
         return node.getMaxEndTime();
+    }
+    private int getMinStartTime(IntervalNode node) {
+        if (node == null) {
+            return Integer.MAX_VALUE;
+        }
+        return node.getMinStartTime();
     }
 
     private void findOverlappingNodes(IntervalNode root, Interval newInterval, List<IntervalNode> overlappingNodes) {

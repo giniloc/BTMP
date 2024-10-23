@@ -35,7 +35,7 @@ public class LocalSearch {
 
     // Generate a neighboring solution by making small changes to the current solution
     private Solution<AVLIntervalTree> generateNeighbor(Solution<AVLIntervalTree> solution) {
-        List<AVLIntervalTree> busiestTrees = getBusiestTrees(solution, 4);
+        List<AVLIntervalTree> busiestTrees = getBusiestTrees(solution, 10);
 
         List<AVLIntervalNode> removedNodes = new ArrayList<>();
         for (AVLIntervalTree tree : busiestTrees) {
@@ -45,11 +45,12 @@ public class LocalSearch {
                 tree.delete(randomNode);
             }
         }
+        List<Request> requestList = new ArrayList<>();
         for (AVLIntervalNode node : removedNodes) {
             Request request = createRequestFromNode(node);
-            List<Request> requestList = List.of(request);
-            bchtHeuristic.applyHeuristic(requestList);
+            requestList.add(request);
         }
+        bchtHeuristic.applyHeuristic(requestList);
 
         return solution;
     }
@@ -69,7 +70,7 @@ public class LocalSearch {
         return totalBusyTime;
     }
     private Request createRequestFromNode(AVLIntervalNode node) {
-        return new Request(node.getInterval().getStartTime(), node.getInterval().getEndTime(), node.getWeight(), node.getID());
+        return new Request(node.getID(), node.getInterval().getStartTime(), node.getInterval().getEndTime(), node.getWeight());
     }
 
     public Solution<AVLIntervalTree> getBestSolution() {

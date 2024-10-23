@@ -38,8 +38,8 @@ public class AVLIntervalTreeTest {
        avlIntervalTree.insert(node12);
        avlIntervalTree.insert(node13);
 
-       // avlIntervalTree.delete(node13);
-        avlIntervalTree.delete(node3);
-  //      avlIntervalTree.delete(node10);
+        avlIntervalTree.delete(node7);
+//        avlIntervalTree.delete(node3);
+//       avlIntervalTree.delete(node10);
     }
 }

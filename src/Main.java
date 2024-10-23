@@ -33,7 +33,7 @@ public class Main {
                 break;
         }
         LocalSearch localSearch = new LocalSearch(solution, (BCHT<AVLIntervalTree>) bcht);
-        localSearch.run(100);
+        localSearch.run(1000000);
 
     }
 }
