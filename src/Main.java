@@ -27,13 +27,13 @@ public class Main {
             case BCHTAVL:
             default:
                 bcht = new BCHT<AVLIntervalTree>(inputReader, new AVLIntervalTreeFactory(), "BCHTAVL");
-              //  bcht = new BestCapacityHeuristic<RBIntervalTree>(inputReader, new RBIntervalTreeFactory(), "BCHTRB");
+              //  bcht = new BestCapacityHeuristic<AVLIntervalTree>(inputReader, new AVLIntervalTreeFactory(), "BCHTAVL");
                 runner.run(bcht, requests);
                 solution = bcht.getSolution();
                 break;
         }
         LocalSearch localSearch = new LocalSearch(solution, (BCHT<AVLIntervalTree>) bcht);
-        localSearch.run(1000000);
+        localSearch.run(1000000000);
 
     }
 }
