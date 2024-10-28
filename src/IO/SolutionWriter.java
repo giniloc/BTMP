@@ -19,7 +19,7 @@ public class SolutionWriter {
             // Sanitize test instance name  (remove special characters)
             String sanitizedTestInstanceName = testInstanceName.replaceAll("[^a-zA-Z0-9.-]", "_");
 
-            String fileName = directoryPath + File.separator + sanitizedTestInstanceName + "_" + heuristicName + ".txt";
+            String fileName = directoryPath + File.separator + sanitizedTestInstanceName + "_" + heuristicName + "afterLS" + ".txt";
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
                 List<IIntervalTree> intervalTrees = solution.getIntervalTrees();

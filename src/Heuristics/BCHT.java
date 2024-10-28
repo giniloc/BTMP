@@ -55,14 +55,21 @@ public class BCHT<T extends IIntervalTree<? extends IIntervalNode>> implements I
             bestTree.insert(node);
         }
 
-        int totalBusyTime = 0;
-        for (var intervalTree : solution.getIntervalTrees()) {
-            totalBusyTime += intervalTree.calculateTotalBusyTime();
-        }
+//        int totalBusyTime = 0;
+//        for (var intervalTree : solution.getIntervalTrees()) {
+//            totalBusyTime += intervalTree.calculateTotalBusyTime();
+//        }
 
-      //  SolutionWriter.writeSolutionToFile(solution, inputReader.getTestInstance(), this.heuristicName, totalBusyTime);
+//        SolutionWriter.writeSolutionToFile(solution, inputReader.getTestInstance(), this.heuristicName, totalBusyTime);
     }
     public Solution<T> getSolution() {
         return solution;
+    }
+
+    public void setSolution(Solution<T> solution){
+        this.solution = solution;
+    }
+    public InputReader getInputReader() {
+        return inputReader;
     }
 }
