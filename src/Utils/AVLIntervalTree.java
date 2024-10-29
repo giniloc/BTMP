@@ -219,7 +219,13 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
         return node == null ? 0 : height(node.getLeft()) - height(node.getRight());
     }
     private AVLIntervalNode rightRotate(AVLIntervalNode y) {
+        if (y == null) {
+            return null;
+        }
         AVLIntervalNode x = y.getLeft();
+        if (x == null) {
+            return null;
+        }
         AVLIntervalNode z = x.getRight();
 
         // Perform rotation
@@ -237,7 +243,13 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
     }
 
     private AVLIntervalNode leftRotate(AVLIntervalNode x) {
+        if (x == null) {
+            return null;
+        }
         AVLIntervalNode y = x.getRight();
+        if (y == null) {
+            return null;
+        }
         AVLIntervalNode z = y.getLeft(); //In this scenario z can be null
 
         // Perform rotation

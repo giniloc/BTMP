@@ -9,6 +9,10 @@ public class Solution<T extends IIntervalTree<? extends IIntervalNode>> {
         this.intervalTrees = new ArrayList<>();
     }
 
+    public Solution(Solution<T> initialSolution) {
+        this.intervalTrees = new ArrayList<>(initialSolution.intervalTrees);
+    }
+
     public List<T> getIntervalTrees() {
         return intervalTrees;
     }

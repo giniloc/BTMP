@@ -59,7 +59,7 @@ public class BCHT<T extends IIntervalTree<? extends IIntervalNode>> implements I
 //        for (var intervalTree : solution.getIntervalTrees()) {
 //            totalBusyTime += intervalTree.calculateTotalBusyTime();
 //        }
-
+//
 //        SolutionWriter.writeSolutionToFile(solution, inputReader.getTestInstance(), this.heuristicName, totalBusyTime);
     }
     public Solution<T> getSolution() {

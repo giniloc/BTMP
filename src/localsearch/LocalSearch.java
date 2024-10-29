@@ -14,23 +14,27 @@ import java.util.Comparator;
 
 public class LocalSearch {
     private Solution<AVLIntervalTree> bestSolution;
+    private Solution<AVLIntervalTree> initialSolution;
+    private Solution<AVLIntervalTree> originalSolution; // De originele, onaangetaste kopie van initialSolution
     private int bestBusyTime;
-    private BCHT<AVLIntervalTree> bchtHeuristic;  // BCHT Heuristic for reinsertion
-  //  private BestCapacityHeuristic<AVLIntervalTree> bestCapacityHeuristic;
+    private BCHT<AVLIntervalTree> bchtHeuristic;
 
     public LocalSearch(Solution<AVLIntervalTree> initialSolution, BCHT<AVLIntervalTree> bchtHeuristic) {
-        this.bestSolution = initialSolution;//deze verwijzen naar hetzelfde object alsook solution in BCHT (kan probleem geven)
+        this.bestSolution = new Solution<>(initialSolution);
+        this.originalSolution = new Solution<>(initialSolution); // Maak een kopie om te resetten
+        this.initialSolution = initialSolution;
         this.bestBusyTime = initialSolution.getTotalBusyTime();
         this.bchtHeuristic = bchtHeuristic;
     }
 
     public void run(int iterations) {
         for (int i = 0; i < iterations; i++) {
-            Solution<AVLIntervalTree> newSolution = generateNeighbor(bestSolution); //dit wijst dus ook naar hetzelfde object als in bestSolution
+            this.initialSolution = new Solution<>(originalSolution);
+            Solution<AVLIntervalTree> newSolution = generateNeighbor(initialSolution);
             int newBusyTime = calculateTotalBusyTime(newSolution);
-           // System.out.println("New solution with " + newBusyTime + " busy time");
+
             if (newBusyTime < bestBusyTime) {
-                bestSolution = newSolution;
+                bestSolution = new Solution<>(newSolution);
                 bestBusyTime = newBusyTime;
                 System.out.println("New best solution found with " + bestBusyTime + " busy time");
             }
@@ -40,8 +44,8 @@ public class LocalSearch {
 
     // Generate a neighboring solution by making small changes to the current solution
     private Solution<AVLIntervalTree> generateNeighbor(Solution<AVLIntervalTree> solution) {
-//        List<AVLIntervalTree> selectedTrees = selectTrees(solution, 3);
-        List<AVLIntervalTree> selectedTrees = getBusiestTrees(solution, 8);
+        List<AVLIntervalTree> selectedTrees = selectTrees(solution, 3);
+      //  List<AVLIntervalTree> selectedTrees = getBusiestTrees(solution, 10);
         List<Request> requestList = new ArrayList<>();
 
 

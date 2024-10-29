@@ -7,7 +7,7 @@ import localsearch.LocalSearch;
 
 public class Main {
     public static void main(String[] args) {
-        InputReader inputReader = new InputReader("n50 t50 LonLr/cap100_n50_t50_LonLr_1.txt");
+        InputReader inputReader = new InputReader("d2/5000_24_6.txt");
         List<Request> requests = inputReader.getRequests();
 
         var treeType = BalancedTreeType.BCHTAVL;//change this to BCHTRB or BCHTRB to test different tree types
@@ -33,7 +33,7 @@ public class Main {
                 break;
         }
         LocalSearch localSearch = new LocalSearch(solution, (BCHT<AVLIntervalTree>) bcht);
-        localSearch.run(100000000);
+        localSearch.run(100000);
 
     }
 }
