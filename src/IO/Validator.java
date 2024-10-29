@@ -21,8 +21,8 @@ public class Validator {
     private static final int SERVER_CAPACITY = 100;  // Constante capaciteit voor elke server
 
     public static void main(String[] args) throws IOException {
-        String inputFilePath = "TestInstances/n200 t200 LonLr/cap100_n200_t200_LonLr_5.txt";
-        String solutionFilePath = "SolutionsBCHTAVL/n200_t200_LonLr_cap100_n200_t200_LonLr_5.txt_BCHTAVL.txt";
+        String inputFilePath = "TestInstances/n50 t50 LonLr/cap100_n50_t50_LonLr_1.txt";
+        String solutionFilePath = "SolutionsBCHTAVL/n50_t50_LonLr_cap100_n50_t50_LonLr_1.txt_BCHTAVLafterLS.txt";
 
         Map<Integer, Request> requests = parseInputFile(inputFilePath);
         Map<Integer, List<Integer>> solutionAssignments = parseSolutionFile(solutionFilePath);
@@ -71,7 +71,6 @@ public class Validator {
     }
 
     private static void validateSolution(Map<Integer, Request> requests, Map<Integer, List<Integer>> solutionAssignments) {
-        // Controleer of alle requests zijn toegewezen
         Set<Integer> assignedRequestIds = new HashSet<>();
         solutionAssignments.values().forEach(assignedRequestIds::addAll);
 
@@ -81,7 +80,6 @@ public class Validator {
             }
         }
 
-        // Controleer de capaciteitsbeperkingen per server met tijdlijn
         boolean capacityViolated = false;
         for (int serverId : solutionAssignments.keySet()) {
             List<Request> serverRequests = new ArrayList<>();
@@ -103,7 +101,7 @@ public class Validator {
                     System.out.println("Error: Server " + serverId + " exceeds capacity at time " + entry.getKey() +
                             " with load " + currentWeight + " (Capacity: " + SERVER_CAPACITY + ")");
                     capacityViolated = true;
-                    break; // Bij eerste overtreding stoppen
+                    break;
                 }
             }
         }
@@ -114,7 +112,5 @@ public class Validator {
             System.out.println("Validation failed due to capacity violations.");
         }
     }
-
-
 }
 

@@ -39,7 +39,7 @@ public class LocalSearch {
                 System.out.println("New best solution found with " + bestBusyTime + " busy time");
             }
         }
-        SolutionWriter.writeSolutionToFile(bestSolution, this.bchtHeuristic.getInputReader().getTestInstance(), this.bchtHeuristic.getHeuristicName(), bestBusyTime);
+        SolutionWriter.writeSolutionToFile(this.bchtHeuristic.getSolution(), this.bchtHeuristic.getInputReader().getTestInstance(), this.bchtHeuristic.getHeuristicName(), bestBusyTime);
     }
 
     // Generate a neighboring solution by making small changes to the current solution

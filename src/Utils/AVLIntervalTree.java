@@ -297,4 +297,5 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
         }
         return node.getInterval().getStartTime();
     }
+
 }
