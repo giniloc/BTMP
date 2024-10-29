@@ -1,6 +1,5 @@
 package localsearch;
 
-import IO.InputReader;
 import IO.SolutionWriter;
 import Utils.AVLIntervalTree;
 import Utils.AVLIntervalNode;
@@ -20,8 +19,7 @@ public class LocalSearch {
     private BCHT<AVLIntervalTree> bchtHeuristic;
 
     public LocalSearch(Solution<AVLIntervalTree> initialSolution, BCHT<AVLIntervalTree> bchtHeuristic) {
-        this.bestSolution = new Solution<>(initialSolution);
-        this.originalSolution = new Solution<>(initialSolution); // Maak een kopie om te resetten
+        this.originalSolution = new Solution<>(initialSolution);
         this.initialSolution = initialSolution;
         this.bestBusyTime = initialSolution.getTotalBusyTime();
         this.bchtHeuristic = bchtHeuristic;
@@ -31,21 +29,21 @@ public class LocalSearch {
         for (int i = 0; i < iterations; i++) {
             this.initialSolution = new Solution<>(originalSolution);
             Solution<AVLIntervalTree> newSolution = generateNeighbor(initialSolution);
-            int newBusyTime = calculateTotalBusyTime(newSolution);
+            int newBusyTime = calculateTotalBusyTime(bchtHeuristic.getSolution());
 
             if (newBusyTime < bestBusyTime) {
                 bestSolution = new Solution<>(newSolution);
                 bestBusyTime = newBusyTime;
                 System.out.println("New best solution found with " + bestBusyTime + " busy time");
+                SolutionWriter.writeSolutionToFile(bchtHeuristic.getSolution(), this.bchtHeuristic.getInputReader().getTestInstance(), this.bchtHeuristic.getHeuristicName(), bestBusyTime);
             }
         }
-        SolutionWriter.writeSolutionToFile(this.bchtHeuristic.getSolution(), this.bchtHeuristic.getInputReader().getTestInstance(), this.bchtHeuristic.getHeuristicName(), bestBusyTime);
     }
 
     // Generate a neighboring solution by making small changes to the current solution
     private Solution<AVLIntervalTree> generateNeighbor(Solution<AVLIntervalTree> solution) {
         List<AVLIntervalTree> selectedTrees = selectTrees(solution, 3);
-      //  List<AVLIntervalTree> selectedTrees = getBusiestTrees(solution, 10);
+        //  List<AVLIntervalTree> selectedTrees = getBusiestTrees(solution, 10);
         List<Request> requestList = new ArrayList<>();
 
 

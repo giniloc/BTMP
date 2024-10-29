@@ -18,7 +18,7 @@ public class Validator {
         }
     }
 
-    private static final int SERVER_CAPACITY = 100;  // Constante capaciteit voor elke server
+    private static final int SERVER_CAPACITY = 100;  // Constant capacity of each server
 
     public static void main(String[] args) throws IOException {
         String inputFilePath = "TestInstances/n50 t50 LonLr/cap100_n50_t50_LonLr_1.txt";
@@ -81,17 +81,29 @@ public class Validator {
         }
 
         boolean capacityViolated = false;
+        int totalBusyTime = 0;
+
         for (int serverId : solutionAssignments.keySet()) {
             List<Request> serverRequests = new ArrayList<>();
             for (int requestId : solutionAssignments.get(serverId)) {
                 serverRequests.add(requests.get(requestId));
             }
 
-            // Tijdlijn bijhouden: een map met de cumulatieve `weight`-wijzigingen bij elke tijdsstap
+            int earliestStartTime = 999999; // This cant be Max value because of approximation errors
+            int latestEndTime = -999999;
             TreeMap<Integer, Integer> timeline = new TreeMap<>();
+
             for (Request request : serverRequests) {
+                earliestStartTime = Math.min(earliestStartTime, request.startTime);
+                latestEndTime = Math.max(latestEndTime, request.endTime);
+
                 timeline.put(request.startTime, timeline.getOrDefault(request.startTime, 0) + request.weight);
                 timeline.put(request.endTime, timeline.getOrDefault(request.endTime, 0) - request.weight);
+            }
+
+            int serverBusyTime = latestEndTime - earliestStartTime;
+            if (serverBusyTime > 0) {
+                totalBusyTime += serverBusyTime;
             }
 
             int currentWeight = 0;
@@ -111,6 +123,9 @@ public class Validator {
         } else {
             System.out.println("Validation failed due to capacity violations.");
         }
+
+        // Print de totalBusyTime aan het einde van de validatie
+        System.out.println("Total busy time: " + totalBusyTime);
     }
 }
 

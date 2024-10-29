@@ -8,4 +8,5 @@ public interface IIntervalTree<T extends IIntervalNode> {
     List<T> findAllOverlapping(Interval newInterval);
     int calculateExtraBusyTime(Interval newInterval);
     int calculateTotalBusyTime();
+
 }

@@ -49,6 +49,7 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
         return (root.getMaxEndTime() - root.getMinStartTime());
     }
 
+
     // privates
 
     // Helper function to check if two intervals overlap

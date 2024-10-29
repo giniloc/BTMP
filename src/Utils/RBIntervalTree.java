@@ -54,6 +54,7 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
     }
 
 
+
     // Helper function to check if two intervals overlap
     private void findOverlappingNodes(RBIntervalNode root, Interval newInterval, List<RBIntervalNode> overlappingNodes) {
         if (root == null) {
