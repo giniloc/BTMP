@@ -18,20 +18,22 @@ public class Main {
             case BCHT:
                 bcht = new BCHT<IntervalTree>(inputReader, new IntervalTreeFactory(), "BCHT");
                 runner.run(bcht, requests);
+                var localSearchBCHT = new LocalSearchGeneric<IntervalTree>(bcht.getSolution(), bcht);
+                localSearchBCHT.run(1000);
                 break;
             case BCHTRB:
                 bcht = new BCHT<RBIntervalTree>(inputReader, new RBIntervalTreeFactory(), "BCHTRB");
                 runner.run(bcht, requests);
-                var localSearch = new LocalSearchGeneric<RBIntervalTree>(bcht.getSolution(), bcht);
-                localSearch.run(100000);
+                var localSearchRB = new LocalSearchGeneric<RBIntervalTree>(bcht.getSolution(), bcht);
+                localSearchRB.run(100000);
                 break;
             case BCHTAVL:
             default:
                 bcht = new BCHT<AVLIntervalTree>(inputReader, new AVLIntervalTreeFactory(), "BCHTAVL");
                 //  bcht = new BestCapacityHeuristic<AVLIntervalTree>(inputReader, new AVLIntervalTreeFactory(), "BCHTAVL");
                 runner.run(bcht, requests);
-                var localSearchAvl = new LocalSearchGeneric<AVLIntervalTree>(bcht.getSolution(), bcht);
-                localSearchAvl.run(100000);
+                var localSearchAVL = new LocalSearchGeneric<AVLIntervalTree>(bcht.getSolution(), bcht);
+                localSearchAVL.run(100000);
                 break;
         }
     }

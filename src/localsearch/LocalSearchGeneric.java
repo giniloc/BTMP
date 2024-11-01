@@ -1,10 +1,8 @@
 package localsearch;
 
 import IO.SolutionWriter;
-import Utils.AVLIntervalTree;
 import Utils.*;
 import Heuristics.*;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
@@ -13,12 +11,10 @@ import java.util.Comparator;
 public class LocalSearchGeneric<T extends IIntervalTree<? extends IIntervalNode>> {
     private Solution<T> bestSolution;
     private Solution<T> initialSolution;
-    private Solution<T> originalSolution; // De originele, onaangetaste kopie van initialSolution
     private int bestBusyTime;
-    private /*BCHT<T>*/ IHeuristic bchtHeuristic;
+    private IHeuristic bchtHeuristic;
 
     public LocalSearchGeneric(Solution<T> initialSolution, IHeuristic bchtHeuristic) {
-        this.originalSolution = new Solution<>(initialSolution);
         this.initialSolution = initialSolution;
         this.bestBusyTime = initialSolution.getTotalBusyTime();
         this.bchtHeuristic = bchtHeuristic;
@@ -26,8 +22,7 @@ public class LocalSearchGeneric<T extends IIntervalTree<? extends IIntervalNode>
 
     public void run(int iterations) {
         for (int i = 0; i < iterations; i++) {
-           // System.out.println("Iteration " + i);
-            this.initialSolution = new Solution<>(originalSolution);
+            // System.out.println("Iteration " + i);
             var newSolution = generateNeighbor(initialSolution);
             int newBusyTime = calculateTotalBusyTime(bchtHeuristic.getSolution());
 

@@ -20,4 +20,5 @@ public class Interval {
     public String toString() {
         return "[" + this.startTime + "," + this.endTime + "]";
     }
+
 }

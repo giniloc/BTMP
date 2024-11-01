@@ -9,6 +9,7 @@
 package Utils;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class IntervalTree implements IIntervalTree<IntervalNode> {
     private IntervalNode root;
@@ -29,8 +30,15 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
     }
 
     @Override
-    public IntervalNode getRandomNode() { // Implement this method
-        return null;
+    public IntervalNode getRandomNode() {
+        List<IntervalNode> nodes = new ArrayList<>();
+        collectNodes(root, nodes);
+
+        if (nodes.isEmpty()) {
+            return null;
+        }
+        Random random = new Random();
+        return nodes.get(random.nextInt(nodes.size()));
     }
 
     public List<IntervalNode> findAllOverlapping(Interval newInterval) {
@@ -40,7 +48,6 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
     }
 
     public int calculateExtraBusyTime(Interval newInterval) {
-        // Check if the new interval ends after the current maxEndTime
         if (newInterval.getEndTime() > root.getMaxEndTime()) {
             // The extra busy time is the difference between the new interval's end time and the current maxEndTime
             return newInterval.getEndTime() - root.getMaxEndTime();
@@ -71,8 +78,14 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
         // Compare starttime
         if (node.getInterval().getStartTime() < current.getInterval().getStartTime()) {
             current.setLeft(insertRecursive(current.getLeft(), node, current));
-        } else {
+        } else if(node.getInterval().getStartTime() > current.getInterval().getStartTime()) {
             current.setRight(insertRecursive(current.getRight(), node, current));
+        } else { //Nodes with the same starttime
+            if (node.getID() < current.getID()) {
+                current.setLeft(insertRecursive(current.getLeft(), node, current));
+            } else {
+                current.setRight(insertRecursive(current.getRight(), node, current));
+            }
         }
 
         // Update maxendtime for the node, this is needed for searching the tree
@@ -168,5 +181,13 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
 
         // Also check the right subtree
         findOverlappingNodes(root.getRight(), newInterval, overlappingNodes);
+    }
+    private void collectNodes(IntervalNode node, List<IntervalNode> nodes) {
+        if (node == null) {
+            return;
+        }
+        nodes.add(node);
+        collectNodes(node.getLeft(), nodes);
+        collectNodes(node.getRight(), nodes);
     }
 }
