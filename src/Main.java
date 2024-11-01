@@ -3,17 +3,16 @@ import java.util.List;
 import Heuristics.*;
 import IO.*;
 import Utils.*;
-import localsearch.LocalSearch;
+import localsearch.*;
 
 public class Main {
     public static void main(String[] args) {
-        InputReader inputReader = new InputReader("n50 t50 LonLr/cap100_n50_t50_LonLr_1.txt");
+        InputReader inputReader = new InputReader("d2/10000_inf_10.txt");
         List<Request> requests = inputReader.getRequests();
 
         var treeType = BalancedTreeType.BCHTAVL;//change this to BCHTRB or BCHTRB to test different tree types
         HeuristicRunner runner = new HeuristicRunner();
         IHeuristic bcht;
-        Solution <AVLIntervalTree> solution = null;
 
         switch (treeType) {
             case BCHT:
@@ -23,17 +22,17 @@ public class Main {
             case BCHTRB:
                 bcht = new BCHT<RBIntervalTree>(inputReader, new RBIntervalTreeFactory(), "BCHTRB");
                 runner.run(bcht, requests);
+                var localSearch = new LocalSearchGeneric<RBIntervalTree>(bcht.getSolution(), bcht);
+                localSearch.run(100000);
                 break;
             case BCHTAVL:
             default:
                 bcht = new BCHT<AVLIntervalTree>(inputReader, new AVLIntervalTreeFactory(), "BCHTAVL");
-              //  bcht = new BestCapacityHeuristic<AVLIntervalTree>(inputReader, new AVLIntervalTreeFactory(), "BCHTAVL");
+                //  bcht = new BestCapacityHeuristic<AVLIntervalTree>(inputReader, new AVLIntervalTreeFactory(), "BCHTAVL");
                 runner.run(bcht, requests);
-                solution = bcht.getSolution();
+                var localSearchAvl = new LocalSearchGeneric<AVLIntervalTree>(bcht.getSolution(), bcht);
+                localSearchAvl.run(100000);
                 break;
         }
-        LocalSearch localSearch = new LocalSearch(solution, (BCHT<AVLIntervalTree>) bcht);
-        localSearch.run(10000000);
-
     }
 }

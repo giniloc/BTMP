@@ -1,46 +1,40 @@
-import Utils.Interval;
-import Utils.AVLIntervalNode;
-import Utils.AVLIntervalTree;
+import Utils.*;
 import org.junit.Test;
 
 public class AVLIntervalTreeTest {
-    @Test
-    public void main() {
-
+    private AVLIntervalTree buildTree(){
         AVLIntervalTree avlIntervalTree = new AVLIntervalTree();
 
-        AVLIntervalNode node1 = new AVLIntervalNode(new Interval(7, 10), 10, 1);
-        AVLIntervalNode node2 = new AVLIntervalNode(new Interval(9, 20), 15, 2);
-        AVLIntervalNode node3 = new AVLIntervalNode(new Interval(6, 30), 20, 3);
-        AVLIntervalNode node4 = new AVLIntervalNode(new Interval(4, 40), 25, 4);
-        AVLIntervalNode node5 = new AVLIntervalNode(new Interval(8, 50), 30, 5);
-        AVLIntervalNode node6 = new AVLIntervalNode(new Interval(10, 838), 35, 6);
-        AVLIntervalNode node7 = new AVLIntervalNode(new Interval(5, 738), 40, 7);
-//        AVLIntervalNode node8 = new AVLIntervalNode(new Interval(60, 638), 45, 8);
-//        AVLIntervalNode node9 = new AVLIntervalNode(new Interval(68, 538), 55, 9);
-//        AVLIntervalNode node10 = new AVLIntervalNode(new Interval(90, 138), 60, 10);
-//        AVLIntervalNode node11 = new AVLIntervalNode(new Interval(125, 338), 65, 11);
-//        AVLIntervalNode node12 = new AVLIntervalNode(new Interval(83, 238), 70, 12);
-//        AVLIntervalNode node13 = new AVLIntervalNode(new Interval(100, 138), 70, 13);
+        AVLIntervalNode node1 = new AVLIntervalNode(new Interval(0, 25), 10, 1);
+        AVLIntervalNode node2 = new AVLIntervalNode(new Interval(0, 15), 15, 2);
+        AVLIntervalNode node3 = new AVLIntervalNode(new Interval(0, 35), 20, 3);
+        AVLIntervalNode node4 = new AVLIntervalNode(new Interval(1, 8), 25, 4);
+        AVLIntervalNode node5 = new AVLIntervalNode(new Interval(11, 18), 30, 5);
+        AVLIntervalNode node6 = new AVLIntervalNode(new Interval(15, 38), 35, 6);
+        AVLIntervalNode node7 = new AVLIntervalNode(new Interval(25, 38), 40, 7);
+        AVLIntervalNode node8 = new AVLIntervalNode(new Interval(6, 38), 45, 8);
+        AVLIntervalNode node9 = new AVLIntervalNode(new Interval(22, 38), 55, 9);
+        AVLIntervalNode node10 = new AVLIntervalNode(new Interval(27, 38), 60, 10);
 
 
         avlIntervalTree.insert(node1);
         avlIntervalTree.insert(node2);
         avlIntervalTree.insert(node3);
-        avlIntervalTree.insert(node4);
-        avlIntervalTree.insert(node5);
-        avlIntervalTree.insert(node6);
-        avlIntervalTree.insert(node7);
+//        avlIntervalTree.insert(node4);
+//        avlIntervalTree.insert(node5);
+//        avlIntervalTree.insert(node6);
+//        avlIntervalTree.insert(node7);
 //        avlIntervalTree.insert(node8);
 //        avlIntervalTree.insert(node9);
 //        avlIntervalTree.insert(node10);
-//       avlIntervalTree.insert(node11);
-//       avlIntervalTree.insert(node12);
-//       avlIntervalTree.insert(node13);
 
-        avlIntervalTree.delete(node7);
-//        avlIntervalTree.delete(node3);
-//       avlIntervalTree.delete(node10);
-        avlIntervalTree.delete(node3);
+        return avlIntervalTree;
+    }
+    @Test
+    public void testInsert() {
+        var avlIntervalTree = buildTree();
+        var root = avlIntervalTree.getRoot();
+        assert root != null;
+        assert avlIntervalTree.isInBalance();
     }
 }

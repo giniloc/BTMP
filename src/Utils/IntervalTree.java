@@ -28,6 +28,11 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
         this.root = deleteRecursive(this.root, node);
     }
 
+    @Override
+    public IntervalNode getRandomNode() { // Implement this method
+        return null;
+    }
+
     public List<IntervalNode> findAllOverlapping(Interval newInterval) {
         List<IntervalNode> overlappingNodes = new ArrayList<>();
         findOverlappingNodes((IntervalNode)root, newInterval, overlappingNodes);

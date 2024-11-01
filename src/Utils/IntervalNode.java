@@ -66,6 +66,26 @@ public class IntervalNode implements IIntervalNode {
         this.right = right;
     }
 
+    public boolean hasLeft(){
+        return this.left != null;
+    }
+
+    public boolean hasRight(){
+        return this.right != null;
+    }
+
+    public boolean isLeafNode(){
+        return !(hasLeft()||hasRight());
+    }
+
+    public boolean isRootNode(){
+        return getParent() == null;
+    }
+
+    public boolean isLeftChild() {
+        return !isRootNode() && this == this.getParent().getLeft();
+    }
+
     public void setMaxEndTime(int maxEndTime) {
         this.maxEndTime = maxEndTime;
     }

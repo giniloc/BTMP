@@ -59,9 +59,9 @@ public class RBIntervalNode extends IntervalNode {
         this.color = b ? Color.RED : Color.BLACK;
     }
 
-    public boolean isOnLeft() {
-        return this == this.getParent().getLeft();
-    }
+//    public boolean isOnLeft() {
+//        return this == this.getParent().getLeft();
+//    }
 
 
     public boolean hasRedChild() {
@@ -83,10 +83,12 @@ public class RBIntervalNode extends IntervalNode {
         if (this.getParent() == null) {
             return null;
         }
-        return this.isOnLeft() ? this.getParent().getRight() : this.getParent().getLeft();
+        return this.isLeftChild() ? this.getParent().getRight() : this.getParent().getLeft();
     }
 
-    public boolean isLeftChild() {
-        return this.getParent() != null && this.getParent().getLeft() == this;
+    @Override
+    public String toString() {
+        return super.toString() + ", Color: " + color;
     }
+
 }

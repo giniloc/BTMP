@@ -21,8 +21,8 @@ public class Validator {
     private static final int SERVER_CAPACITY = 100;  // Constant capacity of each server
 
     public static void main(String[] args) throws IOException {
-        String inputFilePath = "TestInstances/n50 t50 LonLr/cap100_n50_t50_LonLr_1.txt";
-        String solutionFilePath = "SolutionsBCHTAVL/n50_t50_LonLr_cap100_n50_t50_LonLr_1.txt_BCHTAVLafterLS.txt";
+        String inputFilePath = "TestInstances/d2/10000_inf_10.txt";
+        String solutionFilePath = "SolutionsBCHTAVL/d2_10000_inf_10.txt_BCHTAVLafterLS.txt";
 
         Map<Integer, Request> requests = parseInputFile(inputFilePath);
         Map<Integer, List<Integer>> solutionAssignments = parseSolutionFile(solutionFilePath);

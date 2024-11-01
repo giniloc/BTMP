@@ -68,11 +68,15 @@ public class BestCapacityHeuristic<T extends IIntervalTree<? extends IIntervalNo
             totalBusyTime += intervalTree.calculateTotalBusyTime();
         }
 
-     //   SolutionWriter.writeSolutionToFile(solution, inputReader.getTestInstance(), this.heuristicName, totalBusyTime);
+        //   SolutionWriter.writeSolutionToFile(solution, inputReader.getTestInstance(), this.heuristicName, totalBusyTime);
     }
 
     @Override
     public Solution getSolution() {
         return solution;
+    }
+
+    public InputReader getInputReader() {
+        return inputReader;
     }
 }
