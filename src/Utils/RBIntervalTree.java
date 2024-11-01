@@ -223,6 +223,10 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
 
     private void inorderTraversal(RBIntervalNode node, List<RBIntervalNode> nodes) {
         if (node != null) {
+            if (nodes.contains(node)) {
+                System.out.println("Loop detected at node: " + node);
+                return; // Beëindig recursie bij detectie van een lus
+            }
             inorderTraversal(node.getLeft(), nodes);
             nodes.add(node);
             inorderTraversal(node.getRight(), nodes);
@@ -528,33 +532,37 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
     }
 
     public boolean isBalanced() {
+        if (root == null) return true; // an empty tree is balanced
+
         int blackCount = 0;
+        RBIntervalNode current = root;
+        while (current != null) {
+            if (!current.isRed()) {
+                blackCount++;
+            }
+            current = current.getLeft();
+        }
+
         return isBalanced(root, blackCount, 0);
     }
 
     private boolean isBalanced(RBIntervalNode node, int blackCount, int currentBlackCount) {
         if (node == null) {
-            // If it's a leaf, return true and update black height
-            if (blackCount == 0) {
-                blackCount = currentBlackCount; // Initialize black count
-            }
             return currentBlackCount == blackCount;
         }
 
-        // Increment black count if the node is black
         if (!node.isRed()) {
             currentBlackCount++;
         }
-
-        // Check red property
         if (node.isRed()) {
-            if ((node.getLeft() != null && node.getLeft().isRed()) || (node.getRight() != null && node.getRight().isRed())) {
-                return false; // Two consecutive red nodes
+            if ((node.getLeft() != null && node.getLeft().isRed()) ||
+                    (node.getRight() != null && node.getRight().isRed())) {
+                return false; // a red node cannot have a red child
             }
         }
-
-        // Recursively check the left and right subtrees
+        // Check if the left and right subtrees have the same number of black nodes
         return isBalanced(node.getLeft(), blackCount, currentBlackCount) &&
                 isBalanced(node.getRight(), blackCount, currentBlackCount);
     }
+
 }

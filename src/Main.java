@@ -7,10 +7,10 @@ import localsearch.*;
 
 public class Main {
     public static void main(String[] args) {
-        InputReader inputReader = new InputReader("d2/10000_inf_10.txt");
+        InputReader inputReader = new InputReader("n50 t50 LonLr/cap100_n50_t50_LonLr_1.txt");
         List<Request> requests = inputReader.getRequests();
 
-        var treeType = BalancedTreeType.BCHTAVL;//change this to BCHTRB or BCHTRB to test different tree types
+        var treeType = BalancedTreeType.BCHTRB;//change this to BCHTRB or BCHTRB to test different tree types
         HeuristicRunner runner = new HeuristicRunner();
         IHeuristic bcht;
 
@@ -25,7 +25,7 @@ public class Main {
                 bcht = new BCHT<RBIntervalTree>(inputReader, new RBIntervalTreeFactory(), "BCHTRB");
                 runner.run(bcht, requests);
                 var localSearchRB = new LocalSearchGeneric<RBIntervalTree>(bcht.getSolution(), bcht);
-                localSearchRB.run(100000);
+                localSearchRB.run(100);
                 break;
             case BCHTAVL:
             default:

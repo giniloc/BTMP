@@ -22,7 +22,7 @@ public class LocalSearchGeneric<T extends IIntervalTree<? extends IIntervalNode>
 
     public void run(int iterations) {
         for (int i = 0; i < iterations; i++) {
-            // System.out.println("Iteration " + i);
+             System.out.println("Iteration " + i);
             var newSolution = generateNeighbor(initialSolution);
             int newBusyTime = calculateTotalBusyTime(bchtHeuristic.getSolution());
 
