@@ -29,7 +29,7 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         //indien IInterval node => (RBIntervalNode)node
         var redBlackNode = new RBIntervalNode (node);
         this.root = insertRecursive(this.root, redBlackNode);
-       // fixInsertion(redBlackNode);
+        // fixInsertion(redBlackNode);
         insertFixup(redBlackNode);
     }
 

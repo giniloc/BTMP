@@ -43,10 +43,6 @@ public class LocalSearchGeneric<T extends IIntervalTree<? extends IIntervalNode>
 
 
         for (T tree : selectedTrees) {
-            if (tree.getRoot() == null) {
-                solution.getIntervalTrees().remove(tree);
-                continue;
-            }
             // Hier zit de fout
             var randomNode = tree.getRandomNode();
             if (randomNode != null) {
@@ -54,6 +50,9 @@ public class LocalSearchGeneric<T extends IIntervalTree<? extends IIntervalNode>
                 requestList.add(request);
                 //todo avoid cast?
                 tree.delete((IntervalNode) randomNode);
+                if (tree.getRoot() == null) {
+                    solution.getIntervalTrees().remove(tree);
+                }
             }
         }
 

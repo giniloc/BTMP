@@ -22,7 +22,7 @@ public class Validator {
 
     public static void main(String[] args) throws IOException {
         String inputFilePath = "TestInstances/d2/10000_inf_10.txt";
-        String solutionFilePath = "SolutionsBCHTAVL/d2_10000_inf_10.txt_BCHTAVLafterLS.txt";
+        String solutionFilePath = "SolutionsBCHT/d2_10000_inf_10.txt_BCHTafterLS.txt";
 
         Map<Integer, Request> requests = parseInputFile(inputFilePath);
         Map<Integer, List<Integer>> solutionAssignments = parseSolutionFile(solutionFilePath);
