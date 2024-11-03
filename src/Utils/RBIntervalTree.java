@@ -29,7 +29,8 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         //indien IInterval node => (RBIntervalNode)node
         var redBlackNode = new RBIntervalNode (node);
         this.root = insertRecursive(this.root, redBlackNode);
-        fixInsertion(redBlackNode);
+       // fixInsertion(redBlackNode);
+        insertFixup(redBlackNode);
     }
 
     public int calculateExtraBusyTime(Interval newInterval) {
@@ -116,22 +117,22 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
     }
 
     // Helper function to perform right rotation
-    private RBIntervalNode rightRotate(RBIntervalNode y) {
-        RBIntervalNode x = y.getLeft();
-        y.setLeft(x.getRight());
-        if (x.getRight() != null) {
-            x.getRight().setParent(y);
+    private RBIntervalNode rightRotate(RBIntervalNode x) {
+        RBIntervalNode y = x.getLeft();
+        x.setLeft(y.getRight());
+        if (y.getRight() != null) {
+            y.getRight().setParent(x);
         }
-        x.setParent(y.getParent());
-        if (y.getParent() == null) {
-            this.root = x;
-        } else if (y == y.getParent().getLeft()) {
-            y.getParent().setLeft(x);
+        y.setParent(x.getParent());
+        if (x.getParent() == null) {
+            this.root = y;
+        } else if (x == x.getParent().getLeft()) {
+            x.getParent().setLeft(y);
         } else {
-            y.getParent().setRight(x);
+            x.getParent().setRight(y);
         }
-        x.setRight(y);
-        y.setParent(x);
+        y.setRight(x);
+        x.setParent(y);
 
         // Update maxEndTime
         y.updateMaxEndTime();
@@ -145,71 +146,122 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         if (current == null) {
             return newNode;
         }
-
-        // Compare start time for insertion position
-        if (newNode.getInterval().getStartTime() < current.getInterval().getStartTime()) {
+        if (newNode.getInterval().getStartTime() < current.getInterval().getStartTime() ||
+                (newNode.getInterval().getStartTime() == current.getInterval().getStartTime() && newNode.getID() < current.getID())) {
             current.setLeft(insertRecursive(current.getLeft(), newNode));
             current.getLeft().setParent(current);
+
         } else {
             current.setRight(insertRecursive(current.getRight(), newNode));
             current.getRight().setParent(current);
         }
-
-        // Update the maxEndTime for the current node
         current.updateMaxEndTime();
         return current;
     }
 
+
     // Fix the Red-Black Tree properties after insertion
-    private void fixInsertion(RBIntervalNode node) {
-        RBIntervalNode parent, grandparent;
+//    private void fixInsertion(RBIntervalNode node) {
+//        RBIntervalNode parent, grandparent;
+//
+//        while (node != this.root && node.isRed() && node.getParent().isRed()) {
+//            parent = node.getParent();
+//            grandparent = parent.getParent();
+//
+//            if (parent == grandparent.getLeft()) {
+//                RBIntervalNode uncle = grandparent.getRight();
+//                if (uncle != null && uncle.isRed()) {
+//                    // Case 1: Recolor
+//                    grandparent.setRed(true);
+//                    parent.setRed(false);
+//                    uncle.setRed(false);
+//                    node = grandparent; //this is to fix double red problems. The while loop will continue from the grandparent.
+//                } else {
+//                    if (node == parent.getRight()) {
+//                        // Case 2: Left rotate
+//                        node = parent;
+//                        leftRotate(node);
+//                    }
+//                    // Case 3: Right rotate
+//                    parent.setRed(false);
+//                    grandparent.setRed(true);
+//                    rightRotate(grandparent);
+//                }
+//            } else {
+//                RBIntervalNode uncle = grandparent.getLeft();
+//                if (uncle != null && uncle.isRed()) {
+//                    // Case 1: Recolor
+//                    grandparent.setRed(true);
+//                    parent.setRed(false);
+//                    uncle.setRed(false);
+//                    node = grandparent; //this is to fix double red problems. The while loop will continue from the grandparent.
+//                } else {
+//                    if (node == parent.getLeft()) {
+//                        // Case 2: Right rotate
+//                        node = parent;
+//                        rightRotate(node);
+//                    }
+//                    // Case 3: Left rotate
+//                    parent.setRed(false);
+//                    grandparent.setRed(true);
+//                    leftRotate(grandparent);
+//                }
+//            }
+//        }
+//        this.root.setRed(false);  // Root must always be black
+//    }
+    private void insertFixup(RBIntervalNode node) {
+        while (node.getParent() != null && node.getParent().isRed()) {
+            if (node.getParent() == node.getParent().getParent().getLeft()) {
+                RBIntervalNode uncle = node.getParent().getParent().getRight();
 
-        while (node != this.root && node.isRed() && node.getParent().isRed()) {
-            parent = node.getParent();
-            grandparent = parent.getParent();
-
-            if (parent == grandparent.getLeft()) {
-                RBIntervalNode uncle = grandparent.getRight();
+                // Case 1: The uncle is red
                 if (uncle != null && uncle.isRed()) {
-                    // Case 1: Recolor
-                    grandparent.setRed(true);
-                    parent.setRed(false);
+                    node.getParent().setRed(false);
                     uncle.setRed(false);
-                    node = grandparent; //this is to fix double red problems. The while loop will continue from the grandparent.
+                    node.getParent().getParent().setRed(true);
+                    node = node.getParent().getParent();
                 } else {
-                    if (node == parent.getRight()) {
-                        // Case 2: Left rotate
-                        node = parent;
+                    // Case 2: The node is a right child
+                    if (node == node.getParent().getRight()) {
+                        node = node.getParent();
                         leftRotate(node);
                     }
-                    // Case 3: Right rotate
-                    parent.setRed(false);
-                    grandparent.setRed(true);
-                    rightRotate(grandparent);
+
+                    // Case 3: The node is a left child
+                    node.getParent().setRed(false);
+                    node.getParent().getParent().setRed(true);
+                    rightRotate(node.getParent().getParent());
                 }
             } else {
-                RBIntervalNode uncle = grandparent.getLeft();
+                RBIntervalNode uncle = node.getParent().getParent().getLeft();
+
+                // Case 1: The uncle is red
                 if (uncle != null && uncle.isRed()) {
-                    // Case 1: Recolor
-                    grandparent.setRed(true);
-                    parent.setRed(false);
+                    node.getParent().setRed(false);
                     uncle.setRed(false);
-                    node = grandparent; //this is to fix double red problems. The while loop will continue from the grandparent.
+                    node.getParent().getParent().setRed(true);
+                    node = node.getParent().getParent();
                 } else {
-                    if (node == parent.getLeft()) {
-                        // Case 2: Right rotate
-                        node = parent;
+                    // Case 2: The node is a left child
+                    if (node == node.getParent().getLeft()) {
+                        node = node.getParent();
                         rightRotate(node);
                     }
-                    // Case 3: Left rotate
-                    parent.setRed(false);
-                    grandparent.setRed(true);
-                    leftRotate(grandparent);
+
+                    // Case 3: The node is a right child
+                    node.getParent().setRed(false);
+                    node.getParent().getParent().setRed(true);
+                    leftRotate(node.getParent().getParent());
                 }
             }
+            if (node == root) {
+                break;
+            }
         }
-        this.root.setRed(false);  // Root must always be black
+        root.setRed(false);  // The root must always be black
     }
+
 
     public RBIntervalNode getRandomNode() {
         List<RBIntervalNode> nodes = new ArrayList<>();
@@ -233,30 +285,29 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         }
     }
 
-    public RBIntervalNode findNode(Interval interval){
-        if (root.getInterval().getStartTime() == interval.getStartTime() &&
-                root.getInterval().getEndTime() == interval.getEndTime()){
-            return root;
-        }
-
-        return findNodeInternal(root, interval);
+    public RBIntervalNode findNode(IntervalNode node) {
+        return findNodeInternal(root, node.getInterval(), node.getID());
     }
 
-    private RBIntervalNode findNodeInternal(RBIntervalNode current, Interval interval){
+    private RBIntervalNode findNodeInternal(RBIntervalNode current, Interval interval, int id) {
         if (current == null) {
             return null;
         }
         if (current.getInterval().getStartTime() == interval.getStartTime() &&
-                current.getInterval().getEndTime() == interval.getEndTime()){
+                current.getInterval().getEndTime() == interval.getEndTime() &&
+                current.getID() == id) {
             return current;
         }
-
-        if (interval.getStartTime() < current.getInterval().getStartTime()){
-            //go left
-            return findNodeInternal(current.getLeft(), interval);
+        if (interval.getStartTime() < current.getInterval().getStartTime()) {
+            return findNodeInternal(current.getLeft(), interval, id);
+        } else if (interval.getStartTime() > current.getInterval().getStartTime()) {
+            return findNodeInternal(current.getRight(), interval, id);
+        } // If the start times are equal, check the IDs
+        //Here we assume that insertion is also based on ID
+        else if (id < current.getID()) {
+            return findNodeInternal(current.getLeft(), interval, id);
         } else {
-            // go right
-            return findNodeInternal(current.getRight(), interval);
+            return findNodeInternal(current.getRight(), interval, id);
         }
     }
 
@@ -282,9 +333,17 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         return replClone;
     }
 
+    /**
+     * node : node to be deleted in the tree. Need to search for the node first!
+     */
     public void delete(IntervalNode node) {
+        var nodeToDelete = findNode(node);
+
+        if (nodeToDelete == null) {
+            return;
+        }
+
         RBIntervalNode x, replacement, replClone = null;
-        var nodeToDelete = (RBIntervalNode)node;
         var deletedColor = nodeToDelete.getColor();
         boolean replacementIsLeftChild = false;
         boolean nodeToDeleteIsLeftChild = nodeToDelete.isLeftChild();
@@ -564,5 +623,4 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         return isBalanced(node.getLeft(), blackCount, currentBlackCount) &&
                 isBalanced(node.getRight(), blackCount, currentBlackCount);
     }
-
 }

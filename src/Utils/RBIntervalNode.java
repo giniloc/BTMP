@@ -91,4 +91,14 @@ public class RBIntervalNode extends IntervalNode {
         return super.toString() + ", Color: " + color;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        RBIntervalNode other = (RBIntervalNode) obj;
+        return this.getID() == other.getID() &&
+                this.getInterval().getStartTime() == other.getInterval().getStartTime() &&
+                this.getInterval().getEndTime() == other.getInterval().getEndTime();
+    }
+
 }

@@ -1,26 +1,24 @@
 import Utils.*;
 import org.junit.Test;
-
 import static Utils.Color.BLACK;
 import static Utils.Color.RED;
 import static org.junit.Assert.*;
 
 public class RBIntervalTreeTest {
 
+    private RBIntervalNode node1 = new RBIntervalNode(new Interval(13, 25), 10, 1);
+    private RBIntervalNode node2 = new RBIntervalNode(new Interval(8, 15), 15, 2);
+    private RBIntervalNode node3 = new RBIntervalNode(new Interval(17, 35), 20, 3);
+    private RBIntervalNode node4 = new RBIntervalNode(new Interval(1, 8), 25, 4);
+    private RBIntervalNode node5 = new RBIntervalNode(new Interval(11, 18), 30, 5);
+    private RBIntervalNode node6 = new RBIntervalNode(new Interval(15, 38), 35, 6);
+    private RBIntervalNode node7 = new RBIntervalNode(new Interval(25, 38), 40, 7);
+    private RBIntervalNode node8 = new RBIntervalNode(new Interval(6, 38), 45, 8);
+    private RBIntervalNode node9 = new RBIntervalNode(new Interval(22, 38), 55, 9);
+    private RBIntervalNode node10 = new RBIntervalNode(new Interval(27, 38), 60, 10);
+
     private RBIntervalTree buildTree(){
         RBIntervalTree rbIntervalTree = new RBIntervalTree();
-
-        RBIntervalNode node1 = new RBIntervalNode(new Interval(13, 25), 10, 1);
-        RBIntervalNode node2 = new RBIntervalNode(new Interval(8, 15), 15, 2);
-        RBIntervalNode node3 = new RBIntervalNode(new Interval(17, 35), 20, 3);
-        RBIntervalNode node4 = new RBIntervalNode(new Interval(1, 8), 25, 4);
-        RBIntervalNode node5 = new RBIntervalNode(new Interval(11, 18), 30, 5);
-        RBIntervalNode node6 = new RBIntervalNode(new Interval(15, 38), 35, 6);
-        RBIntervalNode node7 = new RBIntervalNode(new Interval(25, 38), 40, 7);
-        RBIntervalNode node8 = new RBIntervalNode(new Interval(6, 38), 45, 8);
-        RBIntervalNode node9 = new RBIntervalNode(new Interval(22, 38), 55, 9);
-        RBIntervalNode node10 = new RBIntervalNode(new Interval(27, 38), 60, 10);
-
 
         rbIntervalTree.insert(node1);
         rbIntervalTree.insert(node2);
@@ -42,10 +40,10 @@ public class RBIntervalTreeTest {
     public void deleteRedLeafNode(){
         // Arrange
         var tree = buildTree();
-        var nodeToDelete = tree.findNode(new Interval(6,38));
+        //var nodeToDelete = tree.findNode(new Interval(6,38));
 
         // Act
-        tree.delete(nodeToDelete);
+        tree.delete(node8);
 
         // Assert
         assertEquals(1,tree.getRoot().getID());
@@ -55,7 +53,7 @@ public class RBIntervalTreeTest {
         assertEquals(BLACK, tree.getRoot().getLeft().getRight().getColor());
         assertEquals(2,tree.getRoot().getLeft().getID());
         assertEquals(RED,tree.getRoot().getLeft().getColor());
-        assertNull(tree.findNode(new Interval(6,38)));
+        assertNull(tree.findNode(node8));
 
         assertTrue(tree.isBalanced());
     }
@@ -65,16 +63,15 @@ public class RBIntervalTreeTest {
     public void deleteRedLeafNode2(){
         // Arrange
         var tree = buildTree();
-        var nodeToDelete = tree.findNode(new Interval(22,38));
 
         // Act
-        tree.delete(nodeToDelete);
+        tree.delete(node9);
 
         // Assert
         assertEquals(1,tree.getRoot().getID());
         assertFalse(tree.getRoot().getRight().getRight().hasLeft());
         assertTrue(tree.getRoot().getRight().getRight().hasRight());
-        assertNull(tree.findNode(new Interval(22,38)));
+        assertNull(tree.findNode(node9));
 
         assertTrue(tree.isBalanced());
     }
@@ -84,16 +81,15 @@ public class RBIntervalTreeTest {
     public void deleteRedLeafNode3(){
         // Arrange
         var tree = buildTree();
-        var nodeToDelete = tree.findNode(new Interval(27,38));
 
         // Act
-        tree.delete(nodeToDelete);
+        tree.delete(node10);
 
         // Assert
         assertEquals(1,tree.getRoot().getID());
         assertTrue(tree.getRoot().getRight().getRight().hasLeft());
         assertFalse(tree.getRoot().getRight().getRight().hasRight());
-        assertNull(tree.findNode(new Interval(27,38)));
+        assertNull(tree.findNode(node10));
 
         assertTrue(tree.isBalanced());
     }
@@ -103,16 +99,15 @@ public class RBIntervalTreeTest {
     public void deleteBlackLeafNode2(){
         // Arrange
         var tree = buildTree();
-        var nodeToDelete = tree.findNode(new Interval(15,38));
 
         // Act
-        tree.delete(nodeToDelete);
+        tree.delete(node6);
 
         // Assert
         assertEquals(1,tree.getRoot().getID());
         assertTrue(tree.getRoot().getRight().hasLeft());
         assertTrue(tree.getRoot().getRight().hasRight());
-        assertNull(tree.findNode(new Interval(15,38)));
+        assertNull(tree.findNode(node6));
 
         assertTrue(tree.isBalanced());
     }
@@ -123,17 +118,16 @@ public class RBIntervalTreeTest {
     public void deleteNodeWithOnlyRightRedChild(){
         // Arrange
         var tree = buildTree();
-        var nodeToDelete = tree.findNode(new Interval(1,8));
 
         // Act
-        tree.delete(nodeToDelete);
+        tree.delete(node4);
 
         // Assert
         assertEquals(1,tree.getRoot().getID());
         assertTrue(tree.getRoot().getLeft().getLeft().isLeafNode());
         assertTrue(tree.getRoot().getLeft().getRight().isLeafNode());
         assertEquals(BLACK, tree.getRoot().getLeft().getLeft().getColor());
-        assertNull(tree.findNode(new Interval(1,8)));
+        assertNull(tree.findNode(node4));
 
         assertTrue(tree.isBalanced());
     }
@@ -143,19 +137,18 @@ public class RBIntervalTreeTest {
     public void deleteRedNodeWithLeftAndRightChildByBlackNode(){
         // Arrange
         var tree = buildTree();
-        var nodeToDelete = tree.findNode(new Interval(8,15));
 
         // Act
-        tree.delete(nodeToDelete);
+        tree.delete(node2);
 
         // Assert
-        var replacement = tree.findNode(new Interval(11,18));
+        var replacement = tree.findNode(node5);
         assertEquals(1,tree.getRoot().getID());
         assertTrue(replacement.isLeafNode());
         assertEquals(BLACK, replacement.getColor());
         assertEquals(RED, replacement.getParent().getColor());
         assertEquals(tree.getRoot().getLeft(), replacement.getParent());
-        assertNull(tree.findNode(new Interval(8,15)));
+        assertNull(tree.findNode(node2));
 
         assertTrue(tree.isBalanced());
     }
@@ -165,10 +158,9 @@ public class RBIntervalTreeTest {
     public void deleteLeafNodeWithRebalance(){
         // Arrange
         var tree = buildTree();
-        var nodeToDelete = tree.findNode(new Interval(11,18));
 
         // Act
-        tree.delete(nodeToDelete);
+        tree.delete(node5);
 
         // Assert
         assertEquals(1,tree.getRoot().getID());
@@ -178,7 +170,7 @@ public class RBIntervalTreeTest {
         assertTrue(tree.getRoot().getLeft().hasRight());
         assertEquals(4, tree.getRoot().getLeft().getLeft().getID());
         assertEquals(2, tree.getRoot().getLeft().getRight().getID());
-        assertNull(tree.findNode(new Interval(11,18)));
+        assertNull(tree.findNode(node5));
 
         assertTrue(tree.isBalanced());
     }
@@ -188,10 +180,9 @@ public class RBIntervalTreeTest {
     public void deleteRedNodeWithLeftAndRightChildByRedNode(){
         // Arrange
         var tree = buildTree();
-        var nodeToDelete = tree.findNode(new Interval(17,35));
 
         // Act
-        tree.delete(nodeToDelete);
+        tree.delete(node3);
 
         // Assert
         assertEquals(1,tree.getRoot().getID());
@@ -200,7 +191,7 @@ public class RBIntervalTreeTest {
         assertTrue(tree.getRoot().getRight().getLeft().isLeafNode());
         assertEquals(9,tree.getRoot().getRight().getID());
         assertEquals(RED, tree.getRoot().getRight().getColor());
-        assertNull(tree.findNode(new Interval(17,35)));
+        assertNull(tree.findNode(node3));
 
         assertTrue(tree.isBalanced());
     }
@@ -210,19 +201,18 @@ public class RBIntervalTreeTest {
     public void deleteBlackNodeWithLeftAndRightChildByRedNode(){
         // Arrange
         var tree = buildTree();
-        var nodeToDelete = tree.findNode(new Interval(25,38));
 
         // Act
-        tree.delete(nodeToDelete);
+        tree.delete(node7);
 
         // Assert
-        var replacement = tree.findNode(new Interval(27,38));
+        var replacement = tree.findNode(node10);
         assertEquals(1,tree.getRoot().getID());
         assertTrue(replacement.hasLeft());
         assertFalse(replacement.hasRight());
         assertEquals(tree.getRoot().getRight(), replacement.getParent());
         assertEquals(BLACK, replacement.getColor());
-        assertNull(tree.findNode(new Interval(25,38)));
+        assertNull(tree.findNode(node7));
 
         assertTrue(tree.isBalanced());
     }
@@ -236,19 +226,17 @@ public class RBIntervalTreeTest {
         var node = new RBIntervalNode(new Interval(12,18), 40, 99);
         tree.insert(node);
 
-        var nodeToDelete = tree.findNode(new Interval(8,15));
-
         // Act
-        tree.delete(nodeToDelete);
+        tree.delete(node2);
 
         // Assert
-        var replacement = tree.findNode(new Interval(11,18));
+        var replacement = tree.findNode(node5);
         assertEquals(1,tree.getRoot().getID());
         assertTrue(replacement.hasLeft());
         assertTrue(replacement.hasRight());
         assertEquals(RED, replacement.getColor());
         assertEquals(BLACK, replacement.getRight().getColor());
-        assertNull(tree.findNode(new Interval(8,15)));
+        assertNull(tree.findNode(node2));
 
         assertTrue(tree.isBalanced());
     }
@@ -264,15 +252,13 @@ public class RBIntervalTreeTest {
         node = new RBIntervalNode(new Interval(28,10), 20, 100);
         tree.insert(node);
 
-        var nodeToDelete = tree.findNode(new Interval(27,38));
 
         // Act
-        tree.delete(nodeToDelete);
+        tree.delete(node10);
 
         // Assert
-        var replacement = tree.findNode(new Interval(11,18));
         assertEquals(1,tree.getRoot().getID());
-        assertNull(tree.findNode(new Interval(27,38)));
+        assertNull(tree.findNode(node10));
 
         assertTrue(tree.isBalanced());
     }
@@ -287,12 +273,12 @@ public class RBIntervalTreeTest {
         // Act
         tree.delete(nodeToDelete);
 
-        var newRoot = tree.findNode(new Interval(15,38));
+        var newRoot = tree.findNode(node6);
 
         // Assert
         assertEquals(6,tree.getRoot().getID());
         assertEquals(newRoot,tree.getRoot());
-        var node = tree.findNode(new Interval(25,38));
+        var node = tree.findNode(node7);
         assertEquals(node,newRoot.getRight());
         assertEquals(RED,newRoot.getRight().getColor());
         assertEquals(newRoot,node.getParent());
@@ -307,7 +293,7 @@ public class RBIntervalTreeTest {
         assertEquals(9,node.getLeft().getRight().getID());
         assertEquals(RED,node.getLeft().getRight().getColor());
 
-        assertNull(tree.findNode(new Interval(13,25)));
+        assertNull(tree.findNode(node1));
 
         assertTrue(tree.isBalanced());
     }
@@ -319,36 +305,36 @@ public class RBIntervalTreeTest {
         var tree = buildTree();
 
         // Act
-        tree.delete(tree.findNode(new Interval(25,38)));
+        tree.delete(tree.findNode(node7));
 
-        var replacement = tree.findNode(new Interval(27,38));
+        var replacement = tree.findNode(node10);
         assertEquals(BLACK, replacement.getColor());
         assertTrue(replacement.hasLeft());
         assertFalse(replacement.hasRight());
         assertEquals(replacement, replacement.getLeft().getParent());
         assertTrue(tree.isBalanced());
 
-        tree.delete(tree.findNode(new Interval(8,15)));
+        tree.delete(tree.findNode(node2));
 
-        replacement = tree.findNode(new Interval(11,18));
+        replacement = tree.findNode(node5);
         assertEquals(BLACK, replacement.getColor());
         assertTrue(replacement.isLeafNode());
         assertEquals(8, replacement.getParent().getID());
         assertTrue(tree.isBalanced());
 
-        tree.delete(tree.findNode(new Interval(1,8)));
+        tree.delete(tree.findNode(node4));
         assertTrue(tree.isBalanced());
-        tree.delete(tree.findNode(new Interval(6,38)));
+        tree.delete(tree.findNode(node8));
         assertTrue(tree.isBalanced());
-        tree.delete(tree.findNode(new Interval(22,38)));
+        tree.delete(tree.findNode(node9));
         assertTrue(tree.isBalanced());
-        tree.delete(tree.findNode(new Interval(17,35)));
+        tree.delete(tree.findNode(node3));
         assertTrue(tree.isBalanced());
-        tree.delete(tree.findNode(new Interval(11,18)));
+        tree.delete(tree.findNode(node5));
         assertTrue(tree.isBalanced());
-        tree.delete(tree.findNode(new Interval(27,38)));
+        tree.delete(tree.findNode(node10));
         assertTrue(tree.isBalanced());
-        tree.delete(tree.findNode(new Interval(15,38)));
+        tree.delete(tree.findNode(node6));
         assertTrue(tree.isBalanced());
 
 
@@ -365,10 +351,10 @@ public class RBIntervalTreeTest {
         var tree = buildTree();
 
         // First bring the tree in the test situation
-        tree.delete(tree.findNode(new Interval(8,15)));
+        tree.delete(tree.findNode(node2));
 
         // Act
-        tree.delete(tree.findNode(new Interval(6,38)));
+        tree.delete(tree.findNode(node8));
 
         // Assert
         assertEquals(1,tree.getRoot().getID());
@@ -387,12 +373,12 @@ public class RBIntervalTreeTest {
         var tree = buildTree();
 
         // First bring the tree in the test situation
-        tree.delete(tree.findNode(new Interval(8,15)));
-        tree.delete(tree.findNode(new Interval(6,38)));
-        tree.delete(tree.findNode(new Interval(1,8)));
+        tree.delete(tree.findNode(node2));
+        tree.delete(tree.findNode(node8));
+        tree.delete(tree.findNode(node4));
 
         // Act
-        tree.delete(tree.findNode(new Interval(11,18)));
+        tree.delete(tree.findNode(node5));
 
         // Assert
         assertEquals(3,tree.getRoot().getID());
@@ -411,7 +397,7 @@ public class RBIntervalTreeTest {
         var tree = buildTree();
 
         //Act
-        var node = tree.findNode(new Interval(11,18));
+        var node = tree.findNode(node5);
 
         assertEquals(5,node.getID());
     }
@@ -422,7 +408,7 @@ public class RBIntervalTreeTest {
         var tree = buildTree();
 
         //Act
-        var node = tree.findNode(new Interval(11,19));
+        var node = tree.findNode(new IntervalNode(new Interval(11,19), 10, 199));
 
         assertEquals(null,node);
     }
@@ -452,7 +438,7 @@ public class RBIntervalTreeTest {
     }
 
     @Test
-    public void insertNodeWithAllDuplicateInterval(){
+    public void insertNodeWithAllDuplicateStarttimes(){
         //Arrange
         RBIntervalTree rbIntervalTree = new RBIntervalTree();
 
@@ -476,20 +462,20 @@ public class RBIntervalTreeTest {
     }
 
     @Test
-    public void reinsertNode(){ //This test will fail because insertion is wrongly implemented
+    public void reinsertNode(){
         //Arrange
         RBIntervalTree tree = new RBIntervalTree();
 
-        RBIntervalNode node1 = new RBIntervalNode(new Interval(2, 48), 10, 1);
-        RBIntervalNode node2 = new RBIntervalNode(new Interval(13, 44), 20, 3);
-        RBIntervalNode node3 = new RBIntervalNode(new Interval(48, 77), 25, 4);
+        RBIntervalNode node1 = new RBIntervalNode(new Interval(13, 48), 10, 1);
+        RBIntervalNode node2 = new RBIntervalNode(new Interval(2, 44), 20, 3);
+        RBIntervalNode node3 = new RBIntervalNode(new Interval(1, 77), 25, 4);
 
         tree.insert(node1);
         tree.insert(node2);
         tree.insert(node3);
 
         //Act
-        tree.delete(tree.findNode(new Interval(13,44)));
+        tree.delete(node2);
         tree.insert(node2);
 
         //Assert
@@ -521,13 +507,37 @@ public class RBIntervalTreeTest {
         tree.insert(node9);
 
         //Act
-        tree.delete(tree.findNode(new Interval(15, 25)));
+        tree.delete(tree.findNode(node2));
         tree.insert(node2);
-        tree.delete(tree.findNode(new Interval(50, 60)));
+        tree.delete(tree.findNode(node7));
         tree.insert(node7);
-        tree.delete(tree.findNode(new Interval(5, 15)));
+        tree.delete(tree.findNode(node4));
 
         //Assert
         assertTrue(tree.isBalanced());
+    }
+    @Test
+    public void insertNodeWithAllDuplicateIntervals(){
+        //Arrange
+        RBIntervalTree rbIntervalTree = new RBIntervalTree();
+
+        RBIntervalNode node1 = new RBIntervalNode(new Interval(13, 20), 10, 1);
+        RBIntervalNode node2 = new RBIntervalNode(new Interval(13, 20), 15, 2);
+        RBIntervalNode node3 = new RBIntervalNode(new Interval(13, 20), 20, 3);
+        RBIntervalNode node4 = new RBIntervalNode(new Interval(13, 20), 25, 4);
+        RBIntervalNode node5 = new RBIntervalNode(new Interval(13, 20), 30, 5);
+
+        rbIntervalTree.insert(node1);
+        rbIntervalTree.insert(node2);
+        rbIntervalTree.insert(node3);
+        rbIntervalTree.insert(node4);
+        rbIntervalTree.insert(node5);
+
+        //Act
+        RBIntervalNode copynode = rbIntervalTree.findNode(node3);
+
+        //Assert
+        assertTrue(rbIntervalTree.isBalanced());
+        assertTrue(copynode.equals(node3));//This equal method is overridden in RBIntervalNode class
     }
 }
