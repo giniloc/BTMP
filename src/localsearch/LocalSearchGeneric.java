@@ -24,7 +24,8 @@ public class LocalSearchGeneric<T extends IIntervalTree<? extends IIntervalNode>
     public void run(int iterations) {
         for (int i = 0; i < iterations; i++) {
             System.out.println("Iteration " + i);
-            byte[] snapshotData = serializeSolution(currentSolution);
+          //  byte[] snapshotData = serializeSolution(currentSolution);
+            Solution<T> snapshot = new Solution<>(currentSolution);
 
             generateNeighbor(currentSolution);
             int newBusyTime = calculateTotalBusyTime(currentSolution);
@@ -35,7 +36,8 @@ public class LocalSearchGeneric<T extends IIntervalTree<? extends IIntervalNode>
                 System.out.println("New best solution found with " + bestBusyTime + " busy time");
                 SolutionWriter.writeSolutionToFile(bchtHeuristic.getSolution(), bchtHeuristic.getInputReader().getTestInstance(), bchtHeuristic.getHeuristicName(), bestBusyTime);
             } else {
-                currentSolution = deserializeSolution(snapshotData);
+             //   currentSolution = deserializeSolution(snapshotData);
+                currentSolution = snapshot;
             }
         }
     }

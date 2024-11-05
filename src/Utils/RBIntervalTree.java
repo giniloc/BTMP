@@ -29,7 +29,6 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         //indien IInterval node => (RBIntervalNode)node
         var redBlackNode = new RBIntervalNode (node);
         this.root = insertRecursive(this.root, redBlackNode);
-        // fixInsertion(redBlackNode);
         insertFixup(redBlackNode);
     }
 
@@ -529,6 +528,8 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         } else {
             u.getParent().setRight(v);
         }
+        v.updateMaxEndTime();
+
     }
 
     private void replaceRootNode(RBIntervalNode u, RBIntervalNode v){
@@ -624,6 +625,7 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
             printTree(node.getRight(), prefix + (isLeft ? "│   " : "    "), false);
         }
     }
+    @Override
     public RBIntervalTree deepCopy() {
         RBIntervalTree newTree = new RBIntervalTree();
         newTree.root = copyNode(this.root, null); // Start copying from the root

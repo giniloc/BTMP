@@ -3,7 +3,7 @@ package Heuristics;
 import IO.InputReader;
 import IO.SolutionWriter;
 import Utils.*;
-import localsearch.LocalSearch;
+import localsearch.*;
 
 import java.util.List;
 

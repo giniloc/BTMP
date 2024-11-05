@@ -191,4 +191,30 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
         collectNodes(node.getLeft(), nodes);
         collectNodes(node.getRight(), nodes);
     }
+   @Override
+    public IntervalTree deepCopy() {
+        IntervalTree copy = new IntervalTree();
+        copy.root = deepCopyRecursive(this.root, null);
+        return copy;
+    }
+
+    private IntervalNode deepCopyRecursive(IntervalNode current, IntervalNode parent) {
+        if (current == null) {
+            return null;
+        }
+
+        // Create a new node with the same interval, weight, and ID
+        IntervalNode copiedNode = new IntervalNode(current.getInterval(), current.getWeight(), current.getID());
+        copiedNode.setParent(parent); // Set the parent for the copied node
+
+        // Recursively copy left and right children
+        copiedNode.setLeft(deepCopyRecursive(current.getLeft(), copiedNode));
+        copiedNode.setRight(deepCopyRecursive(current.getRight(), copiedNode));
+
+        // Copy other properties (e.g., maxEndTime, minStartTime)
+        copiedNode.setMaxEndTime(current.getMaxEndTime());
+        copiedNode.setMinStartTime(current.getMinStartTime());
+
+        return copiedNode;
+    }
 }

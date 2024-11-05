@@ -11,5 +11,6 @@ public interface IIntervalTree<T extends IIntervalNode> extends Serializable {
     int calculateTotalBusyTime();
     void delete(IntervalNode node);
     T getRandomNode();
+    IIntervalTree<T> deepCopy();
 
 }

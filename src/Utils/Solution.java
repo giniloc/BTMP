@@ -10,10 +10,14 @@ public class Solution<T extends IIntervalTree<? extends IIntervalNode>> implemen
         this.intervalTrees = new ArrayList<>();
     }
 
-    public Solution(Solution<T> initialSolution) {
-        this.intervalTrees = new ArrayList<>(initialSolution.intervalTrees);
-    }
+    public Solution(Solution<T> otherSolution) {
+        this.intervalTrees = new ArrayList<>();
 
+        // Deep copy each tree in the other solution
+        for (T tree : otherSolution.getIntervalTrees()) {
+            this.intervalTrees.add((T) tree.deepCopy());
+        }
+    }
     public List<T> getIntervalTrees() {
         return intervalTrees;
     }

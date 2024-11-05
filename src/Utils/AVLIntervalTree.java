@@ -320,6 +320,40 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
 
         return isInBalance(node.getLeft()) && isInBalance(node.getRight());
     }
+   @Override
+    public AVLIntervalTree deepCopy() {
+        AVLIntervalTree newTree = new AVLIntervalTree();
+        newTree.root = copyNode(this.root); // Start copying from the root
+        return newTree;
+    }
+
+    /**
+     * Recursively copies a node and its children.
+     *
+     * @param node The current node in the original tree.
+     * @return The copied node in the new tree.
+     */
+    private AVLIntervalNode copyNode(AVLIntervalNode node) {
+        if (node == null) {
+            return null;
+        }
+
+        // Copy the current node
+        AVLIntervalNode newNode = new AVLIntervalNode(
+                node.getInterval(), node.getWeight(), node.getID()
+        );
+        newNode.setHeight(node.getHeight());
+        newNode.setMaxEndTime(node.getMaxEndTime());
+
+        // Recursively copy the left and right children
+        newNode.setLeft(copyNode(node.getLeft()));
+        newNode.setRight(copyNode(node.getRight()));
+
+        // After copying the children, update the maxEndTime based on children values
+        updateMaxEndTime(newNode);
+
+        return newNode;
+    }
 
 
 }
