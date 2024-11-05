@@ -1,54 +1,55 @@
 package localsearch;
-
-import IO.SolutionWriter;
-import Utils.*;
 import Heuristics.*;
-import java.util.Collections;
-import java.util.List;
+import Utils.*;
+import IO.*;
+
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class LocalSearchGeneric<T extends IIntervalTree<? extends IIntervalNode>> {
     private Solution<T> bestSolution;
-    private Solution<T> initialSolution;
+    private Solution<T> currentSolution;
     private int bestBusyTime;
     private IHeuristic bchtHeuristic;
-
     public LocalSearchGeneric(Solution<T> initialSolution, IHeuristic bchtHeuristic) {
-        this.initialSolution = initialSolution;
+        this.bestSolution = new Solution<>(initialSolution);
+        this.currentSolution = initialSolution;
         this.bestBusyTime = initialSolution.getTotalBusyTime();
         this.bchtHeuristic = bchtHeuristic;
     }
 
     public void run(int iterations) {
         for (int i = 0; i < iterations; i++) {
-             System.out.println("Iteration " + i);
-            var newSolution = generateNeighbor(initialSolution);
-            int newBusyTime = calculateTotalBusyTime(bchtHeuristic.getSolution());
+            System.out.println("Iteration " + i);
+            byte[] snapshotData = serializeSolution(currentSolution);
+
+            generateNeighbor(currentSolution);
+            int newBusyTime = calculateTotalBusyTime(currentSolution);
 
             if (newBusyTime < bestBusyTime) {
-                bestSolution = new Solution<>(newSolution);
+                bestSolution = new Solution<>(currentSolution);
                 bestBusyTime = newBusyTime;
                 System.out.println("New best solution found with " + bestBusyTime + " busy time");
-                SolutionWriter.writeSolutionToFile(bchtHeuristic.getSolution(), this.bchtHeuristic.getInputReader().getTestInstance(), this.bchtHeuristic.getHeuristicName(), bestBusyTime);
+                SolutionWriter.writeSolutionToFile(bchtHeuristic.getSolution(), bchtHeuristic.getInputReader().getTestInstance(), bchtHeuristic.getHeuristicName(), bestBusyTime);
+            } else {
+                currentSolution = deserializeSolution(snapshotData);
             }
         }
     }
 
-    // Generate a neighboring solution by making small changes to the current solution
-    private Solution<T> generateNeighbor(Solution<T> solution) {
+
+    private void generateNeighbor(Solution<T> solution) {
         var selectedTrees = selectTrees(solution, 20);
-        //  List<AVLIntervalTree> selectedTrees = getBusiestTrees(solution, 10);
         List<Request> requestList = new ArrayList<>();
 
-
         for (T tree : selectedTrees) {
-            // Hier zit de fout
             var randomNode = tree.getRandomNode();
             if (randomNode != null) {
                 Request request = createRequestFromNode(randomNode);
                 requestList.add(request);
-                //todo avoid cast?
                 tree.delete((IntervalNode) randomNode);
                 if (tree.getRoot() == null) {
                     solution.getIntervalTrees().remove(tree);
@@ -56,33 +57,23 @@ public class LocalSearchGeneric<T extends IIntervalTree<? extends IIntervalNode>
             }
         }
 
+        // Pas de heuristiek toe en werk de oplossing bij
         bchtHeuristic.applyHeuristic(requestList);
-
-        return solution;
     }
 
-    private List<T> getBusiestTrees(Solution<T> solution, int count) {
-        return solution.getIntervalTrees()
-                .stream()
-                .sorted(Comparator.comparingInt(T::calculateTotalBusyTime).reversed())
-                .limit(count)
-                .toList();
-    }
 
     private int calculateTotalBusyTime(Solution<T> solution) {
-        int totalBusyTime = 0;
-        for (T tree : solution.getIntervalTrees()) {
-            totalBusyTime += tree.calculateTotalBusyTime();
-        }
-        return totalBusyTime;
+        return solution.getIntervalTrees().stream()
+                .mapToInt(T::calculateTotalBusyTime)
+                .sum();
     }
+
     private Request createRequestFromNode(IIntervalNode node) {
         return new Request(node.getID(), node.getInterval().getStartTime(), node.getInterval().getEndTime(), node.getWeight());
     }
+
     private List<T> selectTrees(Solution<T> solution, int count) {
         var intervalTrees = solution.getIntervalTrees();
-
-        // Select half based on busiest time and half randomly
         int halfCount = count / 2;
 
         var busiestTrees = intervalTrees.stream()
@@ -90,7 +81,6 @@ public class LocalSearchGeneric<T extends IIntervalTree<? extends IIntervalNode>
                 .limit(halfCount)
                 .toList();
 
-        // Get random trees (excluding the already selected busiest trees)
         var randomTrees = new ArrayList<>(intervalTrees);
         randomTrees.removeAll(busiestTrees);
         Collections.shuffle(randomTrees);
@@ -109,6 +99,22 @@ public class LocalSearchGeneric<T extends IIntervalTree<? extends IIntervalNode>
     public int getBestBusyTime() {
         return bestBusyTime;
     }
+    private byte[] serializeSolution(Solution<T> solution) {
+        try (ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+             ObjectOutputStream objectStream = new ObjectOutputStream(byteStream)) {
+            objectStream.writeObject(solution);
+            return byteStream.toByteArray();
+        } catch (IOException e) {
+            throw new RuntimeException("Error serializing solution", e);
+        }
+    }
 
-
+    private Solution<T> deserializeSolution(byte[] data) {
+        try (ByteArrayInputStream byteStream = new ByteArrayInputStream(data);
+             ObjectInputStream objectStream = new ObjectInputStream(byteStream)) {
+            return (Solution<T>) objectStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException("Error deserializing solution", e);
+        }
+    }
 }

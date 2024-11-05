@@ -62,6 +62,7 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
     }
 
 
+
     // privates
 
     // Helper function to check if two intervals overlap

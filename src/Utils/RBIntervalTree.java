@@ -56,7 +56,6 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
 
         return maxEndTime - minStartTime;
     }
-
     public List<RBIntervalNode> findAllOverlapping(Interval newInterval) {
         List<RBIntervalNode> overlappingNodes = new ArrayList<>();
         findOverlappingNodes(this.root, newInterval, overlappingNodes);
@@ -69,25 +68,17 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
             return;
         }
 
-        if (root.hasRight() && root.getRight().getParent() != root){
-            return;
-        }
-        if (root.hasLeft() && root.getLeft().getParent() != root){
-            return;
-        }
-
-        // Check if current node's interval overlaps with the new interval
+        // Check for overlaps
         if (doIntervalsOverlap(root.getInterval(), newInterval)) {
             overlappingNodes.add(root);
         }
 
-        // If the maxEndTime of the left child is greater than or equal to the start time of the new interval,
-        // check the left subtree
+        // If the new interval starts before the current interval, check the left child
         if (root.getLeft() != null && root.getLeft().getMaxEndTime() >= newInterval.getStartTime()) {
             findOverlappingNodes(root.getLeft(), newInterval, overlappingNodes);
         }
 
-        // Always check the right subtree
+        // Always check the right child
         findOverlappingNodes(root.getRight(), newInterval, overlappingNodes);
     }
 
@@ -159,57 +150,6 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         return current;
     }
 
-
-    // Fix the Red-Black Tree properties after insertion
-//    private void fixInsertion(RBIntervalNode node) {
-//        RBIntervalNode parent, grandparent;
-//
-//        while (node != this.root && node.isRed() && node.getParent().isRed()) {
-//            parent = node.getParent();
-//            grandparent = parent.getParent();
-//
-//            if (parent == grandparent.getLeft()) {
-//                RBIntervalNode uncle = grandparent.getRight();
-//                if (uncle != null && uncle.isRed()) {
-//                    // Case 1: Recolor
-//                    grandparent.setRed(true);
-//                    parent.setRed(false);
-//                    uncle.setRed(false);
-//                    node = grandparent; //this is to fix double red problems. The while loop will continue from the grandparent.
-//                } else {
-//                    if (node == parent.getRight()) {
-//                        // Case 2: Left rotate
-//                        node = parent;
-//                        leftRotate(node);
-//                    }
-//                    // Case 3: Right rotate
-//                    parent.setRed(false);
-//                    grandparent.setRed(true);
-//                    rightRotate(grandparent);
-//                }
-//            } else {
-//                RBIntervalNode uncle = grandparent.getLeft();
-//                if (uncle != null && uncle.isRed()) {
-//                    // Case 1: Recolor
-//                    grandparent.setRed(true);
-//                    parent.setRed(false);
-//                    uncle.setRed(false);
-//                    node = grandparent; //this is to fix double red problems. The while loop will continue from the grandparent.
-//                } else {
-//                    if (node == parent.getLeft()) {
-//                        // Case 2: Right rotate
-//                        node = parent;
-//                        rightRotate(node);
-//                    }
-//                    // Case 3: Left rotate
-//                    parent.setRed(false);
-//                    grandparent.setRed(true);
-//                    leftRotate(grandparent);
-//                }
-//            }
-//        }
-//        this.root.setRed(false);  // Root must always be black
-//    }
     private void insertFixup(RBIntervalNode node) {
         while (node.getParent() != null && node.getParent().isRed()) {
             if (node.getParent() == node.getParent().getParent().getLeft()) {
@@ -334,7 +274,9 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
     }
 
     /**
-     * node : node to be deleted in the tree. Need to search for the node first!
+     * delete a node from the tree and rebalance if needed
+     *
+     * @param  node node to be deleted in the tree. Need to search for the node first!
      */
     public void delete(IntervalNode node) {
         var nodeToDelete = findNode(node);
@@ -387,18 +329,29 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
             //GOTO CASE
         } else if (deletedColor == BLACK && (replacement != null && replacement.getColor() == RED)) {
             replacement.setColor(BLACK);
-            replace(nodeToDelete, replacement);
+            //splice out replacement node
+            if(replacement.isLeftChild()) replacement.getParent().setLeft(null);
+            else replacement.getParent().setRight(null);
+
+            if (nodeToDelete.isRootNode()) replaceRootNode(nodeToDelete, replacement);
+            else replace(nodeToDelete, replacement);
             // Done
             return;
         } else if (deletedColor == BLACK && (replacement == null || replacement.getColor() == BLACK) && x != null && x.isRootNode()) {
-            replace(nodeToDelete, replacement);
+            //replace(nodeToDelete, replacement);
+            if (nodeToDelete.isRootNode()) replaceRootNode(nodeToDelete, replacement);
+            else replace(nodeToDelete, replacement);
             // Done
             return;
         } else if (deletedColor == BLACK && (replacement == null || replacement.getColor() == BLACK) && (x == null || !x.isRootNode())) {
             replace(replacement, x);
-            replace(nodeToDelete, replacement);
+            //replace(nodeToDelete, replacement);
+            if (nodeToDelete.isRootNode()) replaceRootNode(nodeToDelete, replacement);
+            else replace(nodeToDelete, replacement);
             //GOTO CASE
         }
+
+
 
         if (this.getRoot() == null) return;
 
@@ -430,6 +383,14 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
             if (x.isLeftChild()) x.getParent().setLeft(null);
             else x.getParent().setRight(null);
         }
+
+        // make sure the nodeToDelete is no longer attached to any node of the tree
+        if (nodeToDelete.hasLeft() || nodeToDelete.hasRight() || nodeToDelete.getParent() != null){
+            nodeToDelete.setRight(null);
+            nodeToDelete.setLeft(null);
+            nodeToDelete.setParent(null);
+        }
+
     }
 
     private void deleteFixup(RBIntervalNode x){
@@ -519,12 +480,12 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         if (u.getParent() == null) {
             root = v;
         } else if (u.isLeftChild()) {
-            u.getParent().setLeft(/*isNilNode(v) ? null :*/ v);
+            u.getParent().setLeft(v);
         } else {
-            u.getParent().setRight(/*isNilNode(v) ? null :*/ v);
+            u.getParent().setRight(v);
         }
 
-        if (v == null /*|| isNilNode(v)*/) return;
+        if (v == null) return;
 
         v.setParent(u.getParent());
     }
@@ -568,6 +529,23 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         } else {
             u.getParent().setRight(v);
         }
+    }
+
+    private void replaceRootNode(RBIntervalNode u, RBIntervalNode v){
+        // if we need to replace the root node by null => tree becomes empty
+        if (v == null){
+            setRoot(null);
+            return;
+        }
+
+        v.setLeft(u.getLeft());
+        v.setRight(u.getRight());
+        v.setParent(u.getParent());
+
+        if (v.hasLeft()) v.getLeft().setParent(v);
+        if (v.hasRight()) v.getRight().setParent(v);
+
+        setRoot(v); // new root is now its replacement node v
     }
 
     private RBIntervalNode findMin(RBIntervalNode node) {
@@ -623,4 +601,57 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         return isBalanced(node.getLeft(), blackCount, currentBlackCount) &&
                 isBalanced(node.getRight(), blackCount, currentBlackCount);
     }
+
+    public void printTree() {
+        if (this.getRoot() == null) {
+            System.out.println("The tree is empty.");
+        } else {
+            System.out.println("Tree " + this.hashCode());
+            printTree(this.getRoot(), "", true);
+        }
+
+        System.out.println("-------------------------------------------");
+        System.out.println();
+    }
+
+    // Helper method to print each node recursively
+    private void printTree(IntervalNode node, String prefix, boolean isLeft) {
+        if (node != null) {
+            System.out.println(prefix + (isLeft ? "L " : "R ") + node);
+
+            // Recur on left and right children
+            printTree(node.getLeft(), prefix + (isLeft ? "│   " : "    "), true);
+            printTree(node.getRight(), prefix + (isLeft ? "│   " : "    "), false);
+        }
+    }
+    public RBIntervalTree deepCopy() {
+        RBIntervalTree newTree = new RBIntervalTree();
+        newTree.root = copyNode(this.root, null); // Start copying from the root
+        return newTree;
+    }
+
+    /**
+     * Recursively copies a node and its children.
+     *
+     * @param node The current node in the original tree.
+     * @param parent The parent node in the new tree.
+     * @return The copied node in the new tree.
+     */
+    private RBIntervalNode copyNode(RBIntervalNode node, RBIntervalNode parent) {
+        if (node == null) {
+            return null;
+        }
+
+        RBIntervalNode newNode = new RBIntervalNode(node);
+        newNode.setColor(node.getColor());
+        newNode.setMinStartTime(node.getMinStartTime());
+        newNode.setMaxEndTime(node.getMaxEndTime());
+        newNode.setParent(parent);
+
+        newNode.setLeft(copyNode(node.getLeft(), newNode));
+        newNode.setRight(copyNode(node.getRight(), newNode));
+
+        return newNode;
+    }
+
 }

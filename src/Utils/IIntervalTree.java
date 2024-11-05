@@ -1,8 +1,9 @@
 package Utils;
 
+import java.io.Serializable;
 import java.util.List;
 
-public interface IIntervalTree<T extends IIntervalNode> {
+public interface IIntervalTree<T extends IIntervalNode> extends Serializable {
     T getRoot();
     void insert(IntervalNode node);
     List<T> findAllOverlapping(Interval newInterval);

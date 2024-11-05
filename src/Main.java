@@ -10,7 +10,7 @@ public class Main {
         InputReader inputReader = new InputReader("d2/10000_inf_10.txt");
         List<Request> requests = inputReader.getRequests();
 
-        var treeType = BalancedTreeType.BCHT;//change this to BCHTRB or BCHTRB to test different tree types
+        var treeType = BalancedTreeType.BCHTRB;//change this to BCHTRB or BCHTAVL to test different tree types
         HeuristicRunner runner = new HeuristicRunner();
         IHeuristic bcht;
 
@@ -25,7 +25,7 @@ public class Main {
                 bcht = new BCHT<RBIntervalTree>(inputReader, new RBIntervalTreeFactory(), "BCHTRB");
                 runner.run(bcht, requests);
                 var localSearchRB = new LocalSearchGeneric<RBIntervalTree>(bcht.getSolution(), bcht);
-                localSearchRB.run(100);
+                localSearchRB.run(10000);
                 break;
             case BCHTAVL:
             default:

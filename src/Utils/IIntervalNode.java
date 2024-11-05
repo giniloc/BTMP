@@ -1,6 +1,8 @@
 package Utils;
 
-public interface IIntervalNode {
+import java.io.Serializable;
+
+public interface IIntervalNode extends Serializable {
     Interval getInterval();
     int getWeight();
     int getID();
