@@ -10,7 +10,7 @@ public class Main {
         InputReader inputReader = new InputReader("d2/10000_inf_10.txt");
         List<Request> requests = inputReader.getRequests();
 
-        var treeType = BalancedTreeType.BCHTRB;//change this to BCHTRB or BCHTAVL to test different tree types
+        var treeType = BalancedTreeType.BCHTAVL;//change this to BCHTRB or BCHTAVL to test different tree types
         HeuristicRunner runner = new HeuristicRunner();
         IHeuristic bcht;
 

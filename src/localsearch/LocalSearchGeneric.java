@@ -31,15 +31,16 @@ public class LocalSearchGeneric<T extends IIntervalTree<? extends IIntervalNode>
             int newBusyTime = calculateTotalBusyTime(currentSolution);
 
             if (newBusyTime < bestBusyTime) {
-                bestSolution = new Solution<>(currentSolution);
+                bestSolution = new Solution<>(bchtHeuristic.getSolution());//the new updated solution is built by the heuristic
                 bestBusyTime = newBusyTime;
                 System.out.println("New best solution found with " + bestBusyTime + " busy time");
-                SolutionWriter.writeSolutionToFile(bchtHeuristic.getSolution(), bchtHeuristic.getInputReader().getTestInstance(), bchtHeuristic.getHeuristicName(), bestBusyTime);
             } else {
              //   currentSolution = deserializeSolution(snapshotData);
                 currentSolution = snapshot;
             }
         }
+        SolutionWriter.writeSolutionToFile(bestSolution, bchtHeuristic.getInputReader().getTestInstance(), bchtHeuristic.getHeuristicName(), bestBusyTime);
+
     }
 
 
