@@ -33,7 +33,7 @@ public class Main {
                 //  bcht = new BestCapacityHeuristic<AVLIntervalTree>(inputReader, new AVLIntervalTreeFactory(), "BCHTAVL");
                 runner.run(bcht, requests);
                 var localSearchAVL = new LocalSearchGeneric<AVLIntervalTree>(bcht.getSolution(), bcht);
-                localSearchAVL.run(100000);
+                localSearchAVL.run(1000);
                 break;
         }
     }
