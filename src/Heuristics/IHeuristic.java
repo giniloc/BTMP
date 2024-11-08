@@ -11,5 +11,7 @@ public interface IHeuristic {
     Solution getSolution();
 
     InputReader getInputReader();
+
+    IIntervalTreeFactory getFactory();
 }
 

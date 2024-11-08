@@ -3,8 +3,6 @@ package Heuristics;
 import IO.InputReader;
 import IO.SolutionWriter;
 import Utils.*;
-import localsearch.*;
-
 import java.util.List;
 
 public class BCHT<T extends IIntervalTree<? extends IIntervalNode>> implements IHeuristic {
@@ -38,7 +36,6 @@ public class BCHT<T extends IIntervalTree<? extends IIntervalNode>> implements I
 
                 // Check if server has enough capacity for request
                 if (sum + request.getWeight() <= inputReader.getServerCapacity()) {
-                //    System.out.println("sum: " + (sum + request.getWeight()));
                     // search for server with least extra busy time
                     if (bestTree == null || intervalTree.calculateExtraBusyTime(interval) < bestTree.calculateExtraBusyTime(interval)) {
                         bestTree = intervalTree;
@@ -73,5 +70,8 @@ public class BCHT<T extends IIntervalTree<? extends IIntervalNode>> implements I
     }
     public InputReader getInputReader() {
         return inputReader;
+    }
+    public IIntervalTreeFactory<T> getFactory() {
+        return factory;
     }
 }

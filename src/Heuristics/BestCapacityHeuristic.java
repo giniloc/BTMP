@@ -79,4 +79,9 @@ public class BestCapacityHeuristic<T extends IIntervalTree<? extends IIntervalNo
     public InputReader getInputReader() {
         return inputReader;
     }
+
+    @Override
+    public IIntervalTreeFactory getFactory() {
+        return factory;
+    }
 }

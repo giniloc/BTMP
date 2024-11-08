@@ -37,4 +37,13 @@ public class AVLIntervalTreeTest {
         assert root != null;
         assert avlIntervalTree.isInBalance();
     }
+    @Test
+    public void deepCopyTest(){
+            // Maak een originele AVLTree en voeg een aantal nodes toe
+            AVLIntervalTree originalTree = buildTree();
+
+
+            // Maak een deep copy van de originele boom
+            AVLIntervalTree copiedTree = originalTree.deepCopy();
+    }
 }

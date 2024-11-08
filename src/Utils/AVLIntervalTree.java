@@ -34,9 +34,9 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
     public void insert(IntervalNode node) {
         AVLIntervalNode newNode = new AVLIntervalNode(node.getInterval(), node.getWeight(), node.getID());
         this.root = insertRecursive(this.root, newNode);
-        if (!isInBalance()) {
-            System.out.println("Tree is not in balance after deletion");
-        }
+//        if (!isInBalance()) {
+//            System.out.println("Tree is not in balance after deletion");
+//        }
     }
 
     public List<AVLIntervalNode> findAllOverlapping(Interval newInterval) {
@@ -99,7 +99,6 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
 
         // Balance the tree if necessary
         // Left Left case
-        // Left Left case
         if (balance > 1 &&
                 (newNode.getInterval().getStartTime() < current.getLeft().getInterval().getStartTime() ||
                         (newNode.getInterval().getStartTime() == current.getLeft().getInterval().getStartTime() && newNode.getID() < current.getLeft().getID()))) {
@@ -132,11 +131,14 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
 
         return current;
     }
+
     public void delete(IntervalNode node) {
-        if (node == null) {
+        var nodeToDelete = findNode(node);
+        if (nodeToDelete == null) {
             return;
         }
-        this.root = deleteRecursive(this.root,(AVLIntervalNode) node);
+
+        this.root = deleteRecursive(this.root, nodeToDelete);
 //        if (!isInBalance()) {
 //            System.out.println("Tree is not in balance after deletion");
 //        }
@@ -197,6 +199,7 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
             current.setRight(rightRotate(current.getRight()));
             return leftRotate(current);
         }
+
         return current;
     }
 
@@ -206,6 +209,7 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
         }
         return node;
     }
+
     public AVLIntervalNode getRandomNode() {
         List<AVLIntervalNode> nodes = new ArrayList<>();
         inorderTraversal(root, nodes);
@@ -234,6 +238,7 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
     private int getBalance(AVLIntervalNode node) {
         return node == null ? 0 : height(node.getLeft()) - height(node.getRight());
     }
+
     private AVLIntervalNode rightRotate(AVLIntervalNode y) {
         AVLIntervalNode x = y.getLeft();
         AVLIntervalNode z = x.getRight();
@@ -354,6 +359,29 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
 
         return newNode;
     }
+    public AVLIntervalNode findNode(IntervalNode node) {
+        return findNodeInternal(root, node.getInterval(), node.getID());
+    }
 
-
+    private AVLIntervalNode findNodeInternal(AVLIntervalNode current, Interval interval, int id) {
+        if (current == null) {
+            return null;
+        }
+        if (current.getInterval().getStartTime() == interval.getStartTime() &&
+                current.getInterval().getEndTime() == interval.getEndTime() &&
+                current.getID() == id) {
+            return current;
+        }
+        if (interval.getStartTime() < current.getInterval().getStartTime()) {
+            return findNodeInternal(current.getLeft(), interval, id);
+        } else if (interval.getStartTime() > current.getInterval().getStartTime()) {
+            return findNodeInternal(current.getRight(), interval, id);
+        } // If the start times are equal, check the IDs
+        //Here we assume that insertion is also based on ID
+        else if (id < current.getID()) {
+            return findNodeInternal(current.getLeft(), interval, id);
+        } else {
+            return findNodeInternal(current.getRight(), interval, id);
+        }
+    }
 }

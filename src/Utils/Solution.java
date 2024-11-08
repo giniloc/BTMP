@@ -3,7 +3,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Solution<T extends IIntervalTree<? extends IIntervalNode>> implements Serializable {
+public class Solution<T extends IIntervalTree<? extends IIntervalNode>> {
     private List<T> intervalTrees;  // List of servers
 
     public Solution() {

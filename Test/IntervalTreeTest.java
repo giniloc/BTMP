@@ -1,5 +1,6 @@
 import Utils.*;
 import org.junit.Test;
+import org.w3c.dom.Node;
 
 public class IntervalTreeTest {
     private IntervalTree buildTree(){
@@ -35,5 +36,18 @@ public class IntervalTreeTest {
         var IntervalTree = buildTree();
         var root = IntervalTree.getRoot();
         assert root != null;
+    }
+    @Test
+    public void testInsertRecursive() {
+        IntervalTree IntervalTree = new IntervalTree();
+        IntervalNode node1 = new IntervalNode(new Interval(3, 40), 10, 1);
+        IntervalNode node2 = new IntervalNode(new Interval(41, 100), 15, 2);
+        IntervalNode node3 = new IntervalNode(new Interval(41, 62), 20, 3);
+        IntervalNode node4 = new IntervalNode(new Interval(8, 67), 25, 4);
+
+        IntervalTree.insert(node1);
+        IntervalTree.insert(node2);
+        IntervalTree.insert(node3);
+        IntervalTree.insert(node4);
     }
 }

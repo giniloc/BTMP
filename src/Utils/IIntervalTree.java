@@ -3,7 +3,7 @@ package Utils;
 import java.io.Serializable;
 import java.util.List;
 
-public interface IIntervalTree<T extends IIntervalNode> extends Serializable {
+public interface IIntervalTree<T extends IntervalNode> {
     T getRoot();
     void insert(IntervalNode node);
     List<T> findAllOverlapping(Interval newInterval);

@@ -141,6 +141,7 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
         current.setMinStartTime(Math.min(current.getInterval().getStartTime(),
                 Math.min(getMinStartTime(current.getLeft()), getMinStartTime(current.getRight()))));
 
+
         return current;
     }
 
@@ -186,6 +187,9 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
     private void collectNodes(IntervalNode node, List<IntervalNode> nodes) {
         if (node == null) {
             return;
+        }
+        if (nodes.contains(node)) {
+            System.out.println("Node " + node.getID() + " is already in the list.");
         }
         nodes.add(node);
         collectNodes(node.getLeft(), nodes);

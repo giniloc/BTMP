@@ -214,10 +214,6 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
 
     private void inorderTraversal(RBIntervalNode node, List<RBIntervalNode> nodes) {
         if (node != null) {
-            if (nodes.contains(node)) {
-                System.out.println("Loop detected at node: " + node);
-                return; // Beëindig recursie bij detectie van een lus
-            }
             inorderTraversal(node.getLeft(), nodes);
             nodes.add(node);
             inorderTraversal(node.getRight(), nodes);
@@ -272,6 +268,13 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         return replClone;
     }
 
+    private void updateMaxTime(RBIntervalNode node){
+        if (node == null) return;
+
+        node.updateMaxEndTime();
+        updateMaxTime(node.getParent());
+    }
+
     /**
      * delete a node from the tree and rebalance if needed
      *
@@ -316,14 +319,16 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
 
         if (deletedColor == RED && (replacement == null || replacement.getColor() == RED)){
             replace(replacement, x);
+            updateMaxTime(x);
             replace(nodeToDelete, replacement);
+            updateMaxTime(replacement);
             // Done
             return;
         } else if (deletedColor == RED && (replacement != null && replacement.getColor() == BLACK)) {
             replace(replacement, x);
+            updateMaxTime(x);
             replace(nodeToDelete, replacement);
-//            if (x != null && x == replacement) {
-//                x = clone(x);}
+            updateMaxTime(replacement);
             replacement.setColor(RED);
             //GOTO CASE
         } else if (deletedColor == BLACK && (replacement != null && replacement.getColor() == RED)) {
@@ -331,22 +336,25 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
             //splice out replacement node
             if(replacement.isLeftChild()) replacement.getParent().setLeft(null);
             else replacement.getParent().setRight(null);
+            updateMaxTime(replacement);
 
             if (nodeToDelete.isRootNode()) replaceRootNode(nodeToDelete, replacement);
             else replace(nodeToDelete, replacement);
+            updateMaxTime(replacement);
             // Done
             return;
         } else if (deletedColor == BLACK && (replacement == null || replacement.getColor() == BLACK) && x != null && x.isRootNode()) {
-            //replace(nodeToDelete, replacement);
             if (nodeToDelete.isRootNode()) replaceRootNode(nodeToDelete, replacement);
             else replace(nodeToDelete, replacement);
+            updateMaxTime(replacement);
             // Done
             return;
         } else if (deletedColor == BLACK && (replacement == null || replacement.getColor() == BLACK) && (x == null || !x.isRootNode())) {
             replace(replacement, x);
-            //replace(nodeToDelete, replacement);
+            updateMaxTime(x);
             if (nodeToDelete.isRootNode()) replaceRootNode(nodeToDelete, replacement);
             else replace(nodeToDelete, replacement);
+            updateMaxTime(replacement);
             //GOTO CASE
         }
 
@@ -389,7 +397,6 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
             nodeToDelete.setLeft(null);
             nodeToDelete.setParent(null);
         }
-
     }
 
     private void deleteFixup(RBIntervalNode x){
@@ -528,7 +535,7 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         } else {
             u.getParent().setRight(v);
         }
-        v.updateMaxEndTime();
+        //v.updateMaxEndTime();
 
     }
 
