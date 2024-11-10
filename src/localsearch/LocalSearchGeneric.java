@@ -11,47 +11,68 @@ public class LocalSearchGeneric<
         T extends IIntervalTree<N>,
         N extends IntervalNode
         > {
+    private static final int SERVER_CAPACITY = 100;  // Constant capacity of each server
     private Solution<T> bestSolution;
     private Solution<T> currentSolution, oldSolution;
     private int bestBusyTime;
     private IHeuristic heuristic;
     private List<Move<N>> moves;
     private IIntervalTreeFactory<T> intervalTreeFactory;
+
+    // TODO We need to inject a RollBack strategy instead of using a boolean.
+    private boolean deepCopyRollback = true;
+
     public LocalSearchGeneric(Solution<T> initialSolution, IHeuristic heuristic) {
         this.bestSolution = new Solution<>(initialSolution);
         this.currentSolution = new Solution<>(initialSolution);
-        this.oldSolution = new Solution<>(initialSolution);
+        if (deepCopyRollback) this.oldSolution = new Solution<>(initialSolution);
         this.bestBusyTime = initialSolution.getTotalBusyTime();
-        this.moves = new ArrayList<>();
+        if (!deepCopyRollback) this.moves = new ArrayList<>();
         this.heuristic = heuristic;
         this.intervalTreeFactory = heuristic.getFactory();
     }
 
-    public void run(int iterations) {
+    /**
+     *
+     * @param iterations how many iterations do we perform
+     * @param nrOfTrees how many trees do i use to remove a node from
+     * @return
+     */
+    public LocalSearchResult run(int iterations, int nrOfTrees) {
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < iterations; i++) {
             System.out.println("Iteration " + i);
-            generateNeighbor(currentSolution);
+            generateNeighbor(currentSolution, nrOfTrees);
             int newBusyTime = calculateTotalBusyTime(currentSolution);
 
             if (newBusyTime < bestBusyTime) {
                 System.out.println("New best solution found!");
                 bestBusyTime = newBusyTime;
                 bestSolution = new Solution<>(currentSolution);
+                if (!deepCopyRollback) moves.clear();
             } else {
-              this.currentSolution = new Solution<>(oldSolution);
-             //   rollback();
+                if (deepCopyRollback) this.currentSolution = new Solution<>(oldSolution);
+                else rollback();
             }
         }
+
         long endTime = System.currentTimeMillis();
         long elapsedTime = endTime - startTime;
         System.out.println("Elapsed time: "+ elapsedTime);
+
         SolutionWriter.writeSolutionToFile(bestSolution, heuristic.getInputReader().getTestInstance(), heuristic.getHeuristicName(), bestBusyTime);
+
+        return new LocalSearchResult(elapsedTime, bestBusyTime);
     }
 
 
-    private void generateNeighbor(Solution<T> solution) {
-        var selectedTrees = selectTrees(solution, 10);
+    /**
+     * generate neighbor
+     * @param solution solution containing a tree per server
+     * @param nrOfTrees how many trees do we use to remove a node from
+     */
+    private void generateNeighbor(Solution<T> solution, int nrOfTrees) {
+        var selectedTrees = selectTrees(solution, nrOfTrees);
         List<Request> requestList = new ArrayList<>();
 
         for (T tree : selectedTrees) {
@@ -59,17 +80,16 @@ public class LocalSearchGeneric<
             if (randomNode != null) {
                 Request request = createRequestFromNode(randomNode);
                 requestList.add(request);
-                var deleteMove = new Move<N>(true, tree, randomNode);
-                moves.add(deleteMove);
-                tree.delete(randomNode);
-                if (tree.getRoot() == null) {
-                    solution.getIntervalTrees().remove(tree);
+                if (!deepCopyRollback){
+                    var deleteMove = new Move<N>(true, tree, randomNode);
+                    moves.add(deleteMove);
                 }
+                tree.delete(randomNode);
             }
         }
+
         reInsertNodes(requestList);
     }
-
 
     private int calculateTotalBusyTime(Solution<T> solution) {
         return solution.getIntervalTrees().stream()
@@ -100,7 +120,8 @@ public class LocalSearchGeneric<
 
         return selectedTrees;
     }
-    public void reInsertNodes(List<Request> requests){
+
+    private void reInsertNodes(List<Request> requests){
         for (Request request : requests) {
             Interval interval = new Interval(request.getStartTime(), request.getEndTime());
             IntervalNode node = new IntervalNode(interval, request.getWeight(), request.getVmId());
@@ -115,7 +136,7 @@ public class LocalSearchGeneric<
                 }
 
                 // Check if server has enough capacity for request
-                if (sum + request.getWeight() <= 100) {
+                if (sum + request.getWeight() <= SERVER_CAPACITY) {
                     // search for server with least extra busy time
                     if (bestTree == null || intervalTree.calculateExtraBusyTime(interval) < bestTree.calculateExtraBusyTime(interval)) {
                         bestTree = intervalTree;
@@ -129,8 +150,12 @@ public class LocalSearchGeneric<
                 bestTree = intervalTreeFactory.create(); //new T();
                 currentSolution.add(bestTree);
             }
-            Move insertMove = new Move(false, bestTree, node);
-            moves.add(insertMove);
+
+            if (!deepCopyRollback){
+                Move insertMove = new Move(false, bestTree, node);
+                moves.add(insertMove);
+            }
+
             bestTree.insert(node);
         }
     }
@@ -144,18 +169,19 @@ public class LocalSearchGeneric<
     }
 
     private void rollback() {
-        for (var move : moves) {
+        for (int i = moves.size() - 1; i >= 0; i--) {
+            var move = moves.get(i);
             if (move.isDelete()) {
                 move.getTree().insert(move.getNode());
             } else {
-                var n = move.getNode();
-                move.getTree().delete(n);
-                if (move.getTree().getRoot() == null) {
-                    currentSolution.getIntervalTrees().remove(move.getTree());
-                }
+                var node = move.getNode();
+                move.getTree().delete(node);
+//                if (move.getTree().getRoot() == null) {
+//                    currentSolution.getIntervalTrees().remove(move.getTree());
+//                }
+
             }
         }
         moves.clear();
     }
-
 }

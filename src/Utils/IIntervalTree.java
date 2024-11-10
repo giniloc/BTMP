@@ -13,4 +13,5 @@ public interface IIntervalTree<T extends IntervalNode> {
     T getRandomNode();
     IIntervalTree<T> deepCopy();
 
+    T findNode(IntervalNode node);
 }

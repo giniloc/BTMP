@@ -25,18 +25,12 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
     }
 
     static int height(AVLIntervalNode node) {
-        if (node == null) {
-            return 0;
-        }
-        return node.getHeight();
+        return node == null ? -1 : node.getHeight();
     }
 
     public void insert(IntervalNode node) {
-        AVLIntervalNode newNode = new AVLIntervalNode(node.getInterval(), node.getWeight(), node.getID());
+        AVLIntervalNode newNode = new AVLIntervalNode(node);
         this.root = insertRecursive(this.root, newNode);
-//        if (!isInBalance()) {
-//            System.out.println("Tree is not in balance after deletion");
-//        }
     }
 
     public List<AVLIntervalNode> findAllOverlapping(Interval newInterval) {
@@ -72,64 +66,29 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
 
         if (newNode.getInterval().getStartTime() < current.getInterval().getStartTime()) {
             current.setLeft(insertRecursive(current.getLeft(), newNode));
-        }
-        else if (newNode.getInterval().getStartTime() == current.getInterval().getStartTime()) {
+            if (current.getLeft() != null) {
+                current.getLeft().setParent(current);
+            }
+        } else if (newNode.getInterval().getStartTime() == current.getInterval().getStartTime()) {
             if (newNode.getID() < current.getID()) {
                 current.setLeft(insertRecursive(current.getLeft(), newNode));
-            }
-            else {
+                if (current.getLeft() != null) {
+                    current.getLeft().setParent(current);
+                }
+            } else {
                 current.setRight(insertRecursive(current.getRight(), newNode));
+                if (current.getRight() != null) {
+                    current.getRight().setParent(current);
+                }
+            }
+        } else {
+            current.setRight(insertRecursive(current.getRight(), newNode));
+            if (current.getRight() != null) {
+                current.getRight().setParent(current);
             }
         }
-        // Ga naar rechts als de StartTime groter is
-        else {
-            current.setRight(insertRecursive(current.getRight(), newNode));
-        }
-
-
-        // Update heights of the ancestors
-        current.setHeight(1+ Math.max(height(current.getLeft()), height(current.getRight())));
-
-        //update maxEndTime
-        int leftMaxEndTime = (current.getLeft() != null) ? current.getLeft().getMaxEndTime() : 0;
-        int rightMaxEndTime = (current.getRight() != null) ? current.getRight().getMaxEndTime() : 0;
-        current.setMaxEndTime(Math.max(current.getInterval().getEndTime(), Math.max(leftMaxEndTime, rightMaxEndTime)));
-        // Calculate balance factor
-        int balance = getBalance(current);
-
-        // Balance the tree if necessary
-        // Left Left case
-        if (balance > 1 &&
-                (newNode.getInterval().getStartTime() < current.getLeft().getInterval().getStartTime() ||
-                        (newNode.getInterval().getStartTime() == current.getLeft().getInterval().getStartTime() && newNode.getID() < current.getLeft().getID()))) {
-            return rightRotate(current);
-        }
-
-// Right Right case
-        if (balance < -1 &&
-                (newNode.getInterval().getStartTime() > current.getRight().getInterval().getStartTime() ||
-                        (newNode.getInterval().getStartTime() == current.getRight().getInterval().getStartTime() && newNode.getID() > current.getRight().getID()))) {
-            return leftRotate(current);
-        }
-
-// Left Right case
-        if (balance > 1 &&
-                (newNode.getInterval().getStartTime() > current.getLeft().getInterval().getStartTime() ||
-                        (newNode.getInterval().getStartTime() == current.getLeft().getInterval().getStartTime() && newNode.getID() > current.getLeft().getID()))) {
-            current.setLeft(leftRotate(current.getLeft()));
-            return rightRotate(current);
-        }
-
-// Right Left case
-        if (balance < -1 &&
-                (newNode.getInterval().getStartTime() < current.getRight().getInterval().getStartTime() ||
-                        (newNode.getInterval().getStartTime() == current.getRight().getInterval().getStartTime() && newNode.getID() < current.getRight().getID()))) {
-            current.setRight(rightRotate(current.getRight()));
-            return leftRotate(current);
-        }
-
-
-        return current;
+        updateMaxEndTime(current);
+        return rebalance(current);
     }
 
     public void delete(IntervalNode node) {
@@ -139,69 +98,63 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
         }
 
         this.root = deleteRecursive(this.root, nodeToDelete);
-//        if (!isInBalance()) {
-//            System.out.println("Tree is not in balance after deletion");
-//        }
     }
 
     private AVLIntervalNode deleteRecursive(AVLIntervalNode current, AVLIntervalNode nodeToDelete) {
         if (current == null) {
             return null;
         }
-        // BST deletion process
+
         if (nodeToDelete.getInterval().getStartTime() < current.getInterval().getStartTime()) {
             current.setLeft(deleteRecursive(current.getLeft(), nodeToDelete));
+            if (current.getLeft() != null) {
+                current.getLeft().setParent(current);
+            }
         } else if (nodeToDelete.getInterval().getStartTime() > current.getInterval().getStartTime()) {
             current.setRight(deleteRecursive(current.getRight(), nodeToDelete));
+            if (current.getRight() != null) {
+                current.getRight().setParent(current);
+            }
         } else if (nodeToDelete.getID() != current.getID()) {
-            // If startTime is the same but ID is different, keep searching
             if (nodeToDelete.getID() < current.getID()) {
                 current.setLeft(deleteRecursive(current.getLeft(), nodeToDelete));
+                if (current.getLeft() != null) {
+                    current.getLeft().setParent(current);
+                }
             } else {
                 current.setRight(deleteRecursive(current.getRight(), nodeToDelete));
+                if (current.getRight() != null) {
+                    current.getRight().setParent(current);
+                }
             }
         } else {
-            // Node to delete found
-            if((current.getLeft() == null) || (current.getRight() == null)){
+            if (current.getLeft() == null || current.getRight() == null) {
                 AVLIntervalNode temp = current.getLeft() != null ? current.getLeft() : current.getRight();
-                if (temp == null) { // no children
-                    temp = current;
-                    current = null;
-                } else { // one child
-                    current = temp;
+                if (temp != null) {
+                    temp.setParent(current.getParent());
                 }
-            } else { // two children
+                current = temp;
+            } else {
                 AVLIntervalNode temp = findMinNode(current.getRight());
                 current.setInterval(temp.getInterval());
                 current.setID(temp.getID());
                 current.setWeight(temp.getWeight());
                 current.setRight(deleteRecursive(current.getRight(), temp));
+                if (current.getRight() != null) {
+                    current.getRight().setParent(current);
+                }
             }
         }
+
         if (current == null) {
-            return current;
+            return null;
         }
-        current.setHeight(1 + Math.max(height(current.getLeft()), height(current.getRight())));
-        updateMaxEndTime(current);
-        int balance = getBalance(current);
+        AVLIntervalNode balancedNode = rebalance(current);
+        updateMaxEndTime(balancedNode);
 
-        if (balance > 1 && getBalance(current.getLeft()) >= 0) {
-            return rightRotate(current);
-        }
-        if (balance < -1 && getBalance(current.getRight()) <= 0) {
-            return leftRotate(current);
-        }
-        if (balance > 1 && getBalance(current.getLeft()) < 0) {
-            current.setLeft(leftRotate(current.getLeft()));
-            return rightRotate(current);
-        }
-        if (balance < -1 && getBalance(current.getRight()) > 0) {
-            current.setRight(rightRotate(current.getRight()));
-            return leftRotate(current);
-        }
-
-        return current;
+        return balancedNode;
     }
+
 
     private AVLIntervalNode findMinNode(AVLIntervalNode node) {
         while (node.getLeft() != null) {
@@ -236,43 +189,63 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
     }
 
     private int getBalance(AVLIntervalNode node) {
-        return node == null ? 0 : height(node.getLeft()) - height(node.getRight());
+        return (node == null) ? 0 : height(node.getRight()) - height(node.getLeft());
     }
 
     private AVLIntervalNode rightRotate(AVLIntervalNode y) {
         AVLIntervalNode x = y.getLeft();
         AVLIntervalNode z = x.getRight();
 
-        // Perform rotation
         x.setRight(y);
         y.setLeft(z);
 
-        // Update heights
-        y.setHeight(1+ Math.max(height(y.getLeft()), height(y.getRight())));
-        x.setHeight(1+ Math.max(height(x.getLeft()), height(x.getRight())));
+        if (z != null) {
+            z.setParent(y);
+        }
+
+        x.setParent(y.getParent());
+        y.setParent(x);
+
+        updateHeight(y);
+        updateHeight(x);
 
         updateMaxEndTime(y);
         updateMaxEndTime(x);
+        // Update maxEndTime for all ancestors
+        AVLIntervalNode current = x;
+        while (current != null) {
+            updateMaxEndTime(current);
+            current = current.getParent();
+        }
 
         return x;
     }
 
     private AVLIntervalNode leftRotate(AVLIntervalNode x) {
-
         AVLIntervalNode y = x.getRight();
+        AVLIntervalNode z = y.getLeft();
 
-        AVLIntervalNode z = y.getLeft(); //In this scenario z can be null
-
-        // Perform rotation
         y.setLeft(x);
         x.setRight(z);
 
-        // Update heights
-        x.setHeight(1 + Math.max(height(x.getLeft()), height(x.getRight())));
-        y.setHeight(1 + Math.max(height(y.getLeft()), height(y.getRight())));
+        if (z != null) {
+            z.setParent(x);
+        }
+
+        y.setParent(x.getParent());
+        x.setParent(y);
+
+        updateHeight(x);
+        updateHeight(y);
 
         updateMaxEndTime(x);
         updateMaxEndTime(y);
+        // Update maxEndTime for all ancestors
+        AVLIntervalNode current = y;
+        while (current != null) {
+            updateMaxEndTime(current);
+            current = current.getParent();
+        }
 
         return y;
     }
@@ -383,5 +356,28 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
         } else {
             return findNodeInternal(current.getRight(), interval, id);
         }
+    }
+    public void updateHeight(AVLIntervalNode node) {
+        node.setHeight(1 + Math.max(height(node.getLeft()), height(node.getRight())));
+    }
+    private AVLIntervalNode rebalance(AVLIntervalNode node) {
+        updateHeight(node);
+        int balance = getBalance(node);
+        if (balance > 1) {
+            if (height(node.getRight().getRight()) > height(node.getRight().getLeft())) {
+                node = leftRotate(node);
+            } else {
+                node.setRight(rightRotate(node.getRight()));
+                node = leftRotate(node);
+            }
+        } else if (balance < -1) {
+            if (height(node.getLeft().getLeft()) > height(node.getLeft().getRight()))
+                node = rightRotate(node);
+            else {
+                node.setLeft(leftRotate(node.getLeft()));
+                node = rightRotate(node);
+            }
+        }
+        return node;
     }
 }

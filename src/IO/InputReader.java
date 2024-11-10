@@ -16,8 +16,8 @@ public class InputReader {
     public InputReader(String testInstance) {
         this.vmRequests = new ArrayList<>();
         this.testInstance = testInstance;
-        String relativePath = "TestInstances/" + testInstance;
-        readInputFile(relativePath);
+        //String relativePath = "TestInstances/" + testInstance;
+        readInputFile(testInstance);
     }
 
     private void readInputFile(String fileName) {

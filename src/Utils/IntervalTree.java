@@ -23,7 +23,8 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
     }
 
     public void insert(IntervalNode node) {
-        this.root = insertRecursive(this.root, node, null);
+        IntervalNode newNode = new IntervalNode(node.getInterval(), node.getWeight(), node.getID());
+        this.root = insertRecursive(this.root, newNode, null);
     }
     public void delete(IntervalNode node) {
         this.root = deleteRecursive(this.root, node);
@@ -48,6 +49,7 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
     }
 
     public int calculateExtraBusyTime(Interval newInterval) {
+        if (root == null) return newInterval.getEndTime() - newInterval.getStartTime();
         if (newInterval.getEndTime() > root.getMaxEndTime()) {
             // The extra busy time is the difference between the new interval's end time and the current maxEndTime
             return newInterval.getEndTime() - root.getMaxEndTime();
@@ -58,6 +60,7 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
     }
 
     public int calculateTotalBusyTime() {
+        if (root == null) return 0;
         return (root.getMaxEndTime() - root.getMinStartTime());
     }
 
@@ -220,5 +223,30 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
         copiedNode.setMinStartTime(current.getMinStartTime());
 
         return copiedNode;
+    }
+    public IntervalNode findNode(IntervalNode node) {
+        return findNodeInternal(root, node.getInterval(), node.getID());
+    }
+
+    private IntervalNode findNodeInternal(IntervalNode current, Interval interval, int id) {
+        if (current == null) {
+            return null;
+        }
+        if (current.getInterval().getStartTime() == interval.getStartTime() &&
+                current.getInterval().getEndTime() == interval.getEndTime() &&
+                current.getID() == id) {
+            return current;
+        }
+        if (interval.getStartTime() < current.getInterval().getStartTime()) {
+            return findNodeInternal(current.getLeft(), interval, id);
+        } else if (interval.getStartTime() > current.getInterval().getStartTime()) {
+            return findNodeInternal(current.getRight(), interval, id);
+        } // If the start times are equal, check the IDs
+        //Here we assume that insertion is also based on ID
+        else if (id < current.getID()) {
+            return findNodeInternal(current.getLeft(), interval, id);
+        } else {
+            return findNodeInternal(current.getRight(), interval, id);
+        }
     }
 }

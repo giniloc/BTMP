@@ -1,9 +1,11 @@
 package IO;
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class Validator {
-
+    static Path baseDirectory = Paths.get("./TestInstances");
     static class Request {
         int id;
         int startTime;
@@ -20,9 +22,9 @@ public class Validator {
 
     private static final int SERVER_CAPACITY = 100;  // Constant capacity of each server
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) /*throws IOException*/ {
         String inputFilePath = "TestInstances/n50 t50 LonLr/cap100_n50_t50_LonLr_1.txt";
-        String solutionFilePath = "SolutionsBCHTRB\\n50_t50_LonLr_cap100_n50_t50_LonLr_1.txt_BCHTRBafterLS.txt";
+        String solutionFilePath = "SolutionsBCHTRB\\n50_t50_LonLr_cap100_n50_t50_LonLr_1.txt_afterLS.txt";
 
         Map<Integer, Request> requests = parseInputFile(inputFilePath);
         Map<Integer, List<Integer>> solutionAssignments = parseSolutionFile(solutionFilePath);
@@ -30,8 +32,23 @@ public class Validator {
         validateSolution(requests, solutionAssignments);
     }
 
-    private static Map<Integer, Request> parseInputFile(String inputFilePath) throws IOException {
+    public static boolean validate(String inputFilePath, String treeType) {
+        String directoryPath = "Solutions" + treeType;
+        String sanitizedTestInstanceName = inputFilePath
+                .substring(0, inputFilePath.length() - 4) //remove .txt
+                .substring(baseDirectory.toString().length()+1).replaceAll("[^a-zA-Z0-9.-]", "_");
+        String solutionFilePath = directoryPath + File.separator + sanitizedTestInstanceName + "_" + treeType + "afterLS" + ".txt";
+
+        Map<Integer, Request> requests = parseInputFile(inputFilePath);
+        Map<Integer, List<Integer>> solutionAssignments = parseSolutionFile(solutionFilePath);
+
+        return validateSolution(requests, solutionAssignments);
+    }
+
+    // catch the IO exception like we also do in InputReader
+    private static Map<Integer, Request> parseInputFile(String inputFilePath) /*throws IOException*/ {
         Map<Integer, Request> requests = new HashMap<>();
+
         try (BufferedReader br = new BufferedReader(new FileReader(inputFilePath))) {
             String line;
 
@@ -48,11 +65,14 @@ public class Validator {
                     requests.put(id, new Request(id, startTime, endTime, busyTime));
                 }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
         return requests;
     }
 
-    private static Map<Integer, List<Integer>> parseSolutionFile(String solutionFilePath) throws IOException {
+    private static Map<Integer, List<Integer>> parseSolutionFile(String solutionFilePath) /*throws IOException*/ {
         Map<Integer, List<Integer>> serverAssignments = new HashMap<>();
         try (BufferedReader br = new BufferedReader(new FileReader(solutionFilePath))) {
             String line;
@@ -66,18 +86,34 @@ public class Validator {
                     serverAssignments.get(currentServer).add(requestId);
                 }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+
         return serverAssignments;
     }
 
-    private static void validateSolution(Map<Integer, Request> requests, Map<Integer, List<Integer>> solutionAssignments) {
+    private static boolean validateSolution(Map<Integer, Request> requests, Map<Integer, List<Integer>> solutionAssignments) {
         Set<Integer> assignedRequestIds = new HashSet<>();
+        Set<Integer> duplicateRequestIds = new HashSet<>();
+        for (List<Integer> serverRequests : solutionAssignments.values()) {
+            for (int requestId : serverRequests) {
+                if (!assignedRequestIds.add(requestId)) {
+                    duplicateRequestIds.add(requestId);
+                }
+            }
+        }
+
         solutionAssignments.values().forEach(assignedRequestIds::addAll);
 
         for (int requestId : requests.keySet()) {
             if (!assignedRequestIds.contains(requestId)) {
                 System.out.println("Error: Request ID " + requestId + " is not assigned in the solution.");
             }
+        }
+        if (!duplicateRequestIds.isEmpty()) {
+            System.out.println("Error: The following Request IDs are assigned multiple times: " + duplicateRequestIds);
         }
 
         boolean capacityViolated = false;
@@ -126,6 +162,8 @@ public class Validator {
 
         // Print de totalBusyTime aan het einde van de validatie
         System.out.println("Total busy time: " + totalBusyTime);
+
+        return !capacityViolated;
     }
 }
 
