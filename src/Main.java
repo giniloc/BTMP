@@ -32,7 +32,7 @@ public class Main {
         }
 
         var treeType = BalancedTreeType.BCHTAVL; //change this to BCHTRB or BCHTAVL to test different tree types
-        var nrOfIterations = 100000; // i in results filename
+        var nrOfIterations = 10000; // i in results filename
         var nrOfTrees = 2; // j in results filename = nr of trees used to remove nodes from (generate neighbor)
 
         //inputFiles.forEach(System.out::println);

@@ -55,5 +55,19 @@ public class AVLIntervalTreeTest {
         originalTree.delete(node3);
         assert originalTree.isInBalance();
         assert originalTree.findNode(node3) == null;
+        for (AVLIntervalNode node : originalTree.findAllOverlapping(new Interval(0, 999999999))) {
+            assert originalTree.findNode(node) != null;
+        }
+    }
+    @Test
+    public void deleteRootTest(){
+        AVLIntervalTree originalTree = buildTree();
+
+        originalTree.delete(node1);
+        assert originalTree.isInBalance();
+        assert originalTree.findNode(node1) == null;
+        for (AVLIntervalNode node : originalTree.findAllOverlapping(new Interval(0, 999999999))) {
+            assert originalTree.findNode(node) != null;
+        }
     }
 }
