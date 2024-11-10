@@ -43,11 +43,17 @@ public class AVLIntervalTreeTest {
             AVLIntervalTree originalTree = buildTree();
 
             AVLIntervalTree copiedTree = originalTree.deepCopy();
+            assert copiedTree.isInBalance();
+            for (AVLIntervalNode node : originalTree.findAllOverlapping(new Interval(0, 999999999))) {
+                assert copiedTree.findNode(node) != null;
+            }
     }
     @Test
     public void deleteTest(){
         AVLIntervalTree originalTree = buildTree();
 
         originalTree.delete(node3);
+        assert originalTree.isInBalance();
+        assert originalTree.findNode(node3) == null;
     }
 }

@@ -28,7 +28,7 @@ public class Main {
             inputFiles = getInputFiles();
         else {
             inputFiles = new ArrayList<>();
-            inputFiles.add(baseDirectory.resolve("d2/10000_inf_10.txt"));
+            inputFiles.add(baseDirectory.resolve("n50 t50 LonLr/cap100_n50_t50_LonLr_1.txt"));
         }
 
         var treeType = BalancedTreeType.BCHTAVL; //change this to BCHTRB or BCHTAVL to test different tree types
