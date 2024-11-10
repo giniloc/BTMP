@@ -151,8 +151,16 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
         }
         AVLIntervalNode balancedNode = rebalance(current);
         updateMaxEndTime(balancedNode);
+        decoupleNode(nodeToDelete);
 
         return balancedNode;
+    }
+
+    private void decoupleNode(AVLIntervalNode nodeToDelete) {
+        if (nodeToDelete.hasLeft()) nodeToDelete.setLeft(null);
+        if (nodeToDelete.hasRight()) nodeToDelete.setRight(null);
+        if (nodeToDelete.hasParent()) nodeToDelete.setParent(null);
+
     }
 
 

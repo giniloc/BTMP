@@ -54,4 +54,8 @@ public class AVLIntervalNode extends IntervalNode {
     public void setRight(IntervalNode right) {
         super.setRight(right);
     }
+
+    public boolean hasParent() {
+        return getParent() != null;
+    }
 }
