@@ -98,6 +98,7 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
         }
 
         this.root = deleteRecursive(this.root, nodeToDelete);
+
     }
 
     private AVLIntervalNode deleteRecursive(AVLIntervalNode current, AVLIntervalNode nodeToDelete) {
@@ -151,7 +152,6 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
         }
         AVLIntervalNode balancedNode = rebalance(current);
         updateMaxEndTime(balancedNode);
-        decoupleNode(nodeToDelete);
 
         return balancedNode;
     }
