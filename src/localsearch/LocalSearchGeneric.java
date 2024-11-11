@@ -20,9 +20,9 @@ public class LocalSearchGeneric<
     private IIntervalTreeFactory<T> intervalTreeFactory;
 
     // TODO We need to inject a RollBack strategy instead of using a boolean.
-    private boolean deepCopyRollback = true;
+    private boolean deepCopyRollback;
 
-    public LocalSearchGeneric(Solution<T> initialSolution, IHeuristic heuristic) {
+    public LocalSearchGeneric(Solution<T> initialSolution, IHeuristic heuristic, boolean deepCopyRollback) {
         this.bestSolution = new Solution<>(initialSolution);
         this.currentSolution = new Solution<>(initialSolution);
         if (deepCopyRollback) this.oldSolution = new Solution<>(initialSolution);
@@ -30,6 +30,7 @@ public class LocalSearchGeneric<
         if (!deepCopyRollback) this.moves = new ArrayList<>();
         this.heuristic = heuristic;
         this.intervalTreeFactory = heuristic.getFactory();
+        this.deepCopyRollback = deepCopyRollback;
     }
 
     /**

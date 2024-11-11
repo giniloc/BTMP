@@ -316,14 +316,14 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
             spliceOut(replacement);
             updateMaxTime(replacement); // replacement node is spliced out but still has his original parent so we can recalculate the maxTime of this parent
             replace(nodeToDelete, replacement);
-            updateMaxTime(replacement);
-
+            if (replacement != null) updateMaxTime(replacement);
+            else updateMaxTime(nodeToDelete.getParent());
             decoupleNode(nodeToDelete);
             // Done
             return;
         } else if (deletedColor == RED && (replacement != null && replacement.getColor() == BLACK)) {
             replace(replacement, x);
-            updateMaxTime(x);
+            updateMaxTime(replacement);
             replace(nodeToDelete, replacement);
             updateMaxTime(replacement);
             replacement.setColor(RED);
@@ -341,7 +341,8 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
             return;
         } else if (deletedColor == BLACK && (replacement == null || replacement.getColor() == BLACK) && x != null && x.isRootNode()) {
             replace(nodeToDelete, replacement);
-            updateMaxTime(replacement);
+            if (replacement != null) updateMaxTime(replacement);
+            else updateMaxTime(nodeToDelete.getParent());
 
             decoupleNode(nodeToDelete);
             // Done
@@ -350,7 +351,8 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
             replace(replacement, x);
             updateMaxTime(replacement);
             replace(nodeToDelete, replacement);
-            updateMaxTime(replacement);
+            if (replacement != null) updateMaxTime(replacement);
+            else updateMaxTime(nodeToDelete.getParent());
             //GOTO CASE
         }
 
