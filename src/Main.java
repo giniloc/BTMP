@@ -31,7 +31,7 @@ public class Main {
             inputFiles.add(baseDirectory.resolve("n50 t50 LonLr/cap100_n50_t50_LonLr_1.txt"));
         }
 
-        var treeType = BalancedTreeType.BCHTRB; //change this to BCHTRB or BCHTAVL to test different tree types
+        var treeType = BalancedTreeType.BCHT; //change this to BCHTRB or BCHTAVL to test different tree types
         var nrOfIterations = 10000; // i in results filename
         var nrOfTrees = 10; // j in results filename = nr of trees used to remove nodes from (generate neighbor)
         boolean deepCopyRollback = false; // change this to true to test deep copy rollback
@@ -93,7 +93,6 @@ public class Main {
     }
 
     private static List<Path> getInputFiles(){
-
         try (Stream<Path> files = Files.walk(baseDirectory)) {
             List<Path> txtFilePaths = files.filter(Files::isRegularFile)               // Only select regular files (not directories)
                     .filter(path -> path.toString().endsWith(".txt"))

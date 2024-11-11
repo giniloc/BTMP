@@ -91,14 +91,20 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
         return rebalance(current);
     }
 
-    public void delete(IntervalNode node) {
-        var nodeToDelete = findNode(node);
+    public AVLIntervalNode delete(IntervalNode node) {
+        var nodeToDelete = findNode(node); // to retrieve the AVLTreeNode to delete
         if (nodeToDelete == null) {
-            return;
+            return null;
         }
+
+        var deleteClone = clone(nodeToDelete);
 
         this.root = deleteRecursive(this.root, nodeToDelete);
 
+        nodeToDelete = deleteClone;
+        decoupleNode(nodeToDelete);
+
+        return nodeToDelete;
     }
 
     private AVLIntervalNode deleteRecursive(AVLIntervalNode current, AVLIntervalNode nodeToDelete) {
@@ -129,6 +135,7 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
                 }
             }
         } else {
+            //AVLIntervalNode deleteClone = clone(nodeToDelete);
             if (current.getLeft() == null || current.getRight() == null) {
                 AVLIntervalNode temp = current.getLeft() != null ? current.getLeft() : current.getRight();
                 if (temp != null) {
@@ -137,6 +144,10 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
                 current = temp;
             } else {
                 AVLIntervalNode temp = findMinNode(current.getRight());
+//                current.getLeft().setParent(deleteClone);
+//                current.getRight().setParent(deleteClone);
+//                current.setLeft(current.getLeft());
+//                current.setRight(current.getRight());
                 current.setInterval(temp.getInterval());
                 current.setID(temp.getID());
                 current.setWeight(temp.getWeight());
@@ -289,11 +300,11 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
         }
         return node.getInterval().getStartTime();
     }
-    public boolean isInBalance() {
-        return isInBalance(root);
+    public boolean isBalanced() {
+        return isBalanced(root);
     }
 
-    private boolean isInBalance(AVLIntervalNode node) {
+    private boolean isBalanced(AVLIntervalNode node) {
         if (node == null) {
             return true;
         }
@@ -304,7 +315,7 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
             return false;
         }
 
-        return isInBalance(node.getLeft()) && isInBalance(node.getRight());
+        return isBalanced(node.getLeft()) && isBalanced(node.getRight());
     }
    @Override
     public AVLIntervalTree deepCopy() {
@@ -387,5 +398,12 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
             }
         }
         return node;
+    }
+    private AVLIntervalNode clone(AVLIntervalNode node){
+        var replClone = new AVLIntervalNode(node);
+        replClone.setParent(node.getParent());
+        replClone.setLeft(node.getLeft());
+        replClone.setRight(node.getRight());
+        return replClone;
     }
 }

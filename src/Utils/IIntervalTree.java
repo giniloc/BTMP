@@ -9,7 +9,7 @@ public interface IIntervalTree<T extends IntervalNode> {
     List<T> findAllOverlapping(Interval newInterval);
     int calculateExtraBusyTime(Interval newInterval);
     int calculateTotalBusyTime();
-    void delete(IntervalNode node);
+    T delete(IntervalNode node);
     T getRandomNode();
     IIntervalTree<T> deepCopy();
 

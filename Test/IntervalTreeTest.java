@@ -2,6 +2,9 @@ import Utils.*;
 import org.junit.Test;
 import org.w3c.dom.Node;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 public class IntervalTreeTest {
     private IntervalTree buildTree(){
         IntervalTree IntervalTree = new IntervalTree();
@@ -49,5 +52,23 @@ public class IntervalTreeTest {
         IntervalTree.insert(node2);
         IntervalTree.insert(node3);
         IntervalTree.insert(node4);
+    }
+    @Test
+    public void randomNodeDeletion(){
+        // Arrange
+        var tree = buildTree();
+        var randomNode = tree.getRandomNode();
+        var copyNode = new IntervalNode(randomNode.getInterval(), randomNode.getWeight(), randomNode.getID());
+        tree.delete(randomNode);
+        assertEquals(randomNode.getInterval(), copyNode.getInterval());
+    }
+    @Test
+    public void rootNodeDeletion(){
+        // Arrange
+        var tree = buildTree();
+        var randomNode = tree.getRoot();
+        var copyNode = new IntervalNode(randomNode.getInterval(), randomNode.getWeight(), randomNode.getID());
+        tree.delete(randomNode);
+        assertEquals(randomNode.getInterval(), copyNode.getInterval());
     }
 }

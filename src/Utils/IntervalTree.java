@@ -26,8 +26,16 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
         IntervalNode newNode = new IntervalNode(node.getInterval(), node.getWeight(), node.getID());
         this.root = insertRecursive(this.root, newNode, null);
     }
-    public void delete(IntervalNode node) {
+
+    public IntervalNode delete(IntervalNode node) {
+        var deleteClone = new IntervalNode(node.getInterval(), node.getWeight(), node.getID());
+
         this.root = deleteRecursive(this.root, node);
+
+        node = deleteClone;
+        decoupleNode(node);
+
+        return node;
     }
 
     @Override
@@ -248,5 +256,10 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
         } else {
             return findNodeInternal(current.getRight(), interval, id);
         }
+    }
+    private void decoupleNode(IntervalNode node) {
+         node.setLeft(null);
+         node.setRight(null);
+         node.setParent(null);
     }
 }

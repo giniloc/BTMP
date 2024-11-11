@@ -78,14 +78,17 @@ public class LocalSearchGeneric<
 
         for (T tree : selectedTrees) {
             var randomNode = tree.getRandomNode();
+
             if (randomNode != null) {
                 Request request = createRequestFromNode(randomNode);
                 requestList.add(request);
+
+                var deletedNode = tree.delete(randomNode);
+
                 if (!deepCopyRollback){
-                    var deleteMove = new Move<N>(true, tree, randomNode);
+                    var deleteMove = new Move<N>(true, tree, deletedNode);
                     moves.add(deleteMove);
                 }
-                tree.delete(randomNode);
             }
         }
 
@@ -174,13 +177,18 @@ public class LocalSearchGeneric<
             var move = moves.get(i);
             if (move.isDelete()) {
                 move.getTree().insert(move.getNode());
+                if (move.getTree().findNode(move.getNode()) == null) {
+                    System.out.println("Node not inserted");
+                }
             } else {
                 var node = move.getNode();
                 move.getTree().delete(node);
+                if (move.getTree().findNode(move.getNode()) != null) {
+                    System.out.println("Node not deleted");
+                }
 //                if (move.getTree().getRoot() == null) {
 //                    currentSolution.getIntervalTrees().remove(move.getTree());
 //                }
-
             }
         }
         moves.clear();

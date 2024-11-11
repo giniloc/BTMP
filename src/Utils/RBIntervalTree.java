@@ -272,11 +272,11 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
      *
      * @param  node node to be deleted in the tree. Need to search for the node first!
      */
-    public void delete(IntervalNode node) {
+    public RBIntervalNode delete(IntervalNode node) {
         var nodeToDelete = findNode(node);
 
         if (nodeToDelete == null) {
-            return;
+            return null;
         }
 
         RBIntervalNode x, replacement, replClone = null;
@@ -320,7 +320,7 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
             else updateMaxTime(nodeToDelete.getParent());
             decoupleNode(nodeToDelete);
             // Done
-            return;
+            return nodeToDelete;
         } else if (deletedColor == RED && (replacement != null && replacement.getColor() == BLACK)) {
             replace(replacement, x);
             updateMaxTime(replacement);
@@ -338,7 +338,7 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
 
             decoupleNode(nodeToDelete);
             // Done
-            return;
+            return nodeToDelete;
         } else if (deletedColor == BLACK && (replacement == null || replacement.getColor() == BLACK) && x != null && x.isRootNode()) {
             replace(nodeToDelete, replacement);
             if (replacement != null) updateMaxTime(replacement);
@@ -346,7 +346,7 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
 
             decoupleNode(nodeToDelete);
             // Done
-            return;
+            return nodeToDelete;
         } else if (deletedColor == BLACK && (replacement == null || replacement.getColor() == BLACK) && (x == null || !x.isRootNode())) {
             replace(replacement, x);
             updateMaxTime(replacement);
@@ -358,7 +358,7 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
 
         if (this.getRoot() == null) {
             decoupleNode(nodeToDelete);
-            return;
+            return nodeToDelete;
         }
 
         // Fixup needs a Black nilNode if x == null
@@ -397,6 +397,8 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
 
         // make sure the nodeToDelete is no longer attached to any node of the tree
         decoupleNode(nodeToDelete);
+
+        return nodeToDelete;
     }
 
     private void deleteFixup(RBIntervalNode x){

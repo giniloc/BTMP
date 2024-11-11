@@ -51,7 +51,7 @@ public class AVLIntervalTreeTest {
         //assertEquals(RED,tree.getRoot().getLeft().getColor());
         assertNull(tree.findNode(node8));
         assertEquals(40, tree.getRoot().getMaxEndTime());
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
     }
 
     // delete node 22
@@ -70,7 +70,7 @@ public class AVLIntervalTreeTest {
         assertNull(tree.findNode(node9));
         assertEquals(50, tree.getRoot().getMaxEndTime());
         assertEquals(39, tree.getRoot().getRight().getMaxEndTime());
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
     }
 
     // delete node 27
@@ -89,7 +89,7 @@ public class AVLIntervalTreeTest {
         assertNull(tree.findNode(node10));
         assertEquals(50, tree.getRoot().getMaxEndTime());
         assertEquals(40, tree.getRoot().getRight().getMaxEndTime());
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
     }
 
     // Delete node 15
@@ -108,7 +108,7 @@ public class AVLIntervalTreeTest {
         assertNull(tree.findNode(node6));
         assertEquals(50, tree.getRoot().getMaxEndTime());
         assertEquals(40, tree.getRoot().getRight().getMaxEndTime());
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
     }
 
 
@@ -130,7 +130,7 @@ public class AVLIntervalTreeTest {
         assertEquals(50, tree.getRoot().getMaxEndTime());
         assertEquals(50, tree.getRoot().getMaxEndTime());
         assertEquals(40, tree.getRoot().getRight().getMaxEndTime());
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
     }
 
     //Example 8 (executes fixup cases 3 and 4) - delete node 8
@@ -152,7 +152,7 @@ public class AVLIntervalTreeTest {
         assertNull(tree.findNode(node2));
         assertEquals(50, tree.getRoot().getMaxEndTime());
         assertEquals(40, tree.getRoot().getRight().getMaxEndTime());
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
     }
 
     //Example 10 (executes fixup cases 3 and 4)
@@ -175,7 +175,7 @@ public class AVLIntervalTreeTest {
         assertNull(tree.findNode(node5));
         assertEquals(50, tree.getRoot().getMaxEndTime());
         assertEquals(40, tree.getRoot().getRight().getMaxEndTime());
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
     }
 
     //Example 3 - delete 17
@@ -197,7 +197,7 @@ public class AVLIntervalTreeTest {
         assertNull(tree.findNode(node3));
         assertEquals(50, tree.getRoot().getMaxEndTime());
         assertEquals(40, tree.getRoot().getRight().getMaxEndTime());
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
     }
 
     //Example 4 - delete 25
@@ -219,7 +219,7 @@ public class AVLIntervalTreeTest {
         assertNull(tree.findNode(node7));
         assertEquals(50, tree.getRoot().getMaxEndTime());
         assertEquals(40, tree.getRoot().getRight().getMaxEndTime());
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
     }
 
     //Example 5 - delete 8 (fixup case 0)
@@ -245,7 +245,7 @@ public class AVLIntervalTreeTest {
         assertEquals(50, tree.getRoot().getMaxEndTime());
         assertEquals(40, tree.getRoot().getRight().getMaxEndTime());
         assertEquals(50, tree.getRoot().getLeft().getMaxEndTime());
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
     }
 
     //Example 6 ??? -> insert rebalances the tree => fixup already done => fall into previous cases
@@ -269,7 +269,7 @@ public class AVLIntervalTreeTest {
         assertEquals(50, tree.getRoot().getMaxEndTime());
         assertEquals(40, tree.getRoot().getRight().getMaxEndTime());
         assertEquals(50, tree.getRoot().getLeft().getMaxEndTime());
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
     }
 
     // Example 7 - delete 13 (root node)
@@ -306,7 +306,7 @@ public class AVLIntervalTreeTest {
         assertEquals(50, tree.getRoot().getMaxEndTime());
         assertEquals(40, tree.getRoot().getRight().getMaxEndTime());
         assertEquals(50, tree.getRoot().getLeft().getMaxEndTime());
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
     }
 
     //delete all node except root
@@ -323,7 +323,7 @@ public class AVLIntervalTreeTest {
         assertTrue(replacement.hasLeft());
         assertFalse(replacement.hasRight());
         assertEquals(replacement, replacement.getLeft().getParent());
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
 
         tree.delete(tree.findNode(node2));
 
@@ -331,22 +331,22 @@ public class AVLIntervalTreeTest {
         //assertEquals(BLACK, replacement.getColor());
         assertTrue(replacement.isLeafNode());
         assertEquals(8, replacement.getParent().getID());
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
 
         tree.delete(tree.findNode(node4));
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
         tree.delete(tree.findNode(node8));
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
         tree.delete(tree.findNode(node9));
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
         tree.delete(tree.findNode(node3));
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
         tree.delete(tree.findNode(node5));
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
         tree.delete(tree.findNode(node10));
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
         tree.delete(tree.findNode(node6));
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
 
 
         // Assert
@@ -377,7 +377,7 @@ public class AVLIntervalTreeTest {
         assertEquals(40, tree.getRoot().getMaxEndTime());
         assertEquals(40, tree.getRoot().getRight().getMaxEndTime());
         assertEquals(18, tree.getRoot().getLeft().getMaxEndTime());
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
     }
 
     @Test
@@ -403,7 +403,27 @@ public class AVLIntervalTreeTest {
         assertEquals(40, tree.getRoot().getMaxEndTime());
         assertEquals(40, tree.getRoot().getRight().getMaxEndTime());
         assertEquals(38, tree.getRoot().getLeft().getMaxEndTime());
-        assertTrue(tree.isInBalance());
+        assertTrue(tree.isBalanced());
+    }
+    @Test
+    public void randomNodeDeletion(){
+        // Arrange
+        var tree = buildAVLTree();
+        var randomNode = tree.getRandomNode();
+        var copyNode = new AVLIntervalNode(randomNode.getInterval(), randomNode.getWeight(), randomNode.getID());
+        tree.delete(randomNode);
+        assertTrue(tree.isBalanced());
+        assertEquals(randomNode.getInterval(), copyNode.getInterval());
+    }
+    @Test
+    public void rootNodeDeletion(){
+        // Arrange
+        var tree = buildAVLTree();
+        var randomNode = tree.getRoot();
+        var copyNode = new AVLIntervalNode(randomNode.getInterval(), randomNode.getWeight(), randomNode.getID());
+        var n = tree.delete(randomNode);
+        assertTrue(tree.isBalanced());
+        assertEquals(n.getInterval(), copyNode.getInterval());
     }
 
 //endregion

@@ -606,4 +606,20 @@ public class RBIntervalTreeTest {
 
         assertTrue(copyTree.isBalanced());
     }
+
+    @Test
+    public void rootNodeDeletion(){
+        // Arrange
+        var tree = buildTree();
+        var randomNode = tree.getRoot();
+        var copyNode = new RBIntervalNode(randomNode.getInterval(), randomNode.getWeight(), randomNode.getID());
+        copyNode.setColor(randomNode.getColor());
+
+        //act
+        tree.delete(randomNode);
+
+        //assert
+        assertTrue(tree.isBalanced());
+        assertEquals(randomNode.getInterval(), copyNode.getInterval());
+    }
 }
