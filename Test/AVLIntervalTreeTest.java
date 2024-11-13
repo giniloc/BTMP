@@ -228,7 +228,7 @@ public class AVLIntervalTreeTest {
         // Arrange
         var tree = buildAVLTree();
 
-        var node = new RBIntervalNode(new Interval(12,18), 40, 99);
+        var node = new AVLIntervalNode(new Interval(12,18), 40, 99);
         tree.insert(node);
 
         // Act
@@ -254,9 +254,9 @@ public class AVLIntervalTreeTest {
         // Arrange
         var tree = buildAVLTree();
 
-        var node = new RBIntervalNode(new Interval(26,30), 30, 99);
+        var node = new AVLIntervalNode(new Interval(26,30), 30, 99);
         tree.insert(node);
-        node = new RBIntervalNode(new Interval(28,10), 20, 100);
+        node = new AVLIntervalNode(new Interval(28,10), 20, 100);
         tree.insert(node);
 
 
@@ -411,9 +411,9 @@ public class AVLIntervalTreeTest {
         var tree = buildAVLTree();
         var randomNode = tree.getRandomNode();
         var copyNode = new AVLIntervalNode(randomNode.getInterval(), randomNode.getWeight(), randomNode.getID());
-        tree.delete(randomNode);
+        var n = tree.delete(randomNode);
         assertTrue(tree.isBalanced());
-        assertEquals(randomNode.getInterval(), copyNode.getInterval());
+        assertEquals(n.getInterval(), copyNode.getInterval());
     }
     @Test
     public void rootNodeDeletion(){

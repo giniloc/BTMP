@@ -67,7 +67,6 @@ Request ID: 231
 Request ID: 336
 Request ID: 532
 Request ID: 91
-Request ID: 112
 Request ID: 488
 Request ID: 189
 Request ID: 268
@@ -162,7 +161,6 @@ Request ID: 136
 Request ID: 217
 Request ID: 531
 Request ID: 452
-Request ID: 409
 Request ID: 366
 Request ID: 54
 Request ID: 301
@@ -210,7 +208,6 @@ Request ID: 314
 Request ID: 365
 Request ID: 387
 Request ID: 493
-Request ID: 77
 Request ID: 11
 Request ID: 33
 Request ID: 85
@@ -234,7 +231,6 @@ Request ID: 271
 Request ID: 196
 Request ID: 202
 Request ID: 10
-Request ID: 39
 Request ID: 253
 Request ID: 32
 Request ID: 66
@@ -262,10 +258,8 @@ Request ID: 53
 Request ID: 293
 Request ID: 251
 Request ID: 496
-Request ID: 176
 Request ID: 555
 Request ID: 207
-Request ID: 213
 Request ID: 129
 Request ID: 573
 Request ID: 373
@@ -295,6 +289,7 @@ Request ID: 360
 Request ID: 362
 Request ID: 281
 Request ID: 402
+Request ID: 225
 Request ID: 71
 Request ID: 540
 Request ID: 307
@@ -320,7 +315,6 @@ Request ID: 36
 Request ID: 236
 Request ID: 237
 Request ID: 423
-Request ID: 198
 Request ID: 44
 Request ID: 478
 Request ID: 108
@@ -465,6 +459,7 @@ Request ID: 526
 Request ID: 70
 Request ID: 485
 Request ID: 521
+Request ID: 290
 Request ID: 349
 Request ID: 558
 Request ID: 437
@@ -547,6 +542,7 @@ Request ID: 489
 Request ID: 563
 Request ID: 73
 Request ID: 257
+Request ID: 17
 Request ID: 381
 Request ID: 509
 Request ID: 133
@@ -588,12 +584,19 @@ Request ID: 392
 Request ID: 144
 Request ID: 534
 Request ID: 370
+Request ID: 104
 Request ID: 589
 
 Server 2:
 
 Server 3:
-Request ID: 225
+Request ID: 112
+Request ID: 409
+Request ID: 77
+Request ID: 39
+Request ID: 176
+Request ID: 213
+Request ID: 198
 
 Server 4:
 
@@ -604,17 +607,14 @@ Server 6:
 Server 7:
 
 Server 8:
-
-Server 9:
-Request ID: 290
-Request ID: 17
 Request ID: 544
 Request ID: 447
 Request ID: 226
 Request ID: 24
-Request ID: 104
 Request ID: 422
 Request ID: 375
+
+Server 9:
 
 Server 10:
 
@@ -636,4 +636,4 @@ Server 18:
 
 Server 19:
 
-Total busy time: 876
+Total busy time: 1020

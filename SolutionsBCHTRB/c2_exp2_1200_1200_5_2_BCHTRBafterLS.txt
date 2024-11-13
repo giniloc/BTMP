@@ -403,8 +403,6 @@ Request ID: 361
 Request ID: 448
 Request ID: 1022
 Request ID: 417
-Request ID: 229
-Request ID: 245
 Request ID: 247
 Request ID: 975
 Request ID: 110
@@ -434,8 +432,6 @@ Request ID: 197
 Request ID: 365
 Request ID: 792
 Request ID: 130
-Request ID: 132
-Request ID: 728
 Request ID: 1098
 Request ID: 200
 Request ID: 1133
@@ -448,7 +444,6 @@ Request ID: 1149
 Request ID: 160
 Request ID: 1038
 Request ID: 173
-Request ID: 549
 Request ID: 661
 Request ID: 91
 Request ID: 727
@@ -456,7 +451,6 @@ Request ID: 1065
 Request ID: 154
 Request ID: 1091
 Request ID: 800
-Request ID: 921
 Request ID: 1100
 Request ID: 26
 Request ID: 489
@@ -468,7 +462,6 @@ Request ID: 406
 Request ID: 550
 Request ID: 57
 Request ID: 532
-Request ID: 434
 Request ID: 567
 Request ID: 571
 Request ID: 613
@@ -498,7 +491,6 @@ Request ID: 367
 Request ID: 736
 Request ID: 258
 Request ID: 548
-Request ID: 432
 Request ID: 513
 Request ID: 926
 Request ID: 452
@@ -510,7 +502,6 @@ Request ID: 818
 Request ID: 999
 Request ID: 553
 Request ID: 595
-Request ID: 988
 Request ID: 158
 Request ID: 989
 Request ID: 944
@@ -528,9 +519,7 @@ Request ID: 37
 Request ID: 916
 Request ID: 681
 Request ID: 508
-Request ID: 533
 Request ID: 207
-Request ID: 605
 Request ID: 511
 Request ID: 447
 Request ID: 875
@@ -962,6 +951,7 @@ Request ID: 241
 Request ID: 525
 Request ID: 772
 Request ID: 861
+Request ID: 221
 Request ID: 450
 Request ID: 185
 Request ID: 630
@@ -1191,18 +1181,28 @@ Request ID: 723
 Request ID: 538
 Request ID: 270
 Request ID: 1079
+Request ID: 636
 Request ID: 458
 Request ID: 141
+Request ID: 242
 Request ID: 402
 Request ID: 259
 Request ID: 1069
 
 Server 2:
-Request ID: 221
+Request ID: 229
+Request ID: 245
+Request ID: 132
+Request ID: 728
+Request ID: 549
+Request ID: 921
+Request ID: 434
+Request ID: 432
+Request ID: 988
+Request ID: 533
+Request ID: 605
 
 Server 3:
-Request ID: 636
-Request ID: 242
 
 Server 4:
 
@@ -1212,4 +1212,4 @@ Server 6:
 
 Server 7:
 
-Total busy time: 1231
+Total busy time: 1345

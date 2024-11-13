@@ -3,10 +3,10 @@ import Heuristics.*;
 import Utils.*;
 import IO.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+
+import static Utils.Randomizer.random;
+
 public class LocalSearchGeneric<
         T extends IIntervalTree<N>,
         N extends IntervalNode
@@ -47,9 +47,9 @@ public class LocalSearchGeneric<
             int newBusyTime = calculateTotalBusyTime(currentSolution);
 
             if (newBusyTime < bestBusyTime) {
-                System.out.println("New best solution found!");
                 bestBusyTime = newBusyTime;
                 bestSolution = new Solution<>(currentSolution);
+                if(deepCopyRollback) oldSolution = new Solution<>(currentSolution);
                 if (!deepCopyRollback) moves.clear();
             } else {
                 if (deepCopyRollback) this.currentSolution = new Solution<>(oldSolution);
@@ -116,7 +116,7 @@ public class LocalSearchGeneric<
 
         var randomTrees = new ArrayList<>(intervalTrees);
         randomTrees.removeAll(busiestTrees);
-        Collections.shuffle(randomTrees);
+        Collections.shuffle(randomTrees, random);
         var selectedRandomTrees = randomTrees.stream().limit(count - halfCount).toList();
 
         var selectedTrees = new ArrayList<>(busiestTrees);

@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static Utils.Randomizer.random;
+
 public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
 
     private AVLIntervalNode root;
@@ -188,7 +190,6 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
         if (nodes.isEmpty()) {
             return null;
         }
-        Random random = new Random();
         return nodes.get(random.nextInt(nodes.size()));
     }
 

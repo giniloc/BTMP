@@ -6,6 +6,7 @@ import java.util.Random;
 
 import static Utils.Color.BLACK;
 import static Utils.Color.RED;
+import static Utils.Randomizer.random;
 
 
 public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
@@ -209,7 +210,6 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         if (nodes.isEmpty()) {
             return null;
         }
-        Random random = new Random();
         return nodes.get(random.nextInt(nodes.size()));
     }
     //endregion
