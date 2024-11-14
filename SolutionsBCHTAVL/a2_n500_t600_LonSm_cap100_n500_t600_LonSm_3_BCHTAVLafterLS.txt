@@ -12,7 +12,6 @@ Request ID: 115
 Request ID: 117
 Request ID: 136
 Request ID: 140
-Request ID: 147
 Request ID: 158
 
 Server 2:
@@ -45,7 +44,6 @@ Request ID: 47
 Request ID: 75
 Request ID: 96
 Request ID: 107
-Request ID: 127
 Request ID: 130
 Request ID: 134
 Request ID: 154
@@ -86,6 +84,8 @@ Request ID: 135
 Request ID: 165
 Request ID: 166
 Request ID: 167
+Request ID: 234
+Request ID: 241
 Request ID: 291
 Request ID: 292
 Request ID: 341
@@ -116,7 +116,6 @@ Request ID: 153
 Request ID: 202
 Request ID: 209
 Request ID: 240
-Request ID: 241
 Request ID: 277
 Request ID: 279
 Request ID: 303
@@ -124,8 +123,8 @@ Request ID: 314
 Request ID: 339
 Request ID: 347
 Request ID: 382
-Request ID: 383
 Request ID: 388
+Request ID: 409
 Request ID: 459
 Request ID: 460
 Request ID: 484
@@ -151,10 +150,6 @@ Request ID: 287
 Request ID: 289
 Request ID: 343
 Request ID: 344
-Request ID: 358
-Request ID: 387
-Request ID: 389
-Request ID: 394
 
 Server 7:
 Request ID: 14
@@ -165,6 +160,7 @@ Request ID: 64
 Request ID: 65
 Request ID: 78
 Request ID: 110
+Request ID: 127
 Request ID: 181
 Request ID: 182
 Request ID: 217
@@ -218,6 +214,7 @@ Request ID: 20
 Request ID: 21
 Request ID: 68
 Request ID: 69
+Request ID: 147
 Request ID: 192
 Request ID: 194
 Request ID: 195
@@ -257,7 +254,6 @@ Request ID: 186
 Request ID: 196
 Request ID: 212
 Request ID: 228
-Request ID: 234
 Request ID: 239
 Request ID: 268
 Request ID: 278
@@ -301,7 +297,6 @@ Request ID: 301
 Request ID: 324
 Request ID: 334
 Request ID: 352
-Request ID: 353
 Request ID: 357
 Request ID: 372
 Request ID: 377
@@ -434,6 +429,8 @@ Request ID: 286
 Request ID: 306
 Request ID: 307
 Request ID: 337
+Request ID: 358
+Request ID: 383
 Request ID: 411
 Request ID: 413
 Request ID: 426
@@ -487,7 +484,7 @@ Request ID: 305
 Request ID: 309
 Request ID: 354
 Request ID: 355
-Request ID: 409
+Request ID: 387
 Request ID: 410
 Request ID: 456
 Request ID: 457
@@ -533,7 +530,14 @@ Request ID: 276
 Request ID: 296
 Request ID: 316
 Request ID: 317
+Request ID: 353
+Request ID: 389
+Request ID: 394
 Request ID: 417
 Request ID: 420
 
-Total busy time: 10075
+Server 20:
+
+Server 21:
+
+Total busy time: 10023

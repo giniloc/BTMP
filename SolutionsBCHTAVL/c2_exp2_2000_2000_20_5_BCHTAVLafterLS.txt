@@ -351,7 +351,6 @@ Request ID: 1287
 Request ID: 412
 Request ID: 680
 Request ID: 928
-Request ID: 1341
 Request ID: 1765
 Request ID: 1768
 Request ID: 246
@@ -769,7 +768,6 @@ Request ID: 308
 Request ID: 1399
 Request ID: 1982
 Request ID: 1622
-Request ID: 853
 Request ID: 1442
 Request ID: 146
 Request ID: 1102
@@ -1027,6 +1025,7 @@ Request ID: 1967
 Request ID: 1996
 Request ID: 155
 Request ID: 787
+Request ID: 435
 Request ID: 491
 Request ID: 1977
 Request ID: 1390
@@ -1372,11 +1371,11 @@ Request ID: 1878
 Request ID: 61
 Request ID: 1825
 Request ID: 357
+Request ID: 248
 Request ID: 1897
 Request ID: 1134
 Request ID: 754
 Request ID: 410
-Request ID: 436
 Request ID: 277
 Request ID: 509
 Request ID: 1726
@@ -1596,6 +1595,7 @@ Request ID: 1309
 Request ID: 1313
 Request ID: 1707
 Request ID: 129
+Request ID: 1229
 Request ID: 1063
 Request ID: 1445
 Request ID: 95
@@ -1649,7 +1649,6 @@ Request ID: 944
 Request ID: 1205
 Request ID: 1799
 Request ID: 1577
-Request ID: 462
 Request ID: 120
 Request ID: 1562
 Request ID: 1803
@@ -1758,6 +1757,7 @@ Request ID: 1077
 Request ID: 1663
 Request ID: 1984
 Request ID: 1301
+Request ID: 276
 Request ID: 1834
 Request ID: 1312
 Request ID: 619
@@ -1823,6 +1823,7 @@ Request ID: 1437
 Request ID: 1917
 Request ID: 1025
 Request ID: 1633
+Request ID: 391
 Request ID: 401
 Request ID: 453
 Request ID: 1251
@@ -1848,6 +1849,7 @@ Request ID: 368
 Request ID: 537
 Request ID: 1531
 Request ID: 1532
+Request ID: 1192
 Request ID: 1916
 Request ID: 879
 Request ID: 416
@@ -1981,34 +1983,32 @@ Request ID: 1106
 
 Server 2:
 Request ID: 860
-Request ID: 435
+Request ID: 1341
+
+Server 3:
+Request ID: 853
 Request ID: 590
 Request ID: 984
-Request ID: 248
+Request ID: 436
 Request ID: 106
-Request ID: 1229
-Request ID: 276
-Request ID: 391
-Request ID: 1192
+Request ID: 462
+
+Server 4:
 Request ID: 1107
 Request ID: 978
 Request ID: 1335
 
-Server 3:
+Server 5:
+
+Server 6:
 Request ID: 341
 Request ID: 602
 Request ID: 309
 Request ID: 1888
-Request ID: 1042
-Request ID: 1686
-
-Server 4:
 Request ID: 1919
+Request ID: 1042
 Request ID: 658
-
-Server 5:
-
-Server 6:
+Request ID: 1686
 
 Server 7:
 
@@ -2036,4 +2036,4 @@ Server 18:
 
 Server 19:
 
-Total busy time: 3789
+Total busy time: 3201

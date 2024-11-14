@@ -13,10 +13,7 @@ public class AVLIntervalNode extends IntervalNode {
 
     public AVLIntervalNode(Interval interval, int weight, int ID) {
         super(interval, weight, ID);
-        this.height = 1;
-    }
-    public AVLIntervalNode(IntervalNode intervalNode) {
-        super(intervalNode.getInterval(), intervalNode.getWeight(), intervalNode.getID());
+        this.height = 0;
     }
     public int getHeight() {
         return height;

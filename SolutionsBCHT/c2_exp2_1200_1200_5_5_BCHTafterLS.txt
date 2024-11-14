@@ -204,12 +204,9 @@ Request ID: 215
 Request ID: 333
 Request ID: 144
 Request ID: 900
-Request ID: 266
-Request ID: 272
 Request ID: 661
 Request ID: 1036
 Request ID: 153
-Request ID: 877
 Request ID: 1199
 Request ID: 638
 Request ID: 959
@@ -1193,16 +1190,19 @@ Request ID: 94
 Request ID: 587
 Request ID: 980
 Request ID: 48
-Request ID: 958
-
-Server 2:
-
-Server 3:
 Request ID: 711
 Request ID: 883
+Request ID: 958
 Request ID: 383
 Request ID: 882
 Request ID: 53
+
+Server 2:
+Request ID: 266
+Request ID: 272
+Request ID: 877
+
+Server 3:
 
 Server 4:
 
@@ -1214,4 +1214,4 @@ Server 7:
 
 Server 8:
 
-Total busy time: 1233
+Total busy time: 1230

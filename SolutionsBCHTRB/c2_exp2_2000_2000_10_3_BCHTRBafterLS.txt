@@ -1960,7 +1960,6 @@ Request ID: 1415
 Request ID: 1548
 Request ID: 344
 Request ID: 880
-Request ID: 212
 Request ID: 377
 Request ID: 556
 Request ID: 1281
@@ -1984,27 +1983,28 @@ Request ID: 1957
 Request ID: 170
 Request ID: 1163
 Request ID: 1674
-Request ID: 1844
 Request ID: 503
 Request ID: 1595
-Request ID: 1711
 Request ID: 1773
 Request ID: 616
 Request ID: 31
-Request ID: 1026
 Request ID: 1285
 Request ID: 665
 Request ID: 755
 
 Server 2:
-Request ID: 166
+Request ID: 1026
 
 Server 3:
+Request ID: 212
+Request ID: 1844
 Request ID: 478
 Request ID: 720
-Request ID: 1900
+Request ID: 166
+Request ID: 1711
 
 Server 4:
+Request ID: 1900
 
 Server 5:
 
@@ -2024,4 +2024,4 @@ Server 12:
 
 Server 13:
 
-Total busy time: 2094
+Total busy time: 2127

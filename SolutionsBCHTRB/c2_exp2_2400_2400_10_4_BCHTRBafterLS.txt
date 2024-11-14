@@ -1105,7 +1105,6 @@ Request ID: 1040
 Request ID: 2198
 Request ID: 2244
 Request ID: 657
-Request ID: 1133
 Request ID: 1638
 Request ID: 1363
 Request ID: 1810
@@ -2391,18 +2390,19 @@ Request ID: 2363
 Request ID: 105
 Request ID: 981
 Request ID: 2329
+Request ID: 473
 Request ID: 1007
 Request ID: 904
 
 Server 2:
+Request ID: 1133
+
+Server 3:
 Request ID: 1122
 Request ID: 1873
-Request ID: 473
 Request ID: 1222
 Request ID: 2201
 Request ID: 1720
-
-Server 3:
 
 Server 4:
 
@@ -2422,4 +2422,4 @@ Server 11:
 
 Server 12:
 
-Total busy time: 2441
+Total busy time: 2451

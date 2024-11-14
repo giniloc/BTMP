@@ -744,6 +744,7 @@ Request ID: 2344
 Request ID: 331
 Request ID: 1330
 Request ID: 478
+Request ID: 234
 Request ID: 105
 Request ID: 2137
 Request ID: 2250
@@ -1049,6 +1050,7 @@ Request ID: 1559
 Request ID: 979
 Request ID: 295
 Request ID: 1405
+Request ID: 784
 Request ID: 1147
 Request ID: 724
 Request ID: 1382
@@ -1363,7 +1365,6 @@ Request ID: 1266
 Request ID: 270
 Request ID: 2004
 Request ID: 728
-Request ID: 1467
 Request ID: 137
 Request ID: 357
 Request ID: 2343
@@ -1392,6 +1393,7 @@ Request ID: 1207
 Request ID: 2032
 Request ID: 1872
 Request ID: 1816
+Request ID: 322
 Request ID: 369
 Request ID: 2143
 Request ID: 219
@@ -1473,7 +1475,6 @@ Request ID: 1431
 Request ID: 725
 Request ID: 650
 Request ID: 1634
-Request ID: 957
 Request ID: 1690
 Request ID: 2258
 Request ID: 875
@@ -1662,7 +1663,6 @@ Request ID: 1990
 Request ID: 498
 Request ID: 244
 Request ID: 2202
-Request ID: 1216
 Request ID: 2124
 Request ID: 1001
 Request ID: 1489
@@ -1910,6 +1910,7 @@ Request ID: 1149
 Request ID: 1430
 Request ID: 2305
 Request ID: 1843
+Request ID: 587
 Request ID: 1616
 Request ID: 1897
 Request ID: 500
@@ -2094,7 +2095,6 @@ Request ID: 2332
 Request ID: 1176
 Request ID: 1276
 Request ID: 131
-Request ID: 954
 Request ID: 1784
 Request ID: 861
 Request ID: 1162
@@ -2114,7 +2114,6 @@ Request ID: 352
 Request ID: 1862
 Request ID: 581
 Request ID: 1086
-Request ID: 342
 Request ID: 1682
 Request ID: 2086
 Request ID: 2001
@@ -2356,20 +2355,16 @@ Request ID: 592
 Request ID: 1419
 Request ID: 1790
 Request ID: 1284
-Request ID: 1702
 Request ID: 553
 Request ID: 362
 Request ID: 2096
 Request ID: 1712
-Request ID: 1800
 Request ID: 130
 Request ID: 1635
 Request ID: 994
-Request ID: 1471
 Request ID: 1476
 Request ID: 2114
 Request ID: 2253
-Request ID: 1802
 Request ID: 2010
 Request ID: 1894
 Request ID: 175
@@ -2379,32 +2374,36 @@ Request ID: 542
 Request ID: 2184
 Request ID: 1867
 Request ID: 1965
-Request ID: 943
 Request ID: 1492
+
+Server 2:
+Request ID: 1467
+Request ID: 957
+Request ID: 1216
+Request ID: 1410
+Request ID: 954
+Request ID: 342
+Request ID: 1702
+Request ID: 1800
+Request ID: 1471
+Request ID: 1802
+Request ID: 224
+Request ID: 943
+Request ID: 667
+Request ID: 1123
 Request ID: 2209
 Request ID: 1877
 
-Server 2:
-Request ID: 888
-Request ID: 234
-Request ID: 784
-Request ID: 322
-Request ID: 1410
-Request ID: 587
-Request ID: 224
-Request ID: 667
-Request ID: 1123
-
 Server 3:
+Request ID: 1323
+Request ID: 662
+
+Server 4:
 Request ID: 1931
 Request ID: 1237
 Request ID: 1936
 Request ID: 316
 Request ID: 1262
-Request ID: 1323
-Request ID: 662
-
-Server 4:
 
 Server 5:
 
@@ -2413,6 +2412,7 @@ Server 6:
 Server 7:
 
 Server 8:
+Request ID: 888
 
 Server 9:
 
@@ -2438,4 +2438,4 @@ Server 19:
 
 Server 20:
 
-Total busy time: 4668
+Total busy time: 3731

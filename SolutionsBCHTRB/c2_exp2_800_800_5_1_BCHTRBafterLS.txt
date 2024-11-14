@@ -292,7 +292,6 @@ Request ID: 180
 Request ID: 222
 Request ID: 229
 Request ID: 667
-Request ID: 384
 Request ID: 245
 Request ID: 35
 Request ID: 624
@@ -799,10 +798,11 @@ Request ID: 408
 Request ID: 144
 
 Server 2:
-Request ID: 509
-Request ID: 446
+Request ID: 384
 
 Server 3:
+Request ID: 509
+Request ID: 446
 
 Server 4:
 
@@ -814,4 +814,4 @@ Server 7:
 
 Server 8:
 
-Total busy time: 829
+Total busy time: 832

@@ -421,7 +421,6 @@ Request ID: 1074
 Request ID: 20
 Request ID: 414
 Request ID: 429
-Request ID: 340
 Request ID: 1042
 Request ID: 215
 Request ID: 84
@@ -565,7 +564,6 @@ Request ID: 719
 Request ID: 776
 Request ID: 230
 Request ID: 103
-Request ID: 703
 Request ID: 652
 Request ID: 207
 Request ID: 345
@@ -724,6 +722,7 @@ Request ID: 342
 Request ID: 454
 Request ID: 272
 Request ID: 130
+Request ID: 404
 Request ID: 979
 Request ID: 853
 Request ID: 1044
@@ -1181,31 +1180,32 @@ Request ID: 658
 Request ID: 809
 Request ID: 1165
 Request ID: 630
-Request ID: 10
 Request ID: 196
 Request ID: 798
-Request ID: 1022
 Request ID: 214
 Request ID: 534
 Request ID: 1133
 Request ID: 787
 Request ID: 846
-Request ID: 1197
 Request ID: 200
 Request ID: 526
 Request ID: 958
 
 Server 2:
+Request ID: 340
+Request ID: 703
 
 Server 3:
-Request ID: 404
 
 Server 4:
 
 Server 5:
+Request ID: 10
+Request ID: 1022
 Request ID: 748
 Request ID: 759
 Request ID: 848
+Request ID: 1197
 Request ID: 812
 
 Server 6:
@@ -1234,4 +1234,4 @@ Server 17:
 
 Server 18:
 
-Total busy time: 1455
+Total busy time: 1584

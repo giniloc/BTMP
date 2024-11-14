@@ -31,7 +31,7 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
     }
 
     public void insert(IntervalNode node) {
-        AVLIntervalNode newNode = new AVLIntervalNode(node);
+        AVLIntervalNode newNode = new AVLIntervalNode(node.getInterval(), node.getWeight(), node.getID());
         this.root = insertRecursive(this.root, newNode);
     }
 
@@ -401,7 +401,7 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
         return node;
     }
     private AVLIntervalNode clone(AVLIntervalNode node){
-        var replClone = new AVLIntervalNode(node);
+        var replClone = new AVLIntervalNode(node.getInterval(), node.getWeight(), node.getID());
         replClone.setParent(node.getParent());
         replClone.setLeft(node.getLeft());
         replClone.setRight(node.getRight());

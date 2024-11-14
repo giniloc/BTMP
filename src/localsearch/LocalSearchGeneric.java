@@ -177,15 +177,15 @@ public class LocalSearchGeneric<
             var move = moves.get(i);
             if (move.isDelete()) {
                 move.getTree().insert(move.getNode());
-                if (move.getTree().findNode(move.getNode()) == null) {
-                    System.out.println("Node not inserted");
-                }
+//                if (move.getTree().findNode(move.getNode()) == null) {
+//                    System.out.println("Node not inserted");
+//                }
             } else {
                 var node = move.getNode();
                 move.getTree().delete(node);
-                if (move.getTree().findNode(move.getNode()) != null) {
-                    System.out.println("Node not deleted");
-                }
+//                if (move.getTree().findNode(move.getNode()) != null) {
+//                    System.out.println("Node not deleted");
+//                }
 //                if (move.getTree().getRoot() == null) {
 //                    currentSolution.getIntervalTrees().remove(move.getTree());
 //                }

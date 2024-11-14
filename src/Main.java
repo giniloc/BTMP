@@ -28,13 +28,13 @@ public class Main {
             inputFiles = getInputFiles();
         else {
             inputFiles = new ArrayList<>();
-            inputFiles.add(baseDirectory.resolve("n50 t50 LonLr/cap100_n50_t50_LonLr_1.txt"));
+            inputFiles.add(baseDirectory.resolve("d2/10000_inf_10.txt"));
         }
 
-        var treeType = BalancedTreeType.BCHTRB; //change this to BCHTRB or BCHTAVL to test different tree types
+        var treeType = BalancedTreeType.BCHT; //change this to BCHTRB or BCHTAVL to test different tree types
         var nrOfIterations = 10000; // i in results filename
-        var nrOfTrees = 10; // j in results filename = nr of trees used to remove nodes from (generate neighbor)
-        boolean deepCopyRollback = true; // change this to true to test deep copy rollback
+        var nrOfTrees = 6; // j in results filename = nr of trees used to remove nodes from (generate neighbor)
+        boolean deepCopyRollback = false; // change this to true to test deep copy rollback
 
         //inputFiles.forEach(System.out::println);
         for (var f : inputFiles){

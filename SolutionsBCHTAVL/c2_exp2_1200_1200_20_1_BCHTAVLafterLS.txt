@@ -201,7 +201,6 @@ Request ID: 666
 Request ID: 949
 Request ID: 1178
 Request ID: 1189
-Request ID: 56
 Request ID: 185
 Request ID: 924
 Request ID: 473
@@ -243,6 +242,7 @@ Request ID: 1198
 Request ID: 175
 Request ID: 687
 Request ID: 1120
+Request ID: 581
 Request ID: 856
 Request ID: 663
 Request ID: 82
@@ -867,11 +867,11 @@ Request ID: 847
 Request ID: 1162
 Request ID: 886
 Request ID: 360
-Request ID: 427
 Request ID: 640
 Request ID: 93
 Request ID: 235
 Request ID: 429
+Request ID: 936
 Request ID: 957
 Request ID: 477
 Request ID: 894
@@ -890,6 +890,7 @@ Request ID: 28
 Request ID: 1047
 Request ID: 879
 Request ID: 47
+Request ID: 739
 Request ID: 9
 Request ID: 611
 Request ID: 696
@@ -1130,8 +1131,6 @@ Request ID: 246
 Request ID: 919
 Request ID: 411
 Request ID: 1054
-Request ID: 560
-Request ID: 1005
 Request ID: 872
 Request ID: 991
 Request ID: 41
@@ -1147,17 +1146,14 @@ Request ID: 1069
 Request ID: 585
 Request ID: 161
 Request ID: 14
-Request ID: 54
 Request ID: 273
 Request ID: 770
-Request ID: 939
 Request ID: 1014
 Request ID: 357
 Request ID: 406
 Request ID: 522
 Request ID: 1065
 Request ID: 836
-Request ID: 2
 Request ID: 126
 Request ID: 944
 Request ID: 266
@@ -1170,43 +1166,47 @@ Request ID: 445
 Request ID: 1002
 Request ID: 993
 Request ID: 637
-Request ID: 111
 Request ID: 788
 Request ID: 1094
 Request ID: 629
 Request ID: 819
 Request ID: 1168
-Request ID: 112
 Request ID: 1084
 Request ID: 890
 Request ID: 288
 Request ID: 566
-Request ID: 874
 Request ID: 552
 Request ID: 983
 Request ID: 108
 Request ID: 1131
 Request ID: 129
 Request ID: 281
-Request ID: 620
 
 Server 2:
+Request ID: 56
+Request ID: 427
 Request ID: 395
-Request ID: 936
-Request ID: 739
 
 Server 3:
-Request ID: 581
+Request ID: 54
+Request ID: 939
+Request ID: 111
+Request ID: 112
+Request ID: 620
 
 Server 4:
 Request ID: 1161
+Request ID: 2
 Request ID: 1193
 Request ID: 646
 Request ID: 850
+Request ID: 874
 Request ID: 831
 Request ID: 513
 
 Server 5:
+Request ID: 560
+Request ID: 1005
 
 Server 6:
 
@@ -1234,4 +1234,4 @@ Server 17:
 
 Server 18:
 
-Total busy time: 1483
+Total busy time: 2274
