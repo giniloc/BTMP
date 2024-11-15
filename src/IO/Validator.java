@@ -19,8 +19,7 @@ public class Validator {
             this.weight = weight;
         }
     }
-
-    private static final int SERVER_CAPACITY = 100;  // Constant capacity of each server
+    private static int SERVER_CAPACITY;  // This can change per input file
 
     public static void main(String[] args) /*throws IOException*/ {
         String inputFilePath = "TestInstances/n50 t50 LonLr/cap100_n50_t50_LonLr_1.txt";
@@ -46,15 +45,19 @@ public class Validator {
     }
 
     // catch the IO exception like we also do in InputReader
-    private static Map<Integer, Request> parseInputFile(String inputFilePath) /*throws IOException*/ {
+    private static Map<Integer, Request> parseInputFile(String inputFilePath) {
         Map<Integer, Request> requests = new HashMap<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(inputFilePath))) {
+            String firstLine = br.readLine(); // Lees de eerste regel
+            if (firstLine != null) {
+                String[] parts = firstLine.split("\t");
+                if (parts.length >= 2) {
+                    SERVER_CAPACITY = Integer.parseInt(parts[1]); // Haal de servercapaciteit uit de tweede kolom
+                }
+            }
+
             String line;
-
-            // Skip the first line
-            br.readLine();
-
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split("\t");
                 if (parts.length == 4) {

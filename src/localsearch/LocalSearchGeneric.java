@@ -11,18 +11,18 @@ public class LocalSearchGeneric<
         T extends IIntervalTree<N>,
         N extends IntervalNode
         > {
-    private static final int SERVER_CAPACITY = 100;  // Constant capacity of each server
     private Solution<T> bestSolution;
     private Solution<T> currentSolution, oldSolution;
     private int bestBusyTime;
     private IHeuristic heuristic;
     private List<Move<N>> moves;
     private IIntervalTreeFactory<T> intervalTreeFactory;
+    private InputReader inputReader;
 
     // TODO We need to inject a RollBack strategy instead of using a boolean.
     private boolean deepCopyRollback;
 
-    public LocalSearchGeneric(Solution<T> initialSolution, IHeuristic heuristic, boolean deepCopyRollback) {
+    public LocalSearchGeneric(Solution<T> initialSolution, IHeuristic heuristic, boolean deepCopyRollback, InputReader inputReader) {
         this.bestSolution = new Solution<>(initialSolution);
         this.currentSolution = new Solution<>(initialSolution);
         if (deepCopyRollback) this.oldSolution = new Solution<>(initialSolution);
@@ -31,6 +31,7 @@ public class LocalSearchGeneric<
         this.heuristic = heuristic;
         this.intervalTreeFactory = heuristic.getFactory();
         this.deepCopyRollback = deepCopyRollback;
+        this.inputReader = inputReader;
     }
 
     /**
@@ -140,7 +141,7 @@ public class LocalSearchGeneric<
                 }
 
                 // Check if server has enough capacity for request
-                if (sum + request.getWeight() <= SERVER_CAPACITY) {
+                if (sum + request.getWeight() <= inputReader.getServerCapacity()) {
                     // search for server with least extra busy time
                     if (bestTree == null || intervalTree.calculateExtraBusyTime(interval) < bestTree.calculateExtraBusyTime(interval)) {
                         bestTree = intervalTree;

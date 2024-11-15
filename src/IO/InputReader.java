@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import Utils.Request;
 
 import java.util.List;
-public class InputReader {
+public  class InputReader {
 
     private static int numberOfVMRequests;
-    private static int serverCapacity;
+    public static int serverCapacity;
     private List<Request> vmRequests;
     private String testInstance;
 

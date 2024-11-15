@@ -19,7 +19,7 @@ public class Main {
     static Path baseDirectory = Paths.get("./TestInstances");
 
     public static void main(String[] args) {
-        boolean processAllInputFiles = true;
+        boolean processAllInputFiles = false;
         List<Path> inputFiles;
         // Create a LinkedHashMap to maintain insertion order
         Map<String, LocalSearchResult> localSearchResults = new LinkedHashMap<>();
@@ -28,13 +28,13 @@ public class Main {
             inputFiles = getInputFiles();
         else {
             inputFiles = new ArrayList<>();
-            inputFiles.add(baseDirectory.resolve("d2/10000_inf_10.txt"));
+            inputFiles.add(baseDirectory.resolve("d2/10000_2_6.txt"));
         }
 
-        var treeType = BalancedTreeType.BCHT; //change this to BCHTRB or BCHTAVL to test different tree types
+        var treeType = BalancedTreeType.BCHTAVL; //change this to BCHTRB or BCHTAVL to test different tree types
         var nrOfIterations = 10000; // i in results filename
-        var nrOfTrees = 6; // j in results filename = nr of trees used to remove nodes from (generate neighbor)
-        boolean deepCopyRollback = false; // change this to true to test deep copy rollback
+        var nrOfTrees = 15; // j in results filename = nr of trees used to remove nodes from (generate neighbor)
+        boolean deepCopyRollback = true; // change this to true to test deep copy rollback
 
         //inputFiles.forEach(System.out::println);
         for (var f : inputFiles){
@@ -54,14 +54,14 @@ public class Main {
                 case BCHT:
                     bcht = new BCHT<IntervalTree>(inputReader, new IntervalTreeFactory(), "BCHT");
                     runner.run(bcht, requests);
-                    var localSearchBCHT = new LocalSearchGeneric<IntervalTree, IntervalNode>(bcht.getSolution(), bcht, deepCopyRollback);
+                    var localSearchBCHT = new LocalSearchGeneric<IntervalTree, IntervalNode>(bcht.getSolution(), bcht, deepCopyRollback,inputReader);
                     result = localSearchBCHT.run(nrOfIterations, nrOfTrees);
                     break;
                 case BCHTRB:
                     bcht = new BCHT<RBIntervalTree>(inputReader, new RBIntervalTreeFactory(), "BCHTRB");
                     runner.run(bcht, requests);
                     //var initialSolution = new Solution<>(bcht.getSolution());
-                    var localSearchRB = new LocalSearchGeneric<RBIntervalTree, RBIntervalNode>(bcht.getSolution(), bcht, deepCopyRollback);
+                    var localSearchRB = new LocalSearchGeneric<RBIntervalTree, RBIntervalNode>(bcht.getSolution(), bcht, deepCopyRollback, inputReader);
                     result = localSearchRB.run(nrOfIterations, nrOfTrees);
 //                    if (!Validator.validate(f.toString(),treeType.name())){
 //                        System.out.println("result of file " + f.toString() + " contains violations!!!");
@@ -72,7 +72,7 @@ public class Main {
                     bcht = new BCHT<AVLIntervalTree>(inputReader, new AVLIntervalTreeFactory(), "BCHTAVL");
                     //  bcht = new BestCapacityHeuristic<AVLIntervalTree>(inputReader, new AVLIntervalTreeFactory(), "BCHTAVL");
                     runner.run(bcht, requests);
-                    var localSearchAVL = new LocalSearchGeneric<AVLIntervalTree, AVLIntervalNode>(bcht.getSolution(), bcht, deepCopyRollback);
+                    var localSearchAVL = new LocalSearchGeneric<AVLIntervalTree, AVLIntervalNode>(bcht.getSolution(), bcht, deepCopyRollback, inputReader);
                     result = localSearchAVL.run(nrOfIterations, nrOfTrees);
                     break;
             }
