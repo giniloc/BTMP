@@ -43,7 +43,7 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
     @Override
     public IntervalNode getRandomNode() {
         List<IntervalNode> nodes = new ArrayList<>();
-        collectNodes(root, nodes);
+        inOrderTraversal(root, nodes);
 
         if (nodes.isEmpty()) {
             return null;
@@ -192,16 +192,14 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
         // Also check the right subtree
         findOverlappingNodes(root.getRight(), newInterval, overlappingNodes);
     }
-    private void collectNodes(IntervalNode node, List<IntervalNode> nodes) {
+    private void inOrderTraversal(IntervalNode node, List<IntervalNode> nodes) {
         if (node == null) {
             return;
         }
-        if (nodes.contains(node)) {
-            System.out.println("Node " + node.getID() + " is already in the list.");
-        }
+
         nodes.add(node);
-        collectNodes(node.getLeft(), nodes);
-        collectNodes(node.getRight(), nodes);
+        inOrderTraversal(node.getLeft(), nodes);
+        inOrderTraversal(node.getRight(), nodes);
     }
    @Override
     public IntervalTree deepCopy() {
