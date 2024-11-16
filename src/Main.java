@@ -31,7 +31,7 @@ public class Main {
             inputFiles.add(baseDirectory.resolve("d2/10000_2_6.txt"));
         }
 
-        var treeType = BalancedTreeType.BCHTAVL; //change this to BCHTRB or BCHTAVL to test different tree types
+        var treeType = BalancedTreeType.BCHTRB; //change this to BCHTRB or BCHTAVL to test different tree types
         var nrOfIterations = 10000; // i in results filename
         var nrOfTrees = 15; // j in results filename = nr of trees used to remove nodes from (generate neighbor)
         boolean deepCopyRollback = true; // change this to true to test deep copy rollback

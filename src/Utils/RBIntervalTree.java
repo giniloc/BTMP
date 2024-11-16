@@ -150,7 +150,7 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         }
 
         // Check for overlaps
-        if (doIntervalsOverlap(root.getInterval(), newInterval)) {
+        if (root.getInterval().getStartTime() < newInterval.getEndTime() && newInterval.getStartTime() < root.getInterval().getEndTime()) {
             overlappingNodes.add(root);
         }
 
@@ -889,10 +889,6 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
 //    }
 
     //endregion
-
-    private boolean doIntervalsOverlap(Interval interval1, Interval interval2) {
-        return interval1.getStartTime() < interval2.getEndTime() && interval2.getStartTime() < interval1.getEndTime();
-    }
 
     private int findMinStartTime(RBIntervalNode node) {
         // the min start time is the start time of the leftmost node in the tree

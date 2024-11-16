@@ -53,7 +53,7 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
 
     public List<IntervalNode> findAllOverlapping(Interval newInterval) {
         List<IntervalNode> overlappingNodes = new ArrayList<>();
-        findOverlappingNodes((IntervalNode)root, newInterval, overlappingNodes);
+        findOverlappingNodes(root, newInterval, overlappingNodes);
         return overlappingNodes;
     }
 
@@ -77,10 +77,6 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
 
     // privates
 
-    // Helper function to check if two intervals overlap
-    private boolean doIntervalsOverlap(Interval interval1, Interval interval2) {
-        return (interval1.getStartTime() < interval2.getEndTime() && interval2.getStartTime() < interval1.getEndTime());
-    }
 
     private IntervalNode insertRecursive(IntervalNode current, IntervalNode node, IntervalNode parent) {
         if (current == null) {
@@ -183,7 +179,7 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
         }
 
         // Check if the current node overlaps with the new interval
-        if (doIntervalsOverlap(root.getInterval(), newInterval)) {
+        if (root.getInterval().getStartTime() < newInterval.getEndTime() && newInterval.getStartTime() < root.getInterval().getEndTime()) {
             overlappingNodes.add(root);
         }
 

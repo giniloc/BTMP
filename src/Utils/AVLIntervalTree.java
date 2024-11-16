@@ -277,7 +277,7 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
         }
 
         // Check for overlaps
-        if (doIntervalsOverlap(root.getInterval(), newInterval)) {
+        if (root.getInterval().getStartTime() < newInterval.getEndTime() && newInterval.getStartTime() < root.getInterval().getEndTime()) {
             overlappingNodes.add(root);
         }
 
@@ -288,11 +288,6 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
 
         // Always check the right child
         findOverlappingNodes(root.getRight(), newInterval, overlappingNodes);
-    }
-
-    // Helper function to check if two intervals overlap
-    private boolean doIntervalsOverlap(Interval interval1, Interval interval2) {
-        return interval1.getStartTime() < interval2.getEndTime() && interval2.getStartTime() < interval1.getEndTime();
     }
 
     private int findMinStartTime(AVLIntervalNode node) {
