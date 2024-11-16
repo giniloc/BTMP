@@ -31,10 +31,10 @@ public class Main {
             inputFiles.add(baseDirectory.resolve("c2/exp2_2000_2000_5_4.txt"));
         }
 
-        var treeType = BalancedTreeType.BCHT; //change this to BCHTRB or BCHTAVL to test different tree types
+        var treeType = BalancedTreeType.BCHTAVL; //change this to BCHTRB or BCHTAVL to test different tree types
         var nrOfIterations = 10000; // i in results filename
         var nrOfTrees = 10; // j in results filename = nr of trees used to remove nodes from (generate neighbor)
-        boolean deepCopyRollback = true; // change this to true to test deep copy rollback
+        boolean deepCopyRollback = false; // change this to true to test deep copy rollback
 
         //inputFiles.forEach(System.out::println);
         for (var f : inputFiles){
