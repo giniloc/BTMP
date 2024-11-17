@@ -2,9 +2,8 @@ package localsearch;
 import Heuristics.*;
 import Utils.*;
 import IO.*;
-
 import java.util.*;
-
+import java.util.Optional;
 import static Utils.Randomizer.random;
 
 public class LocalSearchGeneric<
@@ -126,42 +125,38 @@ public class LocalSearchGeneric<
         return selectedTrees;
     }
 
-    private void reInsertNodes(List<Request> requests){
+    private void reInsertNodes(List<Request> requests) {
         for (Request request : requests) {
             Interval interval = new Interval(request.getStartTime(), request.getEndTime());
             IntervalNode node = new IntervalNode(interval, request.getWeight(), request.getVmId());
 
-            T bestTree = null;
-
-            for (var intervalTree : this.currentSolution.getIntervalTrees()) {
-                var overlappingNodes = intervalTree.findAllOverlapping(interval);
-                int sum = 0;
-                for (var overlappingNode : overlappingNodes) {
-                    sum += overlappingNode.getWeight();
-                }
-
-                // Check if server has enough capacity for request
-                if (sum + request.getWeight() <= inputReader.getServerCapacity()) {
-                    // search for server with least extra busy time
-                    if (bestTree == null || intervalTree.calculateExtraBusyTime(interval) < bestTree.calculateExtraBusyTime(interval)) {
-                        bestTree = intervalTree;
-                    }
-                }
-
-            }
+            // Use parallel stream to process interval trees in parallel
+            Optional<T> bestTree = this.currentSolution.getIntervalTrees().parallelStream()
+                    .filter(intervalTree -> {
+                        var overlappingNodes = intervalTree.findAllOverlapping(interval);
+                        int sum = overlappingNodes.stream().mapToInt(IntervalNode::getWeight).sum();
+                        return sum + request.getWeight() <= inputReader.getServerCapacity();
+                    })
+                    .reduce((currentBest, intervalTree) -> {
+                        if (currentBest == null) {
+                            return intervalTree;
+                        }
+                        return (intervalTree.calculateExtraBusyTime(interval) < currentBest.calculateExtraBusyTime(interval))
+                                ? intervalTree : currentBest;
+                    });
 
             // if no bestTree was found, create a new one
-            if (bestTree == null) {
-                bestTree = intervalTreeFactory.create(); //new T();
-                currentSolution.add(bestTree);
-            }
+            T finalBestTree = bestTree.orElseGet(() -> {
+                T newTree = intervalTreeFactory.create(); // new T();
+                currentSolution.add(newTree);
+                return newTree;
+            });
 
-            if (!deepCopyRollback){
-                Move insertMove = new Move(false, bestTree, node);
+            if (!deepCopyRollback) {
+                Move insertMove = new Move(false, finalBestTree, node);
                 moves.add(insertMove);
             }
-
-            bestTree.insert(node);
+            finalBestTree.insert(node);
         }
     }
 
@@ -178,18 +173,9 @@ public class LocalSearchGeneric<
             var move = moves.get(i);
             if (move.isDelete()) {
                 move.getTree().insert(move.getNode());
-//                if (move.getTree().findNode(move.getNode()) == null) {
-//                    System.out.println("Node not inserted");
-//                }
             } else {
                 var node = move.getNode();
                 move.getTree().delete(node);
-//                if (move.getTree().findNode(move.getNode()) != null) {
-//                    System.out.println("Node not deleted");
-//                }
-//                if (move.getTree().getRoot() == null) {
-//                    currentSolution.getIntervalTrees().remove(move.getTree());
-//                }
             }
         }
         moves.clear();

@@ -19,7 +19,7 @@ public class Main {
     static Path baseDirectory = Paths.get("./TestInstances");
 
     public static void main(String[] args) {
-        boolean processAllInputFiles = true;
+        boolean processAllInputFiles = false;
         List<Path> inputFiles;
         // Create a LinkedHashMap to maintain insertion order
         Map<String, LocalSearchResult> localSearchResults = new LinkedHashMap<>();
@@ -28,10 +28,10 @@ public class Main {
             inputFiles = getInputFiles();
         else {
             inputFiles = new ArrayList<>();
-            inputFiles.add(baseDirectory.resolve("c2/exp2_2000_2000_5_4.txt"));
+            inputFiles.add(baseDirectory.resolve("d2/10000_inf_10.txt"));
         }
 
-        var treeType = BalancedTreeType.BCHTAVL; //change this to BCHTRB or BCHTAVL to test different tree types
+        var treeType = BalancedTreeType.BCHTRB; //change this to BCHTRB or BCHTAVL to test different tree types
         var nrOfIterations = 10000; // i in results filename
         var nrOfTrees = 10; // j in results filename = nr of trees used to remove nodes from (generate neighbor)
         boolean deepCopyRollback = false; // change this to true to test deep copy rollback
@@ -87,7 +87,7 @@ public class Main {
         // Write the results to a CSV file if we processed all files
         if (processAllInputFiles) {
             String suffix = deepCopyRollback ? "_RDC" : "_RM";
-            String outputCsvFile = "local_search_results_" + treeType.name() + "_i" + nrOfIterations + "_j" + nrOfTrees + suffix  + ".csv";
+            String outputCsvFile = "local_search_results_" + treeType.name() + "_i" + nrOfIterations + "_j" + nrOfTrees + suffix  + "_MT" +  ".csv";
             LocalSearchResultsWriter.writeToCsv(localSearchResults, outputCsvFile);
         }
     }
