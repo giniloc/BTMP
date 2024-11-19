@@ -1,15 +1,14 @@
 Server 1:
 Request ID: 0
 Request ID: 1
-Request ID: 2
 
 Server 2:
+Request ID: 2
 Request ID: 3
 Request ID: 4
-Request ID: 5
 
 Server 3:
-Request ID: 6
+Request ID: 5
 Request ID: 7
 Request ID: 8
 
@@ -20,10 +19,10 @@ Request ID: 10
 Server 5:
 Request ID: 11
 Request ID: 12
-Request ID: 14
+Request ID: 13
 
 Server 6:
-Request ID: 13
+Request ID: 14
 Request ID: 15
 Request ID: 16
 
@@ -99,6 +98,7 @@ Request ID: 83
 Request ID: 86
 
 Server 10:
+Request ID: 6
 Request ID: 24
 
 Server 11:
@@ -119,9 +119,11 @@ Request ID: 91
 Request ID: 92
 Request ID: 93
 Request ID: 95
-Request ID: 99
-
-Server 13:
 Request ID: 98
 
-Total busy time: 65646
+Server 13:
+Request ID: 99
+
+Server 14:
+
+Total busy time: 65552

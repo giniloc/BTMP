@@ -33,25 +33,52 @@ public class LocalSearchGeneric<
         this.inputReader = inputReader;
     }
 
-    /**
-     *
-     * @param iterations how many iterations do we perform
-     * @param nrOfTrees how many trees do i use to remove a node from
-     * @return
-     */
-    public LocalSearchResult run(int iterations, int nrOfTrees) {
+//    /**
+//     *
+//     * @param iterations how many iterations do we perform
+//     * @param nrOfTrees how many trees do i use to remove a node from
+//     * @return
+//     */
+//    public LocalSearchResult run(int iterations, int nrOfTrees) {
+//        long startTime = System.currentTimeMillis();
+//        for (int i = 0; i < iterations; i++) {
+//            System.out.println("Iteration " + i);
+//            generateNeighbor(currentSolution, nrOfTrees);
+//            int newBusyTime = calculateTotalBusyTime(currentSolution);
+//
+//            if (newBusyTime < bestBusyTime) {
+//                bestBusyTime = newBusyTime;
+//                bestSolution = new Solution<>(currentSolution);
+//                if(deepCopyRollback) oldSolution = new Solution<>(currentSolution);
+//                if (!deepCopyRollback) moves.clear();
+//            } else {
+//                if (deepCopyRollback) this.currentSolution = new Solution<>(oldSolution);
+//                else rollback();
+//            }
+//        }
+//
+//        long endTime = System.currentTimeMillis();
+//        long elapsedTime = endTime - startTime;
+//        System.out.println("Elapsed time: "+ elapsedTime);
+//
+//        SolutionWriter.writeSolutionToFile(bestSolution, heuristic.getInputReader().getTestInstance(), heuristic.getHeuristicName(), bestBusyTime);
+//
+//        return new LocalSearchResult(elapsedTime, bestBusyTime);
+//    }
+    public LocalSearchResult run(int nrOfTrees) {
+        int counter = 0;
         long startTime = System.currentTimeMillis();
-        for (int i = 0; i < iterations; i++) {
-            System.out.println("Iteration " + i);
+        while (counter < 100000) {
             generateNeighbor(currentSolution, nrOfTrees);
             int newBusyTime = calculateTotalBusyTime(currentSolution);
-
             if (newBusyTime < bestBusyTime) {
                 bestBusyTime = newBusyTime;
                 bestSolution = new Solution<>(currentSolution);
                 if(deepCopyRollback) oldSolution = new Solution<>(currentSolution);
                 if (!deepCopyRollback) moves.clear();
+                counter = 0;
             } else {
+                counter++;
                 if (deepCopyRollback) this.currentSolution = new Solution<>(oldSolution);
                 else rollback();
             }
@@ -126,11 +153,14 @@ public class LocalSearchGeneric<
     }
 
     private void reInsertNodes(List<Request> requests) {
+        // Stel het aantal threads in voor de ForkJoinPool
+      //  System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "3"); // set the number of threads
+
         for (Request request : requests) {
             Interval interval = new Interval(request.getStartTime(), request.getEndTime());
             IntervalNode node = new IntervalNode(interval, request.getWeight(), request.getVmId());
 
-            // Use parallel stream to process interval trees in parallel
+            // Use parallel streams to find the best tree for the node
             Optional<T> bestTree = this.currentSolution.getIntervalTrees().parallelStream()
                     .filter(intervalTree -> {
                         var overlappingNodes = intervalTree.findAllOverlapping(interval);
@@ -144,10 +174,9 @@ public class LocalSearchGeneric<
                         return (intervalTree.calculateExtraBusyTime(interval) < currentBest.calculateExtraBusyTime(interval))
                                 ? intervalTree : currentBest;
                     });
-
-            // if no bestTree was found, create a new one
+            // If no tree is found, create a new tree and add it to the solution
             T finalBestTree = bestTree.orElseGet(() -> {
-                T newTree = intervalTreeFactory.create(); // new T();
+                T newTree = intervalTreeFactory.create();
                 currentSolution.add(newTree);
                 return newTree;
             });
