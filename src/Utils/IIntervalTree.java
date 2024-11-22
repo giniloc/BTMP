@@ -1,6 +1,5 @@
 package Utils;
 
-import java.io.Serializable;
 import java.util.List;
 
 public interface IIntervalTree<T extends IntervalNode> {
@@ -14,4 +13,6 @@ public interface IIntervalTree<T extends IntervalNode> {
     IIntervalTree<T> deepCopy();
 
     T findNode(IntervalNode node);
+
+    T getMaxEndTimeNode();
 }

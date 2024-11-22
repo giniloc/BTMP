@@ -231,6 +231,27 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
         return findNodeInternal(root, node.getInterval(), node.getID());
     }
 
+    @Override
+    public IntervalNode getMaxEndTimeNode() {
+        return getMaxEndTimeNodeInternal(root);
+    }
+    private IntervalNode getMaxEndTimeNodeInternal(IntervalNode root) {
+        if (root == null) {
+            return null;
+        }
+
+        IntervalNode maxNode = root;
+        IntervalNode leftMax = getMaxEndTimeNodeInternal(root.getLeft());
+        if (leftMax != null && leftMax.getInterval().getEndTime() > maxNode.getInterval().getEndTime()) {
+            maxNode = leftMax;
+        }
+        IntervalNode rightMax = getMaxEndTimeNodeInternal(root.getRight());
+        if (rightMax != null && rightMax.getInterval().getEndTime() > maxNode.getInterval().getEndTime()) {
+            maxNode = rightMax;
+        }
+        return maxNode;
+    }
+
     private IntervalNode findNodeInternal(IntervalNode current, Interval interval, int id) {
         if (current == null) {
             return null;

@@ -622,4 +622,13 @@ public class RBIntervalTreeTest {
         assertTrue(tree.isBalanced());
         assertEquals(randomNode.getInterval(), copyNode.getInterval());
     }
+    @Test
+    public void getMaxEndtimeNode() {
+        // Arrange
+        var tree = buildTree();
+        // Act
+        var maxEndTimeNode = tree.getMaxEndTimeNode();
+        // Assert
+        assertEquals(node8.getID(), maxEndTimeNode.getID());
+    }
 }

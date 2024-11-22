@@ -18,7 +18,6 @@ public class SolutionWriter {
             if (!directory.exists()) {
                 directory.mkdir();
             }
-            //TODO GIL --> inputReader krijgt nu ook subFolder ./TestInstances binnen. Ik piets die er hier weer af
 
             // Sanitize test instance name  (remove special characters)
             String sanitizedTestInstanceName = testInstanceName
@@ -58,4 +57,36 @@ public class SolutionWriter {
 
         writeTasksForServer(node.getRight(), writer);
     }
+    public static void solutionAnalysis(String heuristicName, String inputFileName, int iteration, int totalBusyTime) {
+        try {
+            String directoryPath = "SolutionAnalysis";
+            File directory = new File(directoryPath);
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+
+            String sanitizedInputFileName = inputFileName.replaceAll("[^a-zA-Z0-9.-]", "_");
+
+
+            String fileName = directoryPath + File.separator + heuristicName + "_" + sanitizedInputFileName + "_Analysis.csv";
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+                File file = new File(fileName);
+                if (file.length() == 0) {
+                    writer.write("Iteration,TotalBusyTime");
+                    writer.newLine();
+                }
+
+
+                writer.write(iteration + "," + totalBusyTime);
+                writer.newLine();
+            }
+
+            System.out.println("Analysis data successfully written for iteration " + iteration + " in file " + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

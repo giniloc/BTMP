@@ -427,4 +427,13 @@ public class AVLIntervalTreeTest {
     }
 
 //endregion
+    @Test
+    public void getMaxEndtimeNode() {
+        // Arrange
+        var tree = buildAVLTree();
+        // Act
+        var maxEndTimeNode = tree.getMaxEndTimeNode();
+        // Assert
+        assertEquals(node8.getID(), maxEndTimeNode.getID());
+    }
 }

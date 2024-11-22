@@ -351,6 +351,29 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
         return findNodeInternal(root, node.getInterval(), node.getID());
     }
 
+    @Override
+    public AVLIntervalNode getMaxEndTimeNode() {
+        AVLIntervalNode maxEndTimeNode = getMaxEndTimeNodeInternal(root);
+        decoupleNode(maxEndTimeNode);
+        return maxEndTimeNode;
+    }
+
+    private AVLIntervalNode getMaxEndTimeNodeInternal(AVLIntervalNode node) {
+        if (node == null) {
+            return null;
+        }
+
+        if (node.getRight() != null && node.getRight().getMaxEndTime() == node.getMaxEndTime()) {
+            return getMaxEndTimeNodeInternal(node.getRight());
+        }
+
+        if (node.getLeft() != null && node.getLeft().getMaxEndTime() == node.getMaxEndTime()) {
+            return getMaxEndTimeNodeInternal(node.getLeft());
+        }
+
+        return node;
+    }
+
     private AVLIntervalNode findNodeInternal(AVLIntervalNode current, Interval interval, int id) {
         if (current == null) {
             return null;

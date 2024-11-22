@@ -9,7 +9,7 @@ import static Utils.Randomizer.random;
 public class LocalSearchGeneric<
         T extends IIntervalTree<N>,
         N extends IntervalNode
-        > {
+        > implements ILocalSearch {
     private Solution<T> bestSolution;
     private Solution<T> currentSolution, oldSolution;
     private int bestBusyTime;
@@ -33,52 +33,24 @@ public class LocalSearchGeneric<
         this.inputReader = inputReader;
     }
 
-//    /**
-//     *
-//     * @param iterations how many iterations do we perform
-//     * @param nrOfTrees how many trees do i use to remove a node from
-//     * @return
-//     */
-//    public LocalSearchResult run(int iterations, int nrOfTrees) {
-//        long startTime = System.currentTimeMillis();
-//        for (int i = 0; i < iterations; i++) {
-//            System.out.println("Iteration " + i);
-//            generateNeighbor(currentSolution, nrOfTrees);
-//            int newBusyTime = calculateTotalBusyTime(currentSolution);
-//
-//            if (newBusyTime < bestBusyTime) {
-//                bestBusyTime = newBusyTime;
-//                bestSolution = new Solution<>(currentSolution);
-//                if(deepCopyRollback) oldSolution = new Solution<>(currentSolution);
-//                if (!deepCopyRollback) moves.clear();
-//            } else {
-//                if (deepCopyRollback) this.currentSolution = new Solution<>(oldSolution);
-//                else rollback();
-//            }
-//        }
-//
-//        long endTime = System.currentTimeMillis();
-//        long elapsedTime = endTime - startTime;
-//        System.out.println("Elapsed time: "+ elapsedTime);
-//
-//        SolutionWriter.writeSolutionToFile(bestSolution, heuristic.getInputReader().getTestInstance(), heuristic.getHeuristicName(), bestBusyTime);
-//
-//        return new LocalSearchResult(elapsedTime, bestBusyTime);
-//    }
-    public LocalSearchResult run(int nrOfTrees) {
-        int counter = 0;
+    /**
+     *
+     * @param iterations how many iterations do we perform
+     * @param nrOfTrees how many trees do i use to remove a node from
+     * @return
+     */
+    public LocalSearchResult run(int iterations, int nrOfTrees) {
         long startTime = System.currentTimeMillis();
-        while (counter < 100000) {
+        for (int i = 0; i < iterations; i++) {
             generateNeighbor(currentSolution, nrOfTrees);
             int newBusyTime = calculateTotalBusyTime(currentSolution);
+
             if (newBusyTime < bestBusyTime) {
                 bestBusyTime = newBusyTime;
                 bestSolution = new Solution<>(currentSolution);
                 if(deepCopyRollback) oldSolution = new Solution<>(currentSolution);
                 if (!deepCopyRollback) moves.clear();
-                counter = 0;
             } else {
-                counter++;
                 if (deepCopyRollback) this.currentSolution = new Solution<>(oldSolution);
                 else rollback();
             }
@@ -92,6 +64,50 @@ public class LocalSearchGeneric<
 
         return new LocalSearchResult(elapsedTime, bestBusyTime);
     }
+public LocalSearchResult run(int nrOfTrees) {
+    int counter = 0;
+   // int iterationIndex = 0;
+    long startTime = System.currentTimeMillis();
+    //long maxDuration = 1800000; // 30 minutes in milliseconds
+
+    //while ((System.currentTimeMillis()- startTime) < maxDuration) {
+        while (counter < 100_000){
+        generateNeighbor(currentSolution, nrOfTrees);
+        int newBusyTime = calculateTotalBusyTime(currentSolution);
+
+        if (newBusyTime < bestBusyTime) {
+            bestBusyTime = newBusyTime;
+            bestSolution = new Solution<>(currentSolution);
+
+            if (deepCopyRollback) {
+                oldSolution = new Solution<>(currentSolution);
+            }
+            if (!deepCopyRollback) {
+                moves.clear();
+            }
+            counter = 0;
+        } else {
+            counter++;
+            if (deepCopyRollback) {
+                this.currentSolution = new Solution<>(oldSolution);
+            } else {
+                rollback();
+            }
+        }
+     //   SolutionWriter.solutionAnalysis(heuristic.getHeuristicName(),inputReader.getTestInstance(), iterationIndex, bestBusyTime);//This is for solution analysis
+     //   iterationIndex++;
+    }
+
+    long endTime = System.currentTimeMillis();
+    long elapsedTime = endTime - startTime;
+
+    System.out.println("Elapsed time: " + elapsedTime);
+
+    SolutionWriter.writeSolutionToFile(bestSolution, heuristic.getInputReader().getTestInstance(), heuristic.getHeuristicName(), bestBusyTime);
+
+    return new LocalSearchResult(elapsedTime, bestBusyTime);
+}
+
 
 
     /**
@@ -153,7 +169,6 @@ public class LocalSearchGeneric<
     }
 
     private void reInsertNodes(List<Request> requests) {
-        // Stel het aantal threads in voor de ForkJoinPool
       //  System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "3"); // set the number of threads
 
         for (Request request : requests) {

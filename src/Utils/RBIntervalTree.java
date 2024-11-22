@@ -175,6 +175,27 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         return findNodeInternal(root, node.getInterval(), node.getID());
     }
 
+    @Override
+    public RBIntervalNode getMaxEndTimeNode() {
+        return getMaxEndTimeNodeInternal(root);
+    }
+
+    private RBIntervalNode getMaxEndTimeNodeInternal(RBIntervalNode node) {
+        if (node == null) {
+            return null;
+        }
+
+        if (node.getRight() != null && node.getRight().getMaxEndTime() == node.getMaxEndTime()) {
+            return getMaxEndTimeNodeInternal(node.getRight());
+        }
+
+        if (node.getLeft() != null && node.getLeft().getMaxEndTime() == node.getMaxEndTime()) {
+            return getMaxEndTimeNodeInternal(node.getLeft());
+        }
+
+        return node;
+    }
+
     private RBIntervalNode findNodeInternal(RBIntervalNode current, Interval interval, int id) {
         if (current == null) {
             return null;
