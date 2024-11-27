@@ -113,10 +113,12 @@ public class Validator {
         for (int requestId : requests.keySet()) {
             if (!assignedRequestIds.contains(requestId)) {
                 System.out.println("Error: Request ID " + requestId + " is not assigned in the solution.");
+                System.exit(1);
             }
         }
         if (!duplicateRequestIds.isEmpty()) {
             System.out.println("Error: The following Request IDs are assigned multiple times: " + duplicateRequestIds);
+            System.exit(1);
         }
 
         boolean capacityViolated = false;

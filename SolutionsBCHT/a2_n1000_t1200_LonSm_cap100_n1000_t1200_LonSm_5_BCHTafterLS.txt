@@ -51,8 +51,6 @@ Request ID: 947
 Request ID: 959
 Request ID: 973
 Request ID: 977
-Request ID: 996
-Request ID: 997
 
 Server 2:
 Request ID: 3
@@ -106,8 +104,6 @@ Request ID: 932
 Request ID: 941
 Request ID: 942
 Request ID: 958
-Request ID: 979
-Request ID: 998
 
 Server 3:
 Request ID: 6
@@ -1040,4 +1036,12 @@ Request ID: 989
 Request ID: 994
 Request ID: 995
 
-Total busy time: 22560
+Server 22:
+Request ID: 997
+Request ID: 998
+
+Server 23:
+Request ID: 979
+Request ID: 996
+
+Total busy time: 22554

@@ -1,5 +1,5 @@
 package localsearch;
 
 public interface ILocalSearch {
-    LocalSearchResult run(int nrOfTrees);
+    LocalSearchResult run(int nrOfIterations);
 }

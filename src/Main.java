@@ -28,12 +28,12 @@ public class Main {
             inputFiles = getInputFiles();
         else {
             inputFiles = new ArrayList<>();
-            inputFiles.add(baseDirectory.resolve("c3/exp2_800_800_80_3.txt"));
+            inputFiles.add(baseDirectory.resolve("a2/n1000 t1000 ShSm/cap100_n1000_t1000_ShSm_3.txt"));
         }
 
-        var treeType = BalancedTreeType.BCHTAVL; //change this to BCHTRB or BCHTAVL to test different tree types
-        var nrOfIterations = 10000; // i in results filename
-        var nrOfTrees = 5; // j in results filename = nr of trees used to remove nodes from (generate neighbor)
+        var treeType = BalancedTreeType.BCHTRB; //change this to BCHTRB or BCHTAVL to test different tree types
+        var nrOfIterations = 10_000; // i in results filename
+        var nrOfTrees = 10; // j in results filename = nr of trees used to remove nodes from (generate neighbor)
         boolean deepCopyRollback = true; // change this to true to test deep copy rollback
 
         for (var f : inputFiles){
@@ -53,21 +53,24 @@ public class Main {
                 case BCHT:
                     bcht = new BCHT<IntervalTree>(inputReader, new IntervalTreeFactory(), "BCHT");
                     runner.run(bcht, requests);
-                    var localSearchBCHT = new LocalSearchGeneric<IntervalTree, IntervalNode>(bcht.getSolution(), bcht, deepCopyRollback,inputReader);
-                    result = localSearchBCHT.run(nrOfTrees);
+                   // var localSearchBCHT = new LocalSearchGeneric<IntervalTree, IntervalNode>(bcht.getSolution(), bcht, deepCopyRollback,inputReader);
+                    var localSearchBCHT = new LocalSearchOwn<IntervalTree, IntervalNode>(bcht.getSolution(), bcht, deepCopyRollback,inputReader);
+                    result = localSearchBCHT.run(nrOfIterations);
                     break;
                 case BCHTRB:
                     bcht = new BCHT<RBIntervalTree>(inputReader, new RBIntervalTreeFactory(), "BCHTRB");
                     runner.run(bcht, requests);
-                    var localSearchRB = new LocalSearchGeneric<RBIntervalTree, RBIntervalNode>(bcht.getSolution(), bcht, deepCopyRollback, inputReader);
-                    result = localSearchRB.run(nrOfTrees);
+                   // var localSearchRB = new LocalSearchGeneric<RBIntervalTree, RBIntervalNode>(bcht.getSolution(), bcht, deepCopyRollback, inputReader);
+                    var localSearchRB = new LocalSearchOwn<RBIntervalTree, RBIntervalNode>(bcht.getSolution(), bcht, deepCopyRollback, inputReader);
+                    result = localSearchRB.run(nrOfIterations);
                     break;
                 case BCHTAVL:
                 default:
                     bcht = new BCHT<AVLIntervalTree>(inputReader, new AVLIntervalTreeFactory(), "BCHTAVL");
                     runner.run(bcht, requests);
-                    var localSearchAVL = new LocalSearchGeneric<AVLIntervalTree, AVLIntervalNode>(bcht.getSolution(), bcht, deepCopyRollback, inputReader);
-                    result = localSearchAVL.run(nrOfIterations, nrOfTrees);
+                   // var localSearchAVL = new LocalSearchGeneric<AVLIntervalTree, AVLIntervalNode>(bcht.getSolution(), bcht, deepCopyRollback, inputReader);
+                    var localSearchAVL = new LocalSearchOwn<AVLIntervalTree, AVLIntervalNode>(bcht.getSolution(), bcht, deepCopyRollback, inputReader);
+                    result = localSearchAVL.run(nrOfIterations);
                     break;
             }
 
@@ -81,7 +84,7 @@ public class Main {
         // Write the results to a CSV file if we processed all files
         if (processAllInputFiles) {
             String suffix = deepCopyRollback ? "_RDC" : "_RM";
-            String outputCsvFile = "local_search_results_" + treeType.name() + "_i" + nrOfIterations + "_j" + nrOfTrees + suffix  + "_MT" +  ".csv";
+            String outputCsvFile = "local_searchOwn_results_" + treeType.name() + "_i" + nrOfIterations + "_j" + nrOfTrees + suffix  +  ".csv";
             LocalSearchResultsWriter.writeToCsv(localSearchResults, outputCsvFile);
         }
     }

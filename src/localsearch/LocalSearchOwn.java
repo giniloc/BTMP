@@ -5,9 +5,7 @@ import IO.InputReader;
 import IO.SolutionWriter;
 import Utils.*;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 
 public class LocalSearchOwn <T extends IIntervalTree<N>,N extends IntervalNode> implements ILocalSearch {
@@ -36,13 +34,13 @@ public class LocalSearchOwn <T extends IIntervalTree<N>,N extends IntervalNode> 
     /**
      *
      * @param iterations how many iterations do we perform
-     * @param nrOfTrees how many trees do i use to remove a node from
+//     * @param nrOfTrees how many trees do i use to remove a node from
      * @return
      */
-    public LocalSearchResult run(int iterations, int nrOfTrees) {
+    public LocalSearchResult run(int iterations) {
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < iterations; i++) {
-            generateNeighbor(currentSolution, nrOfTrees);
+            generateNeighbor(currentSolution);
             int newBusyTime = calculateTotalBusyTime(currentSolution);
 
             if (newBusyTime < bestBusyTime) {
@@ -64,7 +62,7 @@ public class LocalSearchOwn <T extends IIntervalTree<N>,N extends IntervalNode> 
 
         return new LocalSearchResult(elapsedTime, bestBusyTime);
     }
-    public LocalSearchResult run(int nrOfTrees) {
+    public LocalSearchResult run() {
         int counter = 0;
         // int iterationIndex = 0;
         long startTime = System.currentTimeMillis();
@@ -72,7 +70,7 @@ public class LocalSearchOwn <T extends IIntervalTree<N>,N extends IntervalNode> 
 
         //while ((System.currentTimeMillis()- startTime) < maxDuration) {
         while (counter < 100_000){
-            generateNeighbor(currentSolution, nrOfTrees);
+            generateNeighbor(currentSolution);
             int newBusyTime = calculateTotalBusyTime(currentSolution);
 
             if (newBusyTime < bestBusyTime) {
@@ -107,50 +105,87 @@ public class LocalSearchOwn <T extends IIntervalTree<N>,N extends IntervalNode> 
 
         return new LocalSearchResult(elapsedTime, bestBusyTime);
     }
-    private void generateNeighbor(Solution<T> solution, int nrOfTrees) {
-        var busiestTrees = selectTrees(solution, nrOfTrees);
-        for (T tree : busiestTrees) {
-            int busyTimeTree = tree.calculateTotalBusyTime();
-            N nodeToRemove = tree.getMaxEndTimeNode();
-            tree.delete(nodeToRemove);
-            int newBusyTimeTree = tree.calculateTotalBusyTime();
-            if (newBusyTimeTree < busyTimeTree) {
-                T newTree = findBetterTree(nodeToRemove, busyTimeTree - newBusyTimeTree);
-                if (newTree != null) {
-                    tree.insert(nodeToRemove);
-                }
-                else tree.insert(nodeToRemove);
-            }
-            else {
-                tree.insert(nodeToRemove);
-            }
-        }
-
+    private void generateNeighbor(Solution<T> solution) {
+        var busiestTrees = selectTrees(solution);
+        makeCombination(busiestTrees);
     }
 
-    private T findBetterTree(N nodeToRemove, int profit) {
-        T bestTree = null;
-        int bestProfit = profit;
-        for (T tree: this.currentSolution.getIntervalTrees()){
-            int addedTime = tree.calculateExtraBusyTime(nodeToRemove.getInterval());
-            if (addedTime < bestProfit) {
-                bestTree = tree;
-                bestProfit = addedTime;
-            }
-        }
-        return bestTree;
-    }
 
-    private List<T> selectTrees(Solution<T> solution, int count) {  //selects n busiest trees
+    private List<T> selectTrees(Solution<T> solution) {  //selects n busiest trees
         var intervalTrees = solution.getIntervalTrees();
 
         var busiestTrees = intervalTrees.stream()
                 .sorted(Comparator.comparingInt(T::calculateTotalBusyTime).reversed())
                 .toList();
 
-        return busiestTrees.subList(0, count);
+        return busiestTrees;
     }
+    private void makeCombination(List<T> busiestTrees) {
+        T currentTree = busiestTrees.get(0);
+        T secondTree = busiestTrees.get(1);
 
+        N nodeToRemove = currentTree.getMaxEndTimeNode();
+        int busyTimeCurrentBefore = currentTree.calculateTotalBusyTime();
+        N firstDeletedNode = currentTree.delete(nodeToRemove);
+        int profitCurrent = busyTimeCurrentBefore - currentTree.calculateTotalBusyTime();
+
+        // Check if the node can be inserted in the second tree with profit
+        int overlappingWeightSecond = secondTree.findAllOverlapping(nodeToRemove.getInterval())
+                .stream()
+                .mapToInt(IntervalNode::getWeight)
+                .sum();
+        if (overlappingWeightSecond + nodeToRemove.getWeight() <= inputReader.getServerCapacity()) {
+            int extraCost = secondTree.calculateExtraBusyTime(nodeToRemove.getInterval());
+            if (extraCost < profitCurrent) {
+                secondTree.insert(nodeToRemove);
+                return;
+            }
+        }
+
+        // Calculate the profits of each Node if you would delete them from the tree
+        List<N> overlappingNodesSecond = secondTree.findAllOverlapping(nodeToRemove.getInterval());
+        Map<N, Integer> profitMap = new TreeMap<>(Comparator.comparingInt(node -> -node.getInterval().getEndTime()));
+        calculateProfitMap(secondTree, profitMap, overlappingNodesSecond);
+
+        N mostProfitableNode = profitMap.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse(null);
+        if (mostProfitableNode != null && mostProfitableNode.getWeight() + firstDeletedNode.getWeight() < inputReader.getServerCapacity()) {
+            int profitSecond = profitMap.get(mostProfitableNode);
+            int busyTimeNewServer = calculateBusyTimeForNewServer(nodeToRemove, mostProfitableNode);
+
+            if (busyTimeNewServer < (profitCurrent + profitSecond)) {
+                N deletedNode = secondTree.delete(mostProfitableNode);
+//                secondTree.insert(deletedNode);
+                setupNewServer(firstDeletedNode, deletedNode);
+                return;
+            }
+        }
+
+        // If no profit can be made, repair the tree
+        currentTree.insert(nodeToRemove);
+    }
+    private void calculateProfitMap(T tree, Map<N, Integer> profitMap, List<N> allNodes) {
+        for (N node : allNodes) {
+            int busyTimeBefore = tree.calculateTotalBusyTime();
+            N newNode = tree.delete(node);
+            int profit = busyTimeBefore - tree.calculateTotalBusyTime();
+            profitMap.put(newNode, profit);
+            tree.insert(newNode);
+        }
+    }
+    private int calculateBusyTimeForNewServer(N node1, N node2) {
+        int startTime = Math.min(node1.getInterval().getStartTime(), node2.getInterval().getStartTime());
+        int endTime = Math.max(node1.getInterval().getEndTime(), node2.getInterval().getEndTime());
+        return endTime - startTime;
+    }
+    private void setupNewServer(N node1, N node2) {
+        T newServer = intervalTreeFactory.create();
+        newServer.insert(node1);
+        newServer.insert(node2);
+        currentSolution.getIntervalTrees().add(newServer);
+    }
 
     private int calculateTotalBusyTime(Solution<T> solution) {
         int totalBusyTime = 0;
@@ -158,9 +193,6 @@ public class LocalSearchOwn <T extends IIntervalTree<N>,N extends IntervalNode> 
             totalBusyTime += tree.calculateTotalBusyTime();
         }
         return totalBusyTime;
-    }
-    private Request createRequestFromNode(AVLIntervalNode node) {
-        return new Request(node.getID(), node.getInterval().getStartTime(), node.getInterval().getEndTime(), node.getWeight());
     }
     private void rollback() {
         for (int i = moves.size() - 1; i >= 0; i--) {
