@@ -132,7 +132,6 @@ Request ID: 41
 Request ID: 171
 Request ID: 49
 Request ID: 107
-Request ID: 42
 
 Server 8:
 Request ID: 88
@@ -448,7 +447,6 @@ Request ID: 348
 Request ID: 334
 Request ID: 328
 Request ID: 329
-Request ID: 331
 
 Server 41:
 Request ID: 350
@@ -498,4 +496,8 @@ Request ID: 394
 Server 50:
 Request ID: 397
 
-Total busy time: 20473
+Server 51:
+Request ID: 331
+Request ID: 42
+
+Total busy time: 20230

@@ -281,7 +281,6 @@ Request ID: 55
 Request ID: 64
 Request ID: 205
 Request ID: 705
-Request ID: 96
 Request ID: 98
 
 Server 6:
@@ -395,7 +394,6 @@ Request ID: 350
 Request ID: 119
 Request ID: 262
 Request ID: 524
-Request ID: 512
 
 Server 9:
 Request ID: 603
@@ -864,4 +862,8 @@ Request ID: 746
 Server 33:
 Request ID: 785
 
-Total busy time: 22625
+Server 34:
+Request ID: 96
+Request ID: 512
+
+Total busy time: 22558

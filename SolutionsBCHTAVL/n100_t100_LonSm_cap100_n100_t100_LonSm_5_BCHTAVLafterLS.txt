@@ -49,15 +49,15 @@ Request ID: 14
 Request ID: 15
 Request ID: 46
 Request ID: 54
+Request ID: 96
 
 Server 8:
 Request ID: 16
 Request ID: 17
 Request ID: 59
 Request ID: 60
+Request ID: 83
 Request ID: 84
-Request ID: 89
-Request ID: 93
 
 Server 9:
 Request ID: 18
@@ -80,15 +80,13 @@ Request ID: 23
 Request ID: 24
 Request ID: 27
 Request ID: 48
-Request ID: 74
-Request ID: 76
 
 Server 12:
 Request ID: 25
 Request ID: 26
 Request ID: 55
-Request ID: 96
-Request ID: 97
+Request ID: 74
+Request ID: 76
 
 Server 13:
 Request ID: 28
@@ -128,12 +126,16 @@ Request ID: 88
 Server 18:
 Request ID: 41
 Request ID: 42
-Request ID: 81
+Request ID: 97
 Request ID: 98
 
 Server 19:
 Request ID: 63
 Request ID: 64
-Request ID: 83
+Request ID: 81
 
-Total busy time: 1932
+Server 20:
+Request ID: 89
+Request ID: 93
+
+Total busy time: 1952

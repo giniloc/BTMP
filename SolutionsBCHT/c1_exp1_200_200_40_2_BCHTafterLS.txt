@@ -22,7 +22,6 @@ Request ID: 42
 Request ID: 189
 Request ID: 25
 Request ID: 3
-Request ID: 1
 
 Server 2:
 Request ID: 138
@@ -94,7 +93,6 @@ Request ID: 28
 Request ID: 30
 Request ID: 41
 Request ID: 162
-Request ID: 51
 Request ID: 54
 Request ID: 92
 Request ID: 53
@@ -244,4 +242,8 @@ Server 23:
 Request ID: 196
 Request ID: 195
 
-Total busy time: 4792
+Server 24:
+Request ID: 51
+Request ID: 1
+
+Total busy time: 4690

@@ -15,4 +15,5 @@ public interface IIntervalTree<T extends IntervalNode> {
     T findNode(IntervalNode node);
 
     T getMaxEndTimeNode();
+
 }

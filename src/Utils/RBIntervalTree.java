@@ -218,7 +218,7 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         }
     }
 
-    private RBIntervalNode findMin(RBIntervalNode node) {
+    private RBIntervalNode findMinNode(RBIntervalNode node) {
         while (node.getLeft() != null) {
             node = node.getLeft();
         }
@@ -320,7 +320,7 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         } else {
             // 2 non-null childs => find successor
             // find the in-order replacement node (smallest in the right subtree)
-            replacement = findMin(nodeToDelete.getRight());
+            replacement = findMinNode(nodeToDelete.getRight());
             x = replacement.getRight();
             replacementIsLeftChild = replacement.isLeftChild();
         }

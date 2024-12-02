@@ -26,9 +26,6 @@ Request ID: 543
 Request ID: 564
 Request ID: 571
 Request ID: 575
-Request ID: 612
-Request ID: 618
-Request ID: 1051
 Request ID: 2088
 Request ID: 2097
 Request ID: 2108
@@ -47,7 +44,6 @@ Request ID: 2347
 Request ID: 2361
 Request ID: 2374
 Request ID: 2380
-Request ID: 4492
 Request ID: 4964
 Request ID: 4965
 Request ID: 4966
@@ -491,6 +487,7 @@ Request ID: 405
 
 Server 8:
 Request ID: 10
+Request ID: 11
 
 Server 9:
 Request ID: 12
@@ -508,6 +505,8 @@ Request ID: 351
 Request ID: 355
 Request ID: 361
 Request ID: 601
+Request ID: 612
+Request ID: 618
 Request ID: 640
 Request ID: 645
 Request ID: 648
@@ -529,6 +528,7 @@ Request ID: 990
 Request ID: 991
 Request ID: 1022
 Request ID: 1039
+Request ID: 1051
 Request ID: 1052
 Request ID: 1080
 Request ID: 1082
@@ -590,6 +590,7 @@ Request ID: 2196
 Request ID: 2217
 Request ID: 2219
 Request ID: 2221
+Request ID: 2222
 Request ID: 2248
 Request ID: 2254
 Request ID: 2257
@@ -725,7 +726,6 @@ Request ID: 1236
 Request ID: 2063
 Request ID: 2064
 Request ID: 2100
-Request ID: 2222
 Request ID: 2398
 Request ID: 4969
 Request ID: 4971
@@ -2048,7 +2048,6 @@ Request ID: 2085
 Request ID: 2093
 Request ID: 2117
 Request ID: 4975
-Request ID: 4979
 
 Server 32:
 Request ID: 69
@@ -3472,6 +3471,7 @@ Request ID: 4376
 Request ID: 4407
 Request ID: 4416
 Request ID: 4487
+Request ID: 4492
 Request ID: 4498
 Request ID: 4550
 Request ID: 4556
@@ -3708,6 +3708,7 @@ Request ID: 3306
 Request ID: 3320
 Request ID: 3341
 Request ID: 4903
+Request ID: 4909
 Request ID: 4957
 Request ID: 4987
 
@@ -3845,7 +3846,6 @@ Request ID: 170
 Request ID: 171
 Request ID: 172
 Request ID: 2099
-Request ID: 4909
 Request ID: 4976
 Request ID: 4998
 
@@ -4019,7 +4019,6 @@ Request ID: 2104
 Request ID: 2283
 Request ID: 2297
 Request ID: 2329
-Request ID: 4842
 Request ID: 4925
 
 Server 78:
@@ -4356,6 +4355,8 @@ Request ID: 4669
 Request ID: 4681
 Request ID: 4696
 Request ID: 4718
+Request ID: 4842
+Request ID: 4979
 
 Server 82:
 Request ID: 192
@@ -5115,7 +5116,6 @@ Request ID: 4851
 Request ID: 4936
 
 Server 89:
-Request ID: 11
 Request ID: 208
 Request ID: 221
 Request ID: 246
@@ -5180,4 +5180,4 @@ Request ID: 223
 Server 91:
 Request ID: 210
 
-Total busy time: 882082
+Total busy time: 882117

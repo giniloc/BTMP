@@ -637,7 +637,6 @@ Request ID: 942
 Request ID: 990
 Request ID: 957
 Request ID: 993
-Request ID: 706
 Request ID: 715
 
 Server 3:
@@ -1468,7 +1467,6 @@ Request ID: 1041
 Request ID: 1363
 Request ID: 983
 Request ID: 1012
-Request ID: 1089
 
 Server 8:
 Request ID: 1560
@@ -1622,4 +1620,8 @@ Request ID: 1578
 Server 12:
 Request ID: 1598
 
-Total busy time: 17108
+Server 13:
+Request ID: 706
+Request ID: 1089
+
+Total busy time: 17083

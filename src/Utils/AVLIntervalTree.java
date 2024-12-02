@@ -177,7 +177,7 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
     }
 
 
-    private AVLIntervalNode findMinNode(AVLIntervalNode node) {
+    public AVLIntervalNode findMinNode(AVLIntervalNode node) {
         while (node.getLeft() != null) {
             node = node.getLeft();
         }
@@ -353,9 +353,10 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
 
     @Override
     public AVLIntervalNode getMaxEndTimeNode() {
-        AVLIntervalNode maxEndTimeNode = getMaxEndTimeNodeInternal(root);
-        decoupleNode(maxEndTimeNode);
-        return maxEndTimeNode;
+        AVLIntervalNode newNode = getMaxEndTimeNodeInternal(root);
+        AVLIntervalNode copyNode = new AVLIntervalNode(newNode.getInterval(), newNode.getWeight(), newNode.getID());
+        decoupleNode(copyNode);
+        return copyNode;
     }
 
     private AVLIntervalNode getMaxEndTimeNodeInternal(AVLIntervalNode node) {

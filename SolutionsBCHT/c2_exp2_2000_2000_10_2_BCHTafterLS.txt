@@ -459,8 +459,6 @@ Request ID: 1946
 Request ID: 564
 Request ID: 1086
 Request ID: 1339
-Request ID: 112
-Request ID: 153
 
 Server 2:
 Request ID: 630
@@ -805,7 +803,6 @@ Request ID: 1155
 Request ID: 1195
 Request ID: 752
 Request ID: 524
-Request ID: 367
 
 Server 3:
 Request ID: 1226
@@ -1708,7 +1705,6 @@ Request ID: 1078
 Request ID: 1008
 Request ID: 1745
 Request ID: 1912
-Request ID: 1702
 Request ID: 1646
 
 Server 7:
@@ -2020,4 +2016,12 @@ Request ID: 1924
 Request ID: 1909
 Request ID: 1987
 
-Total busy time: 19670
+Server 12:
+Request ID: 153
+Request ID: 367
+
+Server 13:
+Request ID: 112
+Request ID: 1702
+
+Total busy time: 19662

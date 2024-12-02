@@ -90,7 +90,6 @@ Request ID: 478
 Request ID: 483
 Request ID: 492
 Request ID: 494
-Request ID: 497
 
 Server 4:
 Request ID: 7
@@ -105,7 +104,6 @@ Server 6:
 Request ID: 12
 Request ID: 13
 Request ID: 14
-Request ID: 48
 Request ID: 54
 Request ID: 55
 Request ID: 60
@@ -187,6 +185,7 @@ Server 8:
 Request ID: 17
 Request ID: 18
 Request ID: 19
+Request ID: 48
 Request ID: 50
 Request ID: 51
 Request ID: 52
@@ -266,8 +265,6 @@ Request ID: 465
 Request ID: 468
 Request ID: 474
 Request ID: 481
-Request ID: 484
-Request ID: 493
 
 Server 9:
 Request ID: 20
@@ -311,6 +308,7 @@ Request ID: 359
 Request ID: 364
 Request ID: 477
 Request ID: 479
+Request ID: 484
 Request ID: 485
 Request ID: 496
 
@@ -534,4 +532,8 @@ Request ID: 182
 Request ID: 183
 Request ID: 184
 
-Total busy time: 157086
+Server 19:
+Request ID: 493
+Request ID: 497
+
+Total busy time: 156429

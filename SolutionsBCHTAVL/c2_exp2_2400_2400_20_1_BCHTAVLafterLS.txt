@@ -51,6 +51,7 @@ Request ID: 280
 Request ID: 589
 Request ID: 464
 Request ID: 1075
+Request ID: 679
 Request ID: 2250
 Request ID: 1029
 Request ID: 2097
@@ -103,6 +104,7 @@ Request ID: 432
 Request ID: 2154
 Request ID: 841
 Request ID: 180
+Request ID: 72
 Request ID: 2319
 Request ID: 8
 Request ID: 1254
@@ -1333,7 +1335,6 @@ Request ID: 651
 Request ID: 2108
 Request ID: 1763
 Request ID: 1624
-Request ID: 679
 Request ID: 1158
 Request ID: 686
 Request ID: 714
@@ -1507,7 +1508,6 @@ Request ID: 1596
 Request ID: 1720
 Request ID: 884
 Request ID: 920
-Request ID: 72
 Request ID: 2156
 Request ID: 1923
 Request ID: 625
@@ -2201,6 +2201,7 @@ Request ID: 1601
 Request ID: 2070
 Request ID: 2026
 Request ID: 2082
+Request ID: 2083
 Request ID: 2292
 Request ID: 2128
 Request ID: 2145
@@ -2220,6 +2221,7 @@ Request ID: 1866
 Request ID: 1925
 Request ID: 2336
 Request ID: 2265
+Request ID: 2164
 Request ID: 2157
 Request ID: 2090
 Request ID: 1705
@@ -2305,7 +2307,7 @@ Request ID: 1852
 Request ID: 2078
 Request ID: 1859
 Request ID: 1618
-Request ID: 2393
+Request ID: 1629
 Request ID: 2178
 Request ID: 2304
 Request ID: 2196
@@ -2340,7 +2342,6 @@ Request ID: 1854
 Request ID: 1962
 Request ID: 2394
 Request ID: 2168
-Request ID: 2083
 Request ID: 2296
 Request ID: 1901
 Request ID: 1727
@@ -2383,7 +2384,6 @@ Server 16:
 Request ID: 2146
 Request ID: 2234
 Request ID: 2366
-Request ID: 2164
 Request ID: 2235
 Request ID: 2274
 Request ID: 2149
@@ -2403,7 +2403,7 @@ Request ID: 2107
 Request ID: 1876
 Request ID: 2284
 Request ID: 1898
-Request ID: 2227
+Request ID: 2169
 
 Server 17:
 Request ID: 2251
@@ -2417,23 +2417,23 @@ Request ID: 2244
 Request ID: 2387
 Request ID: 2363
 Request ID: 1931
-Request ID: 2169
+Request ID: 2227
 Request ID: 2257
 Request ID: 2302
 Request ID: 2386
 Request ID: 2357
 
 Server 18:
+Request ID: 2393
 Request ID: 2317
-Request ID: 1629
 Request ID: 2328
 Request ID: 2367
 Request ID: 2370
-Request ID: 2346
-Request ID: 2385
-
-Server 19:
 Request ID: 2293
 Request ID: 2300
 
-Total busy time: 41000
+Server 19:
+Request ID: 2346
+Request ID: 2385
+
+Total busy time: 41100

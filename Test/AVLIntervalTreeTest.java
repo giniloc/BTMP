@@ -425,6 +425,12 @@ public class AVLIntervalTreeTest {
         assertTrue(tree.isBalanced());
         assertEquals(n.getInterval(), copyNode.getInterval());
     }
+    @Test
+    public void leftChildTest(){
+        var tree = buildAVLTree();
+        tree.delete(node7);
+
+    }
 
 //endregion
     @Test

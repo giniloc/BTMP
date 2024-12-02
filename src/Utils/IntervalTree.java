@@ -135,7 +135,7 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
             }
 
             // Case 3: 2 children, find successor(leftmost node in that subtree) and replace node with it
-            IntervalNode successor = findMin(current.getRight());
+            IntervalNode successor = findMinNode(current.getRight());
             current.setInterval(successor.getInterval());
             current.setWeight(successor.getWeight());
             current.setID(successor.getID());
@@ -153,7 +153,7 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
         return current;
     }
 
-    private IntervalNode findMin(IntervalNode node) {
+    public IntervalNode findMinNode(IntervalNode node) {
         while (node.getLeft() != null){
             node = node.getLeft();
         }
@@ -233,7 +233,10 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
 
     @Override
     public IntervalNode getMaxEndTimeNode() {
-        return getMaxEndTimeNodeInternal(root);
+        IntervalNode newNode = getMaxEndTimeNodeInternal(root);
+        IntervalNode copyNode = new IntervalNode(newNode.getInterval(), newNode.getWeight(), newNode.getID());
+        decoupleNode(copyNode);
+        return copyNode;
     }
     private IntervalNode getMaxEndTimeNodeInternal(IntervalNode root) {
         if (root == null) {
@@ -251,7 +254,6 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
         }
         return maxNode;
     }
-
     private IntervalNode findNodeInternal(IntervalNode current, Interval interval, int id) {
         if (current == null) {
             return null;

@@ -1297,7 +1297,6 @@ Request ID: 695
 Request ID: 1366
 Request ID: 1159
 Request ID: 1163
-Request ID: 720
 Request ID: 665
 
 Server 5:
@@ -1494,7 +1493,6 @@ Request ID: 1825
 Request ID: 1824
 Request ID: 1734
 Request ID: 1998
-Request ID: 1900
 
 Server 6:
 Request ID: 1558
@@ -2024,4 +2022,8 @@ Server 13:
 Request ID: 1999
 Request ID: 1857
 
-Total busy time: 21848
+Server 14:
+Request ID: 720
+Request ID: 1900
+
+Total busy time: 21807

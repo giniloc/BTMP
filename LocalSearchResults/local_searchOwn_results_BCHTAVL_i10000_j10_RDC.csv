@@ -1,0 +1,771 @@
+filename,duration,totalBusyTime
+.\TestInstances\a2\n1000 t1000 LonLr\cap100_n1000_t1000_LonLr_1.txt,194,29103
+.\TestInstances\a2\n1000 t1000 LonLr\cap100_n1000_t1000_LonLr_2.txt,118,32726
+.\TestInstances\a2\n1000 t1000 LonLr\cap100_n1000_t1000_LonLr_3.txt,98,29929
+.\TestInstances\a2\n1000 t1000 LonLr\cap100_n1000_t1000_LonLr_4.txt,112,29540
+.\TestInstances\a2\n1000 t1000 LonLr\cap100_n1000_t1000_LonLr_5.txt,86,29945
+.\TestInstances\a2\n1000 t1000 LonSm\cap100_n1000_t1000_LonSm_1.txt,88,20469
+.\TestInstances\a2\n1000 t1000 LonSm\cap100_n1000_t1000_LonSm_2.txt,81,20809
+.\TestInstances\a2\n1000 t1000 LonSm\cap100_n1000_t1000_LonSm_3.txt,109,20971
+.\TestInstances\a2\n1000 t1000 LonSm\cap100_n1000_t1000_LonSm_4.txt,84,19951
+.\TestInstances\a2\n1000 t1000 LonSm\cap100_n1000_t1000_LonSm_5.txt,83,20189
+.\TestInstances\a2\n1000 t1000 ShLr\cap100_n1000_t1000_ShLr_1.txt,87,18007
+.\TestInstances\a2\n1000 t1000 ShLr\cap100_n1000_t1000_ShLr_2.txt,83,17388
+.\TestInstances\a2\n1000 t1000 ShLr\cap100_n1000_t1000_ShLr_3.txt,82,17400
+.\TestInstances\a2\n1000 t1000 ShLr\cap100_n1000_t1000_ShLr_4.txt,91,18543
+.\TestInstances\a2\n1000 t1000 ShLr\cap100_n1000_t1000_ShLr_5.txt,84,18496
+.\TestInstances\a2\n1000 t1000 ShSm\cap100_n1000_t1000_ShSm_1.txt,79,12647
+.\TestInstances\a2\n1000 t1000 ShSm\cap100_n1000_t1000_ShSm_2.txt,77,11897
+.\TestInstances\a2\n1000 t1000 ShSm\cap100_n1000_t1000_ShSm_3.txt,76,13605
+.\TestInstances\a2\n1000 t1000 ShSm\cap100_n1000_t1000_ShSm_4.txt,75,12163
+.\TestInstances\a2\n1000 t1000 ShSm\cap100_n1000_t1000_ShSm_5.txt,74,11842
+.\TestInstances\a2\n1000 t1200 LonLr\cap100_n1000_t1200_LonLr_1.txt,83,30924
+.\TestInstances\a2\n1000 t1200 LonLr\cap100_n1000_t1200_LonLr_2.txt,103,31499
+.\TestInstances\a2\n1000 t1200 LonLr\cap100_n1000_t1200_LonLr_3.txt,88,30244
+.\TestInstances\a2\n1000 t1200 LonLr\cap100_n1000_t1200_LonLr_4.txt,83,29578
+.\TestInstances\a2\n1000 t1200 LonLr\cap100_n1000_t1200_LonLr_5.txt,83,31643
+.\TestInstances\a2\n1000 t1200 LonSm\cap100_n1000_t1200_LonSm_1.txt,77,21669
+.\TestInstances\a2\n1000 t1200 LonSm\cap100_n1000_t1200_LonSm_2.txt,82,20892
+.\TestInstances\a2\n1000 t1200 LonSm\cap100_n1000_t1200_LonSm_3.txt,88,22549
+.\TestInstances\a2\n1000 t1200 LonSm\cap100_n1000_t1200_LonSm_4.txt,79,20770
+.\TestInstances\a2\n1000 t1200 LonSm\cap100_n1000_t1200_LonSm_5.txt,83,22554
+.\TestInstances\a2\n1000 t1200 ShLr\cap100_n1000_t1200_ShLr_1.txt,81,17568
+.\TestInstances\a2\n1000 t1200 ShLr\cap100_n1000_t1200_ShLr_2.txt,82,18665
+.\TestInstances\a2\n1000 t1200 ShLr\cap100_n1000_t1200_ShLr_3.txt,80,18596
+.\TestInstances\a2\n1000 t1200 ShLr\cap100_n1000_t1200_ShLr_4.txt,91,18477
+.\TestInstances\a2\n1000 t1200 ShLr\cap100_n1000_t1200_ShLr_5.txt,78,18136
+.\TestInstances\a2\n1000 t1200 ShSm\cap100_n1000_t1200_ShSm_1.txt,88,13459
+.\TestInstances\a2\n1000 t1200 ShSm\cap100_n1000_t1200_ShSm_2.txt,81,12489
+.\TestInstances\a2\n1000 t1200 ShSm\cap100_n1000_t1200_ShSm_3.txt,83,13016
+.\TestInstances\a2\n1000 t1200 ShSm\cap100_n1000_t1200_ShSm_4.txt,77,12481
+.\TestInstances\a2\n1000 t1200 ShSm\cap100_n1000_t1200_ShSm_5.txt,74,13321
+.\TestInstances\a2\n500 t500 LonLr\cap100_n500_t500_LonLr_1.txt,50,13735
+.\TestInstances\a2\n500 t500 LonLr\cap100_n500_t500_LonLr_2.txt,50,13742
+.\TestInstances\a2\n500 t500 LonLr\cap100_n500_t500_LonLr_3.txt,53,13943
+.\TestInstances\a2\n500 t500 LonLr\cap100_n500_t500_LonLr_4.txt,51,14426
+.\TestInstances\a2\n500 t500 LonLr\cap100_n500_t500_LonLr_5.txt,54,14167
+.\TestInstances\a2\n500 t500 LonSm\cap100_n500_t500_LonSm_1.txt,49,9866
+.\TestInstances\a2\n500 t500 LonSm\cap100_n500_t500_LonSm_2.txt,46,10135
+.\TestInstances\a2\n500 t500 LonSm\cap100_n500_t500_LonSm_3.txt,46,9896
+.\TestInstances\a2\n500 t500 LonSm\cap100_n500_t500_LonSm_4.txt,49,10351
+.\TestInstances\a2\n500 t500 LonSm\cap100_n500_t500_LonSm_5.txt,53,10417
+.\TestInstances\a2\n500 t500 ShLr\cap100_n500_t500_ShLr_1.txt,45,8147
+.\TestInstances\a2\n500 t500 ShLr\cap100_n500_t500_ShLr_2.txt,44,8271
+.\TestInstances\a2\n500 t500 ShLr\cap100_n500_t500_ShLr_3.txt,42,7972
+.\TestInstances\a2\n500 t500 ShLr\cap100_n500_t500_ShLr_4.txt,44,8227
+.\TestInstances\a2\n500 t500 ShLr\cap100_n500_t500_ShLr_5.txt,43,8438
+.\TestInstances\a2\n500 t500 ShSm\cap100_n500_t500_ShSm_1.txt,46,6103
+.\TestInstances\a2\n500 t500 ShSm\cap100_n500_t500_ShSm_2.txt,42,5453
+.\TestInstances\a2\n500 t500 ShSm\cap100_n500_t500_ShSm_3.txt,40,5845
+.\TestInstances\a2\n500 t500 ShSm\cap100_n500_t500_ShSm_4.txt,46,5995
+.\TestInstances\a2\n500 t500 ShSm\cap100_n500_t500_ShSm_5.txt,43,5643
+.\TestInstances\a2\n500 t600 LonLr\cap100_n500_t600_LonLr_1.txt,50,15335
+.\TestInstances\a2\n500 t600 LonLr\cap100_n500_t600_LonLr_2.txt,51,14745
+.\TestInstances\a2\n500 t600 LonLr\cap100_n500_t600_LonLr_3.txt,47,14811
+.\TestInstances\a2\n500 t600 LonLr\cap100_n500_t600_LonLr_4.txt,48,14209
+.\TestInstances\a2\n500 t600 LonLr\cap100_n500_t600_LonLr_5.txt,48,14085
+.\TestInstances\a2\n500 t600 LonSm\cap100_n500_t600_LonSm_1.txt,46,10875
+.\TestInstances\a2\n500 t600 LonSm\cap100_n500_t600_LonSm_2.txt,45,9862
+.\TestInstances\a2\n500 t600 LonSm\cap100_n500_t600_LonSm_3.txt,43,10075
+.\TestInstances\a2\n500 t600 LonSm\cap100_n500_t600_LonSm_4.txt,52,10997
+.\TestInstances\a2\n500 t600 LonSm\cap100_n500_t600_LonSm_5.txt,46,10832
+.\TestInstances\a2\n500 t600 ShLr\cap100_n500_t600_ShLr_1.txt,44,8188
+.\TestInstances\a2\n500 t600 ShLr\cap100_n500_t600_ShLr_2.txt,41,8231
+.\TestInstances\a2\n500 t600 ShLr\cap100_n500_t600_ShLr_3.txt,44,8446
+.\TestInstances\a2\n500 t600 ShLr\cap100_n500_t600_ShLr_4.txt,40,8076
+.\TestInstances\a2\n500 t600 ShLr\cap100_n500_t600_ShLr_5.txt,41,8496
+.\TestInstances\a2\n500 t600 ShSm\cap100_n500_t600_ShSm_1.txt,40,5588
+.\TestInstances\a2\n500 t600 ShSm\cap100_n500_t600_ShSm_2.txt,41,6000
+.\TestInstances\a2\n500 t600 ShSm\cap100_n500_t600_ShSm_3.txt,43,6365
+.\TestInstances\a2\n500 t600 ShSm\cap100_n500_t600_ShSm_4.txt,42,6139
+.\TestInstances\a2\n500 t600 ShSm\cap100_n500_t600_ShSm_5.txt,42,6344
+.\TestInstances\c1\exp1_200_200_10_1.txt,19,1821
+.\TestInstances\c1\exp1_200_200_10_2.txt,21,1673
+.\TestInstances\c1\exp1_200_200_10_3.txt,19,1720
+.\TestInstances\c1\exp1_200_200_10_4.txt,20,1804
+.\TestInstances\c1\exp1_200_200_10_5.txt,21,1774
+.\TestInstances\c1\exp1_200_200_20_1.txt,21,3081
+.\TestInstances\c1\exp1_200_200_20_2.txt,27,2905
+.\TestInstances\c1\exp1_200_200_20_3.txt,25,2457
+.\TestInstances\c1\exp1_200_200_20_4.txt,22,2684
+.\TestInstances\c1\exp1_200_200_20_5.txt,21,2703
+.\TestInstances\c1\exp1_200_200_40_1.txt,26,5088
+.\TestInstances\c1\exp1_200_200_40_2.txt,24,4792
+.\TestInstances\c1\exp1_200_200_40_3.txt,29,5102
+.\TestInstances\c1\exp1_200_200_40_4.txt,27,5493
+.\TestInstances\c1\exp1_200_200_40_5.txt,25,4874
+.\TestInstances\c1\exp1_200_200_5_1.txt,18,1129
+.\TestInstances\c1\exp1_200_200_5_2.txt,16,1047
+.\TestInstances\c1\exp1_200_200_5_3.txt,23,1119
+.\TestInstances\c1\exp1_200_200_5_4.txt,20,1194
+.\TestInstances\c1\exp1_200_200_5_5.txt,20,1060
+.\TestInstances\c1\exp1_200_200_80_1.txt,37,11160
+.\TestInstances\c1\exp1_200_200_80_2.txt,35,10819
+.\TestInstances\c1\exp1_200_200_80_3.txt,34,10861
+.\TestInstances\c1\exp1_200_200_80_4.txt,38,10090
+.\TestInstances\c1\exp1_200_200_80_5.txt,35,12243
+.\TestInstances\c1\exp1_400_400_10_1.txt,33,3748
+.\TestInstances\c1\exp1_400_400_10_2.txt,33,4171
+.\TestInstances\c1\exp1_400_400_10_3.txt,35,3929
+.\TestInstances\c1\exp1_400_400_10_4.txt,33,3829
+.\TestInstances\c1\exp1_400_400_10_5.txt,38,3534
+.\TestInstances\c1\exp1_400_400_20_1.txt,36,6083
+.\TestInstances\c1\exp1_400_400_20_2.txt,40,6304
+.\TestInstances\c1\exp1_400_400_20_3.txt,38,5805
+.\TestInstances\c1\exp1_400_400_20_4.txt,37,6339
+.\TestInstances\c1\exp1_400_400_20_5.txt,38,6697
+.\TestInstances\c1\exp1_400_400_40_1.txt,46,10855
+.\TestInstances\c1\exp1_400_400_40_2.txt,46,12333
+.\TestInstances\c1\exp1_400_400_40_3.txt,42,10648
+.\TestInstances\c1\exp1_400_400_40_4.txt,43,11577
+.\TestInstances\c1\exp1_400_400_40_5.txt,45,11693
+.\TestInstances\c1\exp1_400_400_5_1.txt,36,2450
+.\TestInstances\c1\exp1_400_400_5_2.txt,35,2456
+.\TestInstances\c1\exp1_400_400_5_3.txt,34,2611
+.\TestInstances\c1\exp1_400_400_5_4.txt,29,2505
+.\TestInstances\c1\exp1_400_400_5_5.txt,33,2345
+.\TestInstances\c1\exp1_400_400_80_1.txt,60,20828
+.\TestInstances\c1\exp1_400_400_80_2.txt,57,22575
+.\TestInstances\c1\exp1_400_400_80_3.txt,49,19662
+.\TestInstances\c1\exp1_400_400_80_4.txt,54,20473
+.\TestInstances\c1\exp1_400_400_80_5.txt,53,20105
+.\TestInstances\c1\exp1_600_600_10_1.txt,49,6058
+.\TestInstances\c1\exp1_600_600_10_2.txt,57,5408
+.\TestInstances\c1\exp1_600_600_10_3.txt,50,5749
+.\TestInstances\c1\exp1_600_600_10_4.txt,50,6471
+.\TestInstances\c1\exp1_600_600_10_5.txt,47,5777
+.\TestInstances\c1\exp1_600_600_20_1.txt,52,9792
+.\TestInstances\c1\exp1_600_600_20_2.txt,50,8960
+.\TestInstances\c1\exp1_600_600_20_3.txt,52,9353
+.\TestInstances\c1\exp1_600_600_20_4.txt,61,9026
+.\TestInstances\c1\exp1_600_600_20_5.txt,55,9353
+.\TestInstances\c1\exp1_600_600_40_1.txt,61,16776
+.\TestInstances\c1\exp1_600_600_40_2.txt,62,17425
+.\TestInstances\c1\exp1_600_600_40_3.txt,56,16810
+.\TestInstances\c1\exp1_600_600_40_4.txt,61,16224
+.\TestInstances\c1\exp1_600_600_40_5.txt,59,15586
+.\TestInstances\c1\exp1_600_600_5_1.txt,48,3928
+.\TestInstances\c1\exp1_600_600_5_2.txt,43,3980
+.\TestInstances\c1\exp1_600_600_5_3.txt,47,3821
+.\TestInstances\c1\exp1_600_600_5_4.txt,45,3722
+.\TestInstances\c1\exp1_600_600_5_5.txt,44,3863
+.\TestInstances\c1\exp1_600_600_80_1.txt,86,30848
+.\TestInstances\c1\exp1_600_600_80_2.txt,75,29178
+.\TestInstances\c1\exp1_600_600_80_3.txt,71,30231
+.\TestInstances\c1\exp1_600_600_80_4.txt,70,29401
+.\TestInstances\c1\exp1_600_600_80_5.txt,69,32074
+.\TestInstances\c2\exp2_1200_1200_10_1.txt,85,12076
+.\TestInstances\c2\exp2_1200_1200_10_2.txt,88,12339
+.\TestInstances\c2\exp2_1200_1200_10_3.txt,90,11630
+.\TestInstances\c2\exp2_1200_1200_10_4.txt,89,13678
+.\TestInstances\c2\exp2_1200_1200_10_5.txt,99,13155
+.\TestInstances\c2\exp2_1200_1200_20_1.txt,93,20233
+.\TestInstances\c2\exp2_1200_1200_20_2.txt,91,19194
+.\TestInstances\c2\exp2_1200_1200_20_3.txt,96,20312
+.\TestInstances\c2\exp2_1200_1200_20_4.txt,102,20378
+.\TestInstances\c2\exp2_1200_1200_20_5.txt,92,19043
+.\TestInstances\c2\exp2_1200_1200_5_1.txt,86,7755
+.\TestInstances\c2\exp2_1200_1200_5_2.txt,106,7594
+.\TestInstances\c2\exp2_1200_1200_5_3.txt,84,7926
+.\TestInstances\c2\exp2_1200_1200_5_4.txt,82,8171
+.\TestInstances\c2\exp2_1200_1200_5_5.txt,85,8001
+.\TestInstances\c2\exp2_1600_1600_10_1.txt,112,17340
+.\TestInstances\c2\exp2_1600_1600_10_2.txt,132,17108
+.\TestInstances\c2\exp2_1600_1600_10_3.txt,114,16843
+.\TestInstances\c2\exp2_1600_1600_10_4.txt,111,16227
+.\TestInstances\c2\exp2_1600_1600_10_5.txt,114,19643
+.\TestInstances\c2\exp2_1600_1600_20_1.txt,120,25339
+.\TestInstances\c2\exp2_1600_1600_20_2.txt,111,25332
+.\TestInstances\c2\exp2_1600_1600_20_3.txt,124,30191
+.\TestInstances\c2\exp2_1600_1600_20_4.txt,116,27533
+.\TestInstances\c2\exp2_1600_1600_20_5.txt,120,27058
+.\TestInstances\c2\exp2_1600_1600_5_1.txt,112,10809
+.\TestInstances\c2\exp2_1600_1600_5_2.txt,104,11804
+.\TestInstances\c2\exp2_1600_1600_5_3.txt,107,11463
+.\TestInstances\c2\exp2_1600_1600_5_4.txt,112,10989
+.\TestInstances\c2\exp2_1600_1600_5_5.txt,115,11548
+.\TestInstances\c2\exp2_2000_2000_10_1.txt,140,21949
+.\TestInstances\c2\exp2_2000_2000_10_2.txt,140,19670
+.\TestInstances\c2\exp2_2000_2000_10_3.txt,140,21848
+.\TestInstances\c2\exp2_2000_2000_10_4.txt,138,20475
+.\TestInstances\c2\exp2_2000_2000_10_5.txt,139,21386
+.\TestInstances\c2\exp2_2000_2000_20_1.txt,153,35149
+.\TestInstances\c2\exp2_2000_2000_20_2.txt,162,36752
+.\TestInstances\c2\exp2_2000_2000_20_3.txt,140,35634
+.\TestInstances\c2\exp2_2000_2000_20_4.txt,144,36562
+.\TestInstances\c2\exp2_2000_2000_20_5.txt,138,33201
+.\TestInstances\c2\exp2_2000_2000_5_1.txt,151,15165
+.\TestInstances\c2\exp2_2000_2000_5_2.txt,145,14721
+.\TestInstances\c2\exp2_2000_2000_5_3.txt,134,14942
+.\TestInstances\c2\exp2_2000_2000_5_4.txt,135,13958
+.\TestInstances\c2\exp2_2000_2000_5_5.txt,134,13667
+.\TestInstances\c2\exp2_2400_2400_10_1.txt,161,28076
+.\TestInstances\c2\exp2_2400_2400_10_2.txt,170,25462
+.\TestInstances\c2\exp2_2400_2400_10_3.txt,161,25923
+.\TestInstances\c2\exp2_2400_2400_10_4.txt,166,25373
+.\TestInstances\c2\exp2_2400_2400_10_5.txt,163,26463
+.\TestInstances\c2\exp2_2400_2400_20_1.txt,172,41100
+.\TestInstances\c2\exp2_2400_2400_20_2.txt,161,39135
+.\TestInstances\c2\exp2_2400_2400_20_3.txt,173,41232
+.\TestInstances\c2\exp2_2400_2400_20_4.txt,167,40838
+.\TestInstances\c2\exp2_2400_2400_20_5.txt,170,40743
+.\TestInstances\c2\exp2_2400_2400_5_1.txt,161,17415
+.\TestInstances\c2\exp2_2400_2400_5_2.txt,164,18595
+.\TestInstances\c2\exp2_2400_2400_5_3.txt,162,17760
+.\TestInstances\c2\exp2_2400_2400_5_4.txt,162,18408
+.\TestInstances\c2\exp2_2400_2400_5_5.txt,156,19065
+.\TestInstances\c2\exp2_800_800_10_1.txt,62,7842
+.\TestInstances\c2\exp2_800_800_10_2.txt,64,8335
+.\TestInstances\c2\exp2_800_800_10_3.txt,58,7694
+.\TestInstances\c2\exp2_800_800_10_4.txt,59,7974
+.\TestInstances\c2\exp2_800_800_10_5.txt,65,8810
+.\TestInstances\c2\exp2_800_800_20_1.txt,65,14341
+.\TestInstances\c2\exp2_800_800_20_2.txt,66,13167
+.\TestInstances\c2\exp2_800_800_20_3.txt,68,13975
+.\TestInstances\c2\exp2_800_800_20_4.txt,79,13847
+.\TestInstances\c2\exp2_800_800_20_5.txt,70,13135
+.\TestInstances\c2\exp2_800_800_5_1.txt,79,5290
+.\TestInstances\c2\exp2_800_800_5_2.txt,67,5431
+.\TestInstances\c2\exp2_800_800_5_3.txt,67,4740
+.\TestInstances\c2\exp2_800_800_5_4.txt,55,5562
+.\TestInstances\c2\exp2_800_800_5_5.txt,58,5052
+.\TestInstances\c3\exp2_1000_1000_40_1.txt,82,28226
+.\TestInstances\c3\exp2_1000_1000_40_2.txt,87,27977
+.\TestInstances\c3\exp2_1000_1000_40_3.txt,86,28778
+.\TestInstances\c3\exp2_1000_1000_40_4.txt,93,28304
+.\TestInstances\c3\exp2_1000_1000_40_5.txt,88,27770
+.\TestInstances\c3\exp2_1000_1000_80_1.txt,96,51909
+.\TestInstances\c3\exp2_1000_1000_80_2.txt,101,54239
+.\TestInstances\c3\exp2_1000_1000_80_3.txt,102,52891
+.\TestInstances\c3\exp2_1000_1000_80_4.txt,103,49127
+.\TestInstances\c3\exp2_1000_1000_80_5.txt,99,52332
+.\TestInstances\c3\exp2_800_800_40_1.txt,75,20952
+.\TestInstances\c3\exp2_800_800_40_2.txt,71,22233
+.\TestInstances\c3\exp2_800_800_40_3.txt,71,22146
+.\TestInstances\c3\exp2_800_800_40_4.txt,84,22625
+.\TestInstances\c3\exp2_800_800_40_5.txt,69,21477
+.\TestInstances\c3\exp2_800_800_80_1.txt,90,43331
+.\TestInstances\c3\exp2_800_800_80_2.txt,83,41437
+.\TestInstances\c3\exp2_800_800_80_3.txt,81,41633
+.\TestInstances\c3\exp2_800_800_80_4.txt,90,45165
+.\TestInstances\c3\exp2_800_800_80_5.txt,81,40987
+.\TestInstances\c3\exp2_900_900_40_1.txt,77,26740
+.\TestInstances\c3\exp2_900_900_40_2.txt,84,25096
+.\TestInstances\c3\exp2_900_900_40_3.txt,79,26318
+.\TestInstances\c3\exp2_900_900_40_4.txt,78,25280
+.\TestInstances\c3\exp2_900_900_40_5.txt,77,24741
+.\TestInstances\c3\exp2_900_900_80_1.txt,89,46151
+.\TestInstances\c3\exp2_900_900_80_2.txt,94,45672
+.\TestInstances\c3\exp2_900_900_80_3.txt,94,45251
+.\TestInstances\c3\exp2_900_900_80_4.txt,82,46501
+.\TestInstances\c3\exp2_900_900_80_5.txt,98,46694
+.\TestInstances\d1\1000_24_1.txt,104,508230
+.\TestInstances\d1\1000_24_10.txt,87,357911
+.\TestInstances\d1\1000_24_2.txt,85,348413
+.\TestInstances\d1\1000_24_3.txt,84,338688
+.\TestInstances\d1\1000_24_4.txt,96,373338
+.\TestInstances\d1\1000_24_5.txt,85,350010
+.\TestInstances\d1\1000_24_6.txt,86,445391
+.\TestInstances\d1\1000_24_7.txt,91,367062
+.\TestInstances\d1\1000_24_8.txt,84,387488
+.\TestInstances\d1\1000_24_9.txt,84,449278
+.\TestInstances\d1\1000_2_1.txt,131,883301
+.\TestInstances\d1\1000_2_10.txt,114,886997
+.\TestInstances\d1\1000_2_2.txt,106,908939
+.\TestInstances\d1\1000_2_3.txt,102,897934
+.\TestInstances\d1\1000_2_4.txt,107,878915
+.\TestInstances\d1\1000_2_5.txt,110,903275
+.\TestInstances\d1\1000_2_6.txt,108,894649
+.\TestInstances\d1\1000_2_7.txt,104,963635
+.\TestInstances\d1\1000_2_8.txt,108,889891
+.\TestInstances\d1\1000_2_9.txt,106,846481
+.\TestInstances\d1\1000_4_1.txt,109,688139
+.\TestInstances\d1\1000_4_10.txt,108,690443
+.\TestInstances\d1\1000_4_2.txt,115,724332
+.\TestInstances\d1\1000_4_3.txt,111,619992
+.\TestInstances\d1\1000_4_4.txt,113,741426
+.\TestInstances\d1\1000_4_5.txt,110,669496
+.\TestInstances\d1\1000_4_6.txt,125,627860
+.\TestInstances\d1\1000_4_7.txt,108,796668
+.\TestInstances\d1\1000_4_8.txt,110,643127
+.\TestInstances\d1\1000_4_9.txt,121,583697
+.\TestInstances\d1\1000_8_1.txt,108,835677
+.\TestInstances\d1\1000_8_10.txt,104,819570
+.\TestInstances\d1\1000_8_2.txt,103,721960
+.\TestInstances\d1\1000_8_3.txt,104,634792
+.\TestInstances\d1\1000_8_4.txt,101,643906
+.\TestInstances\d1\1000_8_5.txt,106,665107
+.\TestInstances\d1\1000_8_6.txt,103,682666
+.\TestInstances\d1\1000_8_7.txt,101,714668
+.\TestInstances\d1\1000_8_8.txt,90,796043
+.\TestInstances\d1\1000_8_9.txt,102,698200
+.\TestInstances\d1\1000_inf_1.txt,80,222810
+.\TestInstances\d1\1000_inf_10.txt,77,229444
+.\TestInstances\d1\1000_inf_2.txt,77,186531
+.\TestInstances\d1\1000_inf_3.txt,77,163980
+.\TestInstances\d1\1000_inf_4.txt,81,218012
+.\TestInstances\d1\1000_inf_5.txt,79,194244
+.\TestInstances\d1\1000_inf_6.txt,75,205190
+.\TestInstances\d1\1000_inf_7.txt,75,183968
+.\TestInstances\d1\1000_inf_8.txt,81,191717
+.\TestInstances\d1\1000_inf_9.txt,77,282522
+.\TestInstances\d1\100_24_1.txt,12,66412
+.\TestInstances\d1\100_24_10.txt,11,51045
+.\TestInstances\d1\100_24_2.txt,8,51507
+.\TestInstances\d1\100_24_3.txt,9,41343
+.\TestInstances\d1\100_24_4.txt,10,42799
+.\TestInstances\d1\100_24_5.txt,8,47513
+.\TestInstances\d1\100_24_6.txt,9,52650
+.\TestInstances\d1\100_24_7.txt,8,57935
+.\TestInstances\d1\100_24_8.txt,11,48026
+.\TestInstances\d1\100_24_9.txt,8,56506
+.\TestInstances\d1\100_2_1.txt,13,104768
+.\TestInstances\d1\100_2_10.txt,10,106289
+.\TestInstances\d1\100_2_2.txt,12,141556
+.\TestInstances\d1\100_2_3.txt,12,84885
+.\TestInstances\d1\100_2_4.txt,12,92945
+.\TestInstances\d1\100_2_5.txt,13,88522
+.\TestInstances\d1\100_2_6.txt,14,126175
+.\TestInstances\d1\100_2_7.txt,12,112258
+.\TestInstances\d1\100_2_8.txt,12,103202
+.\TestInstances\d1\100_2_9.txt,13,103537
+.\TestInstances\d1\100_4_1.txt,13,107523
+.\TestInstances\d1\100_4_10.txt,14,65695
+.\TestInstances\d1\100_4_2.txt,12,94480
+.\TestInstances\d1\100_4_3.txt,10,78889
+.\TestInstances\d1\100_4_4.txt,17,104109
+.\TestInstances\d1\100_4_5.txt,14,84399
+.\TestInstances\d1\100_4_6.txt,16,77887
+.\TestInstances\d1\100_4_7.txt,12,101124
+.\TestInstances\d1\100_4_8.txt,13,93322
+.\TestInstances\d1\100_4_9.txt,13,71855
+.\TestInstances\d1\100_8_1.txt,11,161273
+.\TestInstances\d1\100_8_10.txt,12,101406
+.\TestInstances\d1\100_8_2.txt,11,87752
+.\TestInstances\d1\100_8_3.txt,13,61082
+.\TestInstances\d1\100_8_4.txt,14,101138
+.\TestInstances\d1\100_8_5.txt,13,73294
+.\TestInstances\d1\100_8_6.txt,10,101118
+.\TestInstances\d1\100_8_7.txt,9,67953
+.\TestInstances\d1\100_8_8.txt,15,83898
+.\TestInstances\d1\100_8_9.txt,15,66360
+.\TestInstances\d1\100_inf_1.txt,10,39865
+.\TestInstances\d1\100_inf_10.txt,9,40044
+.\TestInstances\d1\100_inf_2.txt,9,31664
+.\TestInstances\d1\100_inf_3.txt,8,28405
+.\TestInstances\d1\100_inf_4.txt,8,35927
+.\TestInstances\d1\100_inf_5.txt,7,38918
+.\TestInstances\d1\100_inf_6.txt,7,45536
+.\TestInstances\d1\100_inf_7.txt,8,39647
+.\TestInstances\d1\100_inf_8.txt,12,47108
+.\TestInstances\d1\100_inf_9.txt,13,59122
+.\TestInstances\d1\200_24_1.txt,19,88416
+.\TestInstances\d1\200_24_10.txt,20,117405
+.\TestInstances\d1\200_24_2.txt,20,101626
+.\TestInstances\d1\200_24_3.txt,18,87572
+.\TestInstances\d1\200_24_4.txt,23,89397
+.\TestInstances\d1\200_24_5.txt,19,76138
+.\TestInstances\d1\200_24_6.txt,18,121032
+.\TestInstances\d1\200_24_7.txt,19,98249
+.\TestInstances\d1\200_24_8.txt,17,87522
+.\TestInstances\d1\200_24_9.txt,18,87275
+.\TestInstances\d1\200_2_1.txt,26,185707
+.\TestInstances\d1\200_2_10.txt,20,173626
+.\TestInstances\d1\200_2_2.txt,23,247967
+.\TestInstances\d1\200_2_3.txt,23,153777
+.\TestInstances\d1\200_2_4.txt,23,179025
+.\TestInstances\d1\200_2_5.txt,23,184352
+.\TestInstances\d1\200_2_6.txt,26,217409
+.\TestInstances\d1\200_2_7.txt,21,233264
+.\TestInstances\d1\200_2_8.txt,23,182566
+.\TestInstances\d1\200_2_9.txt,21,177958
+.\TestInstances\d1\200_4_1.txt,24,141843
+.\TestInstances\d1\200_4_10.txt,28,127143
+.\TestInstances\d1\200_4_2.txt,25,165320
+.\TestInstances\d1\200_4_3.txt,24,119885
+.\TestInstances\d1\200_4_4.txt,28,151523
+.\TestInstances\d1\200_4_5.txt,27,166073
+.\TestInstances\d1\200_4_6.txt,26,140758
+.\TestInstances\d1\200_4_7.txt,23,173682
+.\TestInstances\d1\200_4_8.txt,25,150186
+.\TestInstances\d1\200_4_9.txt,23,140341
+.\TestInstances\d1\200_8_1.txt,20,230315
+.\TestInstances\d1\200_8_10.txt,22,183961
+.\TestInstances\d1\200_8_2.txt,18,202107
+.\TestInstances\d1\200_8_3.txt,23,143140
+.\TestInstances\d1\200_8_4.txt,21,150538
+.\TestInstances\d1\200_8_5.txt,21,124457
+.\TestInstances\d1\200_8_6.txt,18,202096
+.\TestInstances\d1\200_8_7.txt,22,116816
+.\TestInstances\d1\200_8_8.txt,21,162980
+.\TestInstances\d1\200_8_9.txt,22,148938
+.\TestInstances\d1\200_inf_1.txt,15,79802
+.\TestInstances\d1\200_inf_10.txt,19,80012
+.\TestInstances\d1\200_inf_2.txt,20,53107
+.\TestInstances\d1\200_inf_3.txt,21,59847
+.\TestInstances\d1\200_inf_4.txt,16,52428
+.\TestInstances\d1\200_inf_5.txt,16,64083
+.\TestInstances\d1\200_inf_6.txt,17,46628
+.\TestInstances\d1\200_inf_7.txt,17,60239
+.\TestInstances\d1\200_inf_8.txt,17,68249
+.\TestInstances\d1\200_inf_9.txt,17,79334
+.\TestInstances\d1\500_24_1.txt,44,282271
+.\TestInstances\d1\500_24_10.txt,44,205258
+.\TestInstances\d1\500_24_2.txt,43,164944
+.\TestInstances\d1\500_24_3.txt,46,156429
+.\TestInstances\d1\500_24_4.txt,55,151309
+.\TestInstances\d1\500_24_5.txt,53,175497
+.\TestInstances\d1\500_24_6.txt,48,262505
+.\TestInstances\d1\500_24_7.txt,59,214258
+.\TestInstances\d1\500_24_8.txt,40,216465
+.\TestInstances\d1\500_24_9.txt,46,179337
+.\TestInstances\d1\500_2_1.txt,66,393423
+.\TestInstances\d1\500_2_10.txt,56,441942
+.\TestInstances\d1\500_2_2.txt,57,457270
+.\TestInstances\d1\500_2_3.txt,50,434626
+.\TestInstances\d1\500_2_4.txt,55,444086
+.\TestInstances\d1\500_2_5.txt,47,510812
+.\TestInstances\d1\500_2_6.txt,63,493624
+.\TestInstances\d1\500_2_7.txt,60,526223
+.\TestInstances\d1\500_2_8.txt,56,448701
+.\TestInstances\d1\500_2_9.txt,60,434212
+.\TestInstances\d1\500_4_1.txt,63,329180
+.\TestInstances\d1\500_4_10.txt,66,334779
+.\TestInstances\d1\500_4_2.txt,78,356298
+.\TestInstances\d1\500_4_3.txt,74,317220
+.\TestInstances\d1\500_4_4.txt,84,365338
+.\TestInstances\d1\500_4_5.txt,80,360859
+.\TestInstances\d1\500_4_6.txt,69,313097
+.\TestInstances\d1\500_4_7.txt,62,395862
+.\TestInstances\d1\500_4_8.txt,59,352561
+.\TestInstances\d1\500_4_9.txt,57,310045
+.\TestInstances\d1\500_8_1.txt,53,451926
+.\TestInstances\d1\500_8_10.txt,54,467293
+.\TestInstances\d1\500_8_2.txt,49,367204
+.\TestInstances\d1\500_8_3.txt,52,348876
+.\TestInstances\d1\500_8_4.txt,52,335559
+.\TestInstances\d1\500_8_5.txt,64,290735
+.\TestInstances\d1\500_8_6.txt,57,372274
+.\TestInstances\d1\500_8_7.txt,54,241980
+.\TestInstances\d1\500_8_8.txt,52,465664
+.\TestInstances\d1\500_8_9.txt,51,312349
+.\TestInstances\d1\500_inf_1.txt,38,180018
+.\TestInstances\d1\500_inf_10.txt,39,180833
+.\TestInstances\d1\500_inf_2.txt,41,90094
+.\TestInstances\d1\500_inf_3.txt,54,98269
+.\TestInstances\d1\500_inf_4.txt,41,125503
+.\TestInstances\d1\500_inf_5.txt,37,124224
+.\TestInstances\d1\500_inf_6.txt,40,97121
+.\TestInstances\d1\500_inf_7.txt,49,118083
+.\TestInstances\d1\500_inf_8.txt,44,141592
+.\TestInstances\d1\500_inf_9.txt,50,161398
+.\TestInstances\d2\10000_24_1.txt,897,3880907
+.\TestInstances\d2\10000_24_10.txt,826,3272091
+.\TestInstances\d2\10000_24_2.txt,858,3529139
+.\TestInstances\d2\10000_24_3.txt,878,3233445
+.\TestInstances\d2\10000_24_4.txt,826,3700649
+.\TestInstances\d2\10000_24_5.txt,872,3147848
+.\TestInstances\d2\10000_24_6.txt,861,3467363
+.\TestInstances\d2\10000_24_7.txt,875,3424789
+.\TestInstances\d2\10000_24_8.txt,871,3465035
+.\TestInstances\d2\10000_24_9.txt,828,3764439
+.\TestInstances\d2\10000_2_1.txt,1284,8747148
+.\TestInstances\d2\10000_2_10.txt,1246,8917625
+.\TestInstances\d2\10000_2_2.txt,1285,8858860
+.\TestInstances\d2\10000_2_3.txt,1219,8847891
+.\TestInstances\d2\10000_2_4.txt,1233,8896249
+.\TestInstances\d2\10000_2_5.txt,1252,8720573
+.\TestInstances\d2\10000_2_6.txt,1283,8723795
+.\TestInstances\d2\10000_2_7.txt,1253,8974565
+.\TestInstances\d2\10000_2_8.txt,1273,8756761
+.\TestInstances\d2\10000_2_9.txt,1239,8591251
+.\TestInstances\d2\10000_4_1.txt,1189,6690679
+.\TestInstances\d2\10000_4_10.txt,1169,6427870
+.\TestInstances\d2\10000_4_2.txt,1166,6459668
+.\TestInstances\d2\10000_4_3.txt,1169,6524852
+.\TestInstances\d2\10000_4_4.txt,1164,6553849
+.\TestInstances\d2\10000_4_5.txt,1113,6327267
+.\TestInstances\d2\10000_4_6.txt,1174,6462490
+.\TestInstances\d2\10000_4_7.txt,1189,6731287
+.\TestInstances\d2\10000_4_8.txt,1144,6460995
+.\TestInstances\d2\10000_4_9.txt,1196,6376194
+.\TestInstances\d2\10000_8_1.txt,1033,7182940
+.\TestInstances\d2\10000_8_10.txt,977,7011908
+.\TestInstances\d2\10000_8_2.txt,1042,6561254
+.\TestInstances\d2\10000_8_3.txt,1027,6735555
+.\TestInstances\d2\10000_8_4.txt,1052,6676955
+.\TestInstances\d2\10000_8_5.txt,1028,6439000
+.\TestInstances\d2\10000_8_6.txt,1014,6490354
+.\TestInstances\d2\10000_8_7.txt,1023,6797568
+.\TestInstances\d2\10000_8_8.txt,1014,6453554
+.\TestInstances\d2\10000_8_9.txt,1061,6468131
+.\TestInstances\d2\10000_inf_1.txt,776,1861589
+.\TestInstances\d2\10000_inf_10.txt,753,2056950
+.\TestInstances\d2\10000_inf_2.txt,749,1696398
+.\TestInstances\d2\10000_inf_3.txt,767,1715753
+.\TestInstances\d2\10000_inf_4.txt,785,1839626
+.\TestInstances\d2\10000_inf_5.txt,784,2019437
+.\TestInstances\d2\10000_inf_6.txt,779,1815275
+.\TestInstances\d2\10000_inf_7.txt,755,1687033
+.\TestInstances\d2\10000_inf_8.txt,766,1813570
+.\TestInstances\d2\10000_inf_9.txt,765,1840164
+.\TestInstances\d2\2000_24_1.txt,171,877626
+.\TestInstances\d2\2000_24_10.txt,183,705009
+.\TestInstances\d2\2000_24_2.txt,171,632687
+.\TestInstances\d2\2000_24_3.txt,173,637012
+.\TestInstances\d2\2000_24_4.txt,165,916231
+.\TestInstances\d2\2000_24_5.txt,178,700945
+.\TestInstances\d2\2000_24_6.txt,167,604069
+.\TestInstances\d2\2000_24_7.txt,174,621861
+.\TestInstances\d2\2000_24_8.txt,169,702423
+.\TestInstances\d2\2000_24_9.txt,173,778490
+.\TestInstances\d2\2000_2_1.txt,216,1845110
+.\TestInstances\d2\2000_2_10.txt,214,1763922
+.\TestInstances\d2\2000_2_2.txt,235,1819109
+.\TestInstances\d2\2000_2_3.txt,224,1718203
+.\TestInstances\d2\2000_2_4.txt,214,1823169
+.\TestInstances\d2\2000_2_5.txt,208,1849127
+.\TestInstances\d2\2000_2_6.txt,232,1720803
+.\TestInstances\d2\2000_2_7.txt,224,1781933
+.\TestInstances\d2\2000_2_8.txt,221,1823245
+.\TestInstances\d2\2000_2_9.txt,214,1799323
+.\TestInstances\d2\2000_4_1.txt,222,1378293
+.\TestInstances\d2\2000_4_10.txt,229,1341535
+.\TestInstances\d2\2000_4_2.txt,227,1402414
+.\TestInstances\d2\2000_4_3.txt,211,1308637
+.\TestInstances\d2\2000_4_4.txt,234,1460114
+.\TestInstances\d2\2000_4_5.txt,225,1314366
+.\TestInstances\d2\2000_4_6.txt,243,1238308
+.\TestInstances\d2\2000_4_7.txt,220,1507959
+.\TestInstances\d2\2000_4_8.txt,212,1308984
+.\TestInstances\d2\2000_4_9.txt,226,1273169
+.\TestInstances\d2\2000_8_1.txt,192,1616695
+.\TestInstances\d2\2000_8_10.txt,193,1477470
+.\TestInstances\d2\2000_8_2.txt,200,1295296
+.\TestInstances\d2\2000_8_3.txt,210,1377506
+.\TestInstances\d2\2000_8_4.txt,212,1245726
+.\TestInstances\d2\2000_8_5.txt,216,1189406
+.\TestInstances\d2\2000_8_6.txt,197,1361903
+.\TestInstances\d2\2000_8_7.txt,196,1364404
+.\TestInstances\d2\2000_8_8.txt,198,1379236
+.\TestInstances\d2\2000_8_9.txt,213,1259107
+.\TestInstances\d2\2000_inf_1.txt,155,473760
+.\TestInstances\d2\2000_inf_10.txt,160,407405
+.\TestInstances\d2\2000_inf_2.txt,158,391502
+.\TestInstances\d2\2000_inf_3.txt,155,342082
+.\TestInstances\d2\2000_inf_4.txt,149,448338
+.\TestInstances\d2\2000_inf_5.txt,150,486337
+.\TestInstances\d2\2000_inf_6.txt,148,392814
+.\TestInstances\d2\2000_inf_7.txt,153,330514
+.\TestInstances\d2\2000_inf_8.txt,158,350661
+.\TestInstances\d2\2000_inf_9.txt,166,427255
+.\TestInstances\d2\5000_24_1.txt,454,1983261
+.\TestInstances\d2\5000_24_10.txt,446,1681874
+.\TestInstances\d2\5000_24_2.txt,457,1663637
+.\TestInstances\d2\5000_24_3.txt,445,1544792
+.\TestInstances\d2\5000_24_4.txt,449,1783742
+.\TestInstances\d2\5000_24_5.txt,460,1593259
+.\TestInstances\d2\5000_24_6.txt,433,1687167
+.\TestInstances\d2\5000_24_7.txt,453,1705578
+.\TestInstances\d2\5000_24_8.txt,445,1775164
+.\TestInstances\d2\5000_24_9.txt,419,2056612
+.\TestInstances\d2\5000_2_1.txt,611,4448520
+.\TestInstances\d2\5000_2_10.txt,612,4389678
+.\TestInstances\d2\5000_2_2.txt,641,4331560
+.\TestInstances\d2\5000_2_3.txt,644,4420684
+.\TestInstances\d2\5000_2_4.txt,628,4446370
+.\TestInstances\d2\5000_2_5.txt,631,4387658
+.\TestInstances\d2\5000_2_6.txt,651,4387175
+.\TestInstances\d2\5000_2_7.txt,606,4585475
+.\TestInstances\d2\5000_2_8.txt,614,4292599
+.\TestInstances\d2\5000_2_9.txt,607,4296588
+.\TestInstances\d2\5000_4_1.txt,607,3561327
+.\TestInstances\d2\5000_4_10.txt,612,3227729
+.\TestInstances\d2\5000_4_2.txt,597,3405818
+.\TestInstances\d2\5000_4_3.txt,600,3238477
+.\TestInstances\d2\5000_4_4.txt,608,3350277
+.\TestInstances\d2\5000_4_5.txt,582,3278717
+.\TestInstances\d2\5000_4_6.txt,581,3162918
+.\TestInstances\d2\5000_4_7.txt,571,3382839
+.\TestInstances\d2\5000_4_8.txt,564,3274862
+.\TestInstances\d2\5000_4_9.txt,605,3177773
+.\TestInstances\d2\5000_8_1.txt,517,3836480
+.\TestInstances\d2\5000_8_10.txt,483,3565469
+.\TestInstances\d2\5000_8_2.txt,525,3277380
+.\TestInstances\d2\5000_8_3.txt,526,3381414
+.\TestInstances\d2\5000_8_4.txt,563,3224223
+.\TestInstances\d2\5000_8_5.txt,518,3106962
+.\TestInstances\d2\5000_8_6.txt,503,3343867
+.\TestInstances\d2\5000_8_7.txt,534,3367566
+.\TestInstances\d2\5000_8_8.txt,511,3445929
+.\TestInstances\d2\5000_8_9.txt,547,3395547
+.\TestInstances\d2\5000_inf_1.txt,404,911304
+.\TestInstances\d2\5000_inf_10.txt,379,1019214
+.\TestInstances\d2\5000_inf_2.txt,400,922901
+.\TestInstances\d2\5000_inf_3.txt,393,882117
+.\TestInstances\d2\5000_inf_4.txt,402,991976
+.\TestInstances\d2\5000_inf_5.txt,382,1039931
+.\TestInstances\d2\5000_inf_6.txt,385,876896
+.\TestInstances\d2\5000_inf_7.txt,384,923695
+.\TestInstances\d2\5000_inf_8.txt,395,853019
+.\TestInstances\d2\5000_inf_9.txt,371,996600
+.\TestInstances\n100 t100 LonLr\cap100_n100_t100_LonLr_1.txt,18,2479
+.\TestInstances\n100 t100 LonLr\cap100_n100_t100_LonLr_2.txt,19,2737
+.\TestInstances\n100 t100 LonLr\cap100_n100_t100_LonLr_3.txt,18,2470
+.\TestInstances\n100 t100 LonLr\cap100_n100_t100_LonLr_4.txt,19,2643
+.\TestInstances\n100 t100 LonLr\cap100_n100_t100_LonLr_5.txt,18,2459
+.\TestInstances\n100 t100 LonSm\cap100_n100_t100_LonSm_1.txt,16,1891
+.\TestInstances\n100 t100 LonSm\cap100_n100_t100_LonSm_2.txt,19,1833
+.\TestInstances\n100 t100 LonSm\cap100_n100_t100_LonSm_3.txt,16,1920
+.\TestInstances\n100 t100 LonSm\cap100_n100_t100_LonSm_4.txt,16,1924
+.\TestInstances\n100 t100 LonSm\cap100_n100_t100_LonSm_5.txt,18,1952
+.\TestInstances\n100 t100 ShLr\cap100_n100_t100_ShLr_1.txt,19,1401
+.\TestInstances\n100 t100 ShLr\cap100_n100_t100_ShLr_2.txt,15,1283
+.\TestInstances\n100 t100 ShLr\cap100_n100_t100_ShLr_3.txt,17,1470
+.\TestInstances\n100 t100 ShLr\cap100_n100_t100_ShLr_4.txt,14,1372
+.\TestInstances\n100 t100 ShLr\cap100_n100_t100_ShLr_5.txt,13,1328
+.\TestInstances\n100 t100 ShSm\cap100_n100_t100_ShSm_1.txt,13,1118
+.\TestInstances\n100 t100 ShSm\cap100_n100_t100_ShSm_2.txt,15,1046
+.\TestInstances\n100 t100 ShSm\cap100_n100_t100_ShSm_3.txt,13,1052
+.\TestInstances\n100 t100 ShSm\cap100_n100_t100_ShSm_4.txt,16,1029
+.\TestInstances\n100 t100 ShSm\cap100_n100_t100_ShSm_5.txt,14,1120
+.\TestInstances\n100 t120 LonLr\cap100_n100_t120_LonLr_1.txt,15,2600
+.\TestInstances\n100 t120 LonLr\cap100_n100_t120_LonLr_2.txt,18,2674
+.\TestInstances\n100 t120 LonLr\cap100_n100_t120_LonLr_3.txt,17,2721
+.\TestInstances\n100 t120 LonLr\cap100_n100_t120_LonLr_4.txt,21,2693
+.\TestInstances\n100 t120 LonLr\cap100_n100_t120_LonLr_5.txt,16,2460
+.\TestInstances\n100 t120 LonSm\cap100_n100_t120_LonSm_1.txt,14,1845
+.\TestInstances\n100 t120 LonSm\cap100_n100_t120_LonSm_2.txt,15,2012
+.\TestInstances\n100 t120 LonSm\cap100_n100_t120_LonSm_3.txt,17,1918
+.\TestInstances\n100 t120 LonSm\cap100_n100_t120_LonSm_4.txt,16,1981
+.\TestInstances\n100 t120 LonSm\cap100_n100_t120_LonSm_5.txt,15,2025
+.\TestInstances\n100 t120 ShLr\cap100_n100_t120_ShLr_1.txt,13,1547
+.\TestInstances\n100 t120 ShLr\cap100_n100_t120_ShLr_2.txt,13,1384
+.\TestInstances\n100 t120 ShLr\cap100_n100_t120_ShLr_3.txt,16,1457
+.\TestInstances\n100 t120 ShLr\cap100_n100_t120_ShLr_4.txt,13,1422
+.\TestInstances\n100 t120 ShLr\cap100_n100_t120_ShLr_5.txt,15,1476
+.\TestInstances\n100 t120 ShSm\cap100_n100_t120_ShSm_1.txt,15,1076
+.\TestInstances\n100 t120 ShSm\cap100_n100_t120_ShSm_2.txt,17,1005
+.\TestInstances\n100 t120 ShSm\cap100_n100_t120_ShSm_3.txt,12,1052
+.\TestInstances\n100 t120 ShSm\cap100_n100_t120_ShSm_4.txt,14,1111
+.\TestInstances\n100 t120 ShSm\cap100_n100_t120_ShSm_5.txt,15,1143
+.\TestInstances\n150 t150 LonLr\cap100_n150_t150_LonLr_1.txt,22,3734
+.\TestInstances\n150 t150 LonLr\cap100_n150_t150_LonLr_2.txt,22,3902
+.\TestInstances\n150 t150 LonLr\cap100_n150_t150_LonLr_3.txt,25,3940
+.\TestInstances\n150 t150 LonLr\cap100_n150_t150_LonLr_4.txt,27,3847
+.\TestInstances\n150 t150 LonLr\cap100_n150_t150_LonLr_5.txt,24,3952
+.\TestInstances\n150 t150 LonSm\cap100_n150_t150_LonSm_1.txt,20,2870
+.\TestInstances\n150 t150 LonSm\cap100_n150_t150_LonSm_2.txt,22,3074
+.\TestInstances\n150 t150 LonSm\cap100_n150_t150_LonSm_3.txt,20,2817
+.\TestInstances\n150 t150 LonSm\cap100_n150_t150_LonSm_4.txt,22,2800
+.\TestInstances\n150 t150 LonSm\cap100_n150_t150_LonSm_5.txt,23,2991
+.\TestInstances\n150 t150 ShLr\cap100_n150_t150_ShLr_1.txt,19,2180
+.\TestInstances\n150 t150 ShLr\cap100_n150_t150_ShLr_2.txt,20,2689
+.\TestInstances\n150 t150 ShLr\cap100_n150_t150_ShLr_3.txt,19,2317
+.\TestInstances\n150 t150 ShLr\cap100_n150_t150_ShLr_4.txt,17,2279
+.\TestInstances\n150 t150 ShLr\cap100_n150_t150_ShLr_5.txt,18,2275
+.\TestInstances\n150 t150 ShSm\cap100_n150_t150_ShSm_1.txt,19,1558
+.\TestInstances\n150 t150 ShSm\cap100_n150_t150_ShSm_2.txt,17,1674
+.\TestInstances\n150 t150 ShSm\cap100_n150_t150_ShSm_3.txt,15,1558
+.\TestInstances\n150 t150 ShSm\cap100_n150_t150_ShSm_4.txt,19,1633
+.\TestInstances\n150 t150 ShSm\cap100_n150_t150_ShSm_5.txt,16,1710
+.\TestInstances\n150 t180 LonLr\cap100_n150_t180_LonLr_1.txt,23,3947
+.\TestInstances\n150 t180 LonLr\cap100_n150_t180_LonLr_2.txt,21,4023
+.\TestInstances\n150 t180 LonLr\cap100_n150_t180_LonLr_3.txt,21,4205
+.\TestInstances\n150 t180 LonLr\cap100_n150_t180_LonLr_4.txt,21,4151
+.\TestInstances\n150 t180 LonLr\cap100_n150_t180_LonLr_5.txt,25,3812
+.\TestInstances\n150 t180 LonSm\cap100_n150_t180_LonSm_1.txt,24,2874
+.\TestInstances\n150 t180 LonSm\cap100_n150_t180_LonSm_2.txt,19,2890
+.\TestInstances\n150 t180 LonSm\cap100_n150_t180_LonSm_3.txt,19,2966
+.\TestInstances\n150 t180 LonSm\cap100_n150_t180_LonSm_4.txt,19,3059
+.\TestInstances\n150 t180 LonSm\cap100_n150_t180_LonSm_5.txt,19,2898
+.\TestInstances\n150 t180 ShLr\cap100_n150_t180_ShLr_1.txt,17,2375
+.\TestInstances\n150 t180 ShLr\cap100_n150_t180_ShLr_2.txt,16,2089
+.\TestInstances\n150 t180 ShLr\cap100_n150_t180_ShLr_3.txt,17,2277
+.\TestInstances\n150 t180 ShLr\cap100_n150_t180_ShLr_4.txt,21,2317
+.\TestInstances\n150 t180 ShLr\cap100_n150_t180_ShLr_5.txt,18,2369
+.\TestInstances\n150 t180 ShSm\cap100_n150_t180_ShSm_1.txt,25,1633
+.\TestInstances\n150 t180 ShSm\cap100_n150_t180_ShSm_2.txt,28,1706
+.\TestInstances\n150 t180 ShSm\cap100_n150_t180_ShSm_3.txt,26,1643
+.\TestInstances\n150 t180 ShSm\cap100_n150_t180_ShSm_4.txt,16,1551
+.\TestInstances\n150 t180 ShSm\cap100_n150_t180_ShSm_5.txt,19,1689
+.\TestInstances\n200 t200 LonLr\cap100_n200_t200_LonLr_1.txt,30,4966
+.\TestInstances\n200 t200 LonLr\cap100_n200_t200_LonLr_2.txt,26,5367
+.\TestInstances\n200 t200 LonLr\cap100_n200_t200_LonLr_3.txt,26,5181
+.\TestInstances\n200 t200 LonLr\cap100_n200_t200_LonLr_4.txt,28,5366
+.\TestInstances\n200 t200 LonLr\cap100_n200_t200_LonLr_5.txt,30,5141
+.\TestInstances\n200 t200 LonSm\cap100_n200_t200_LonSm_1.txt,23,3882
+.\TestInstances\n200 t200 LonSm\cap100_n200_t200_LonSm_2.txt,24,4137
+.\TestInstances\n200 t200 LonSm\cap100_n200_t200_LonSm_3.txt,27,3875
+.\TestInstances\n200 t200 LonSm\cap100_n200_t200_LonSm_4.txt,27,3856
+.\TestInstances\n200 t200 LonSm\cap100_n200_t200_LonSm_5.txt,27,3950
+.\TestInstances\n200 t200 ShLr\cap100_n200_t200_ShLr_1.txt,23,3078
+.\TestInstances\n200 t200 ShLr\cap100_n200_t200_ShLr_2.txt,22,3060
+.\TestInstances\n200 t200 ShLr\cap100_n200_t200_ShLr_3.txt,26,2900
+.\TestInstances\n200 t200 ShLr\cap100_n200_t200_ShLr_4.txt,23,2684
+.\TestInstances\n200 t200 ShLr\cap100_n200_t200_ShLr_5.txt,26,2983
+.\TestInstances\n200 t200 ShSm\cap100_n200_t200_ShSm_1.txt,21,2139
+.\TestInstances\n200 t200 ShSm\cap100_n200_t200_ShSm_2.txt,24,2396
+.\TestInstances\n200 t200 ShSm\cap100_n200_t200_ShSm_3.txt,23,2105
+.\TestInstances\n200 t200 ShSm\cap100_n200_t200_ShSm_4.txt,22,2282
+.\TestInstances\n200 t200 ShSm\cap100_n200_t200_ShSm_5.txt,23,2178
+.\TestInstances\n200 t240 LonLr\cap100_n200_t240_LonLr_1.txt,25,5432
+.\TestInstances\n200 t240 LonLr\cap100_n200_t240_LonLr_2.txt,22,5346
+.\TestInstances\n200 t240 LonLr\cap100_n200_t240_LonLr_3.txt,25,5582
+.\TestInstances\n200 t240 LonLr\cap100_n200_t240_LonLr_4.txt,28,5466
+.\TestInstances\n200 t240 LonLr\cap100_n200_t240_LonLr_5.txt,25,5543
+.\TestInstances\n200 t240 LonSm\cap100_n200_t240_LonSm_1.txt,22,4231
+.\TestInstances\n200 t240 LonSm\cap100_n200_t240_LonSm_2.txt,21,3838
+.\TestInstances\n200 t240 LonSm\cap100_n200_t240_LonSm_3.txt,23,4192
+.\TestInstances\n200 t240 LonSm\cap100_n200_t240_LonSm_4.txt,22,4015
+.\TestInstances\n200 t240 LonSm\cap100_n200_t240_LonSm_5.txt,21,3740
+.\TestInstances\n200 t240 ShLr\cap100_n200_t240_ShLr_1.txt,23,3122
+.\TestInstances\n200 t240 ShLr\cap100_n200_t240_ShLr_2.txt,19,3092
+.\TestInstances\n200 t240 ShLr\cap100_n200_t240_ShLr_3.txt,21,3252
+.\TestInstances\n200 t240 ShLr\cap100_n200_t240_ShLr_4.txt,23,3452
+.\TestInstances\n200 t240 ShLr\cap100_n200_t240_ShLr_5.txt,22,2993
+.\TestInstances\n200 t240 ShSm\cap100_n200_t240_ShSm_1.txt,22,2364
+.\TestInstances\n200 t240 ShSm\cap100_n200_t240_ShSm_2.txt,18,2339
+.\TestInstances\n200 t240 ShSm\cap100_n200_t240_ShSm_3.txt,21,2246
+.\TestInstances\n200 t240 ShSm\cap100_n200_t240_ShSm_4.txt,24,2347
+.\TestInstances\n200 t240 ShSm\cap100_n200_t240_ShSm_5.txt,26,2342
+.\TestInstances\n50 t50 LonLr\cap100_n50_t50_LonLr_1.txt,12,1212
+.\TestInstances\n50 t50 LonLr\cap100_n50_t50_LonLr_2.txt,12,1308
+.\TestInstances\n50 t50 LonLr\cap100_n50_t50_LonLr_3.txt,12,1266
+.\TestInstances\n50 t50 LonLr\cap100_n50_t50_LonLr_4.txt,15,1538
+.\TestInstances\n50 t50 LonLr\cap100_n50_t50_LonLr_5.txt,13,1282
+.\TestInstances\n50 t50 LonSm\cap100_n50_t50_LonSm_1.txt,14,955
+.\TestInstances\n50 t50 LonSm\cap100_n50_t50_LonSm_2.txt,12,998
+.\TestInstances\n50 t50 LonSm\cap100_n50_t50_LonSm_3.txt,13,913
+.\TestInstances\n50 t50 LonSm\cap100_n50_t50_LonSm_4.txt,12,966
+.\TestInstances\n50 t50 LonSm\cap100_n50_t50_LonSm_5.txt,12,1004
+.\TestInstances\n50 t50 ShLr\cap100_n50_t50_ShLr_1.txt,12,737
+.\TestInstances\n50 t50 ShLr\cap100_n50_t50_ShLr_2.txt,10,681
+.\TestInstances\n50 t50 ShLr\cap100_n50_t50_ShLr_3.txt,9,685
+.\TestInstances\n50 t50 ShLr\cap100_n50_t50_ShLr_4.txt,12,739
+.\TestInstances\n50 t50 ShLr\cap100_n50_t50_ShLr_5.txt,12,597
+.\TestInstances\n50 t50 ShSm\cap100_n50_t50_ShSm_1.txt,9,485
+.\TestInstances\n50 t50 ShSm\cap100_n50_t50_ShSm_2.txt,10,495
+.\TestInstances\n50 t50 ShSm\cap100_n50_t50_ShSm_3.txt,8,476
+.\TestInstances\n50 t50 ShSm\cap100_n50_t50_ShSm_4.txt,12,512
+.\TestInstances\n50 t50 ShSm\cap100_n50_t50_ShSm_5.txt,9,498
+.\TestInstances\n50 t60 LonLr\cap100_n50_t60_LonLr_1.txt,14,1319
+.\TestInstances\n50 t60 LonLr\cap100_n50_t60_LonLr_2.txt,12,1262
+.\TestInstances\n50 t60 LonLr\cap100_n50_t60_LonLr_3.txt,11,1269
+.\TestInstances\n50 t60 LonLr\cap100_n50_t60_LonLr_4.txt,14,1332
+.\TestInstances\n50 t60 LonLr\cap100_n50_t60_LonLr_5.txt,12,1213
+.\TestInstances\n50 t60 LonSm\cap100_n50_t60_LonSm_1.txt,10,972
+.\TestInstances\n50 t60 LonSm\cap100_n50_t60_LonSm_2.txt,14,1072
+.\TestInstances\n50 t60 LonSm\cap100_n50_t60_LonSm_3.txt,11,980
+.\TestInstances\n50 t60 LonSm\cap100_n50_t60_LonSm_4.txt,12,939
+.\TestInstances\n50 t60 LonSm\cap100_n50_t60_LonSm_5.txt,12,1018
+.\TestInstances\n50 t60 ShLr\cap100_n50_t60_ShLr_1.txt,10,644
+.\TestInstances\n50 t60 ShLr\cap100_n50_t60_ShLr_2.txt,9,718
+.\TestInstances\n50 t60 ShLr\cap100_n50_t60_ShLr_3.txt,9,630
+.\TestInstances\n50 t60 ShLr\cap100_n50_t60_ShLr_4.txt,10,721
+.\TestInstances\n50 t60 ShLr\cap100_n50_t60_ShLr_5.txt,10,619
+.\TestInstances\n50 t60 ShSm\cap100_n50_t60_ShSm_1.txt,8,557
+.\TestInstances\n50 t60 ShSm\cap100_n50_t60_ShSm_2.txt,7,470
+.\TestInstances\n50 t60 ShSm\cap100_n50_t60_ShSm_3.txt,6,425
+.\TestInstances\n50 t60 ShSm\cap100_n50_t60_ShSm_4.txt,9,508
+.\TestInstances\n50 t60 ShSm\cap100_n50_t60_ShSm_5.txt,7,467

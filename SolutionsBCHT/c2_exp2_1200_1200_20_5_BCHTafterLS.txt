@@ -659,7 +659,6 @@ Request ID: 624
 Request ID: 712
 Request ID: 658
 Request ID: 759
-Request ID: 812
 
 Server 6:
 Request ID: 483
@@ -1038,7 +1037,6 @@ Request ID: 714
 Request ID: 909
 Request ID: 663
 Request ID: 791
-Request ID: 848
 
 Server 12:
 Request ID: 1160
@@ -1234,4 +1232,8 @@ Server 18:
 Request ID: 1182
 Request ID: 1173
 
-Total busy time: 19043
+Server 19:
+Request ID: 848
+Request ID: 812
+
+Total busy time: 19032
