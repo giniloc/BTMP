@@ -36,7 +36,6 @@ public class LocalSearchOwn <T extends IIntervalTree<N>,N extends IntervalNode> 
     /**
      *
      * @param iterations how many iterations do we perform
-//     * @param nrOfTrees how many trees do i use to remove a node from
      * @return
      */
     public LocalSearchResult run(int iterations) {
@@ -66,11 +65,11 @@ public class LocalSearchOwn <T extends IIntervalTree<N>,N extends IntervalNode> 
     }
     public LocalSearchResult run() {
         int counter = 0;
-        // int iterationIndex = 0;
+       // int iterationIndex = 0;
         long startTime = System.currentTimeMillis();
-        //long maxDuration = 1800000; // 30 minutes in milliseconds
+       // long maxDuration = 1800000; // 30 minutes in milliseconds
 
-        //while ((System.currentTimeMillis()- startTime) < maxDuration) {
+       // while ((System.currentTimeMillis()- startTime) < maxDuration) {
         while (counter < 100_000){
             generateNeighbor(currentSolution);
             int newBusyTime = calculateTotalBusyTime(currentSolution);
@@ -94,8 +93,8 @@ public class LocalSearchOwn <T extends IIntervalTree<N>,N extends IntervalNode> 
                     rollback();
                 }
             }
-            //   SolutionWriter.solutionAnalysis(heuristic.getHeuristicName(),inputReader.getTestInstance(), iterationIndex, bestBusyTime);//This is for solution analysis
-            //   iterationIndex++;
+              // SolutionWriter.solutionAnalysis(heuristic.getHeuristicName(),inputReader.getTestInstance(), iterationIndex, bestBusyTime);//This is for solution analysis
+              // iterationIndex++;
         }
 
         long endTime = System.currentTimeMillis();
@@ -130,20 +129,16 @@ public class LocalSearchOwn <T extends IIntervalTree<N>,N extends IntervalNode> 
                 .limit(2)
                 .toList());
 
-        for (int i = 0; i < 25; i++) {
-            int randomIndex = random.nextInt(allTrees.size());
+        for (int i = 0; i < 10; i++) {
+            int randomIndex = random.nextInt(allTrees.size() - 1);
             busiestTrees.add(allTrees.get(randomIndex));
         }
 
-        // Analyseer met de 4 geselecteerde trees
         for (int i = 0; i < busiestTrees.size(); i++) {
             T currentTree = busiestTrees.get(i);
-
-            // Probeer de beste node om te verwijderen (minStartTime of maxEndTime)
             N maxEndTimeNode = currentTree.getMaxEndTimeNode();
-
-
             N nodeToRemove = maxEndTimeNode;
+            if (nodeToRemove == null) continue;
             int busyTimeCurrentBefore = currentTree.calculateTotalBusyTime();
             N firstDeletedNode = currentTree.delete(nodeToRemove);
             int profitCurrent = busyTimeCurrentBefore - currentTree.calculateTotalBusyTime();
@@ -190,10 +185,9 @@ public class LocalSearchOwn <T extends IIntervalTree<N>,N extends IntervalNode> 
                     }
                 }
             }
-
-            // Herstel de originele boom als er geen verbetering is
             currentTree.insert(nodeToRemove);
         }
+        swapNodes(allTrees);
     }
 
 
@@ -282,6 +276,62 @@ public class LocalSearchOwn <T extends IIntervalTree<N>,N extends IntervalNode> 
         newServer.insert(node2);
         currentSolution.getIntervalTrees().add(newServer);
     }
+    private void swapNodes(List<T> allTrees) {
+        List<T> sortedTrees = allTrees.stream()
+                .sorted(Comparator.comparingInt(T::calculateTotalBusyTime).reversed())
+                .toList();
+        T busiestTree = sortedTrees.get(0);
+        T secondBusiestTree = sortedTrees.get(1);
+        N busiestNode = busiestTree.getMaxEndTimeNode();
+        List<N> overlappingNodesFirst = busiestTree.findAllOverlapping(busiestNode.getInterval());
+        List<N> overlappingNodesSecond = secondBusiestTree.findAllOverlapping(busiestNode.getInterval());
+
+        // Itereer door combinaties van nodes uit beide bomen
+        for (N node1 : overlappingNodesFirst) {
+            for (N node2 : overlappingNodesSecond) {
+                // Controleer capaciteiten na de swap
+                boolean fitsInFirst = (calculateTotalOverlappingWeight(busiestTree, node2) - node1.getWeight() + node2.getWeight())
+                        <= inputReader.getServerCapacity();
+                boolean fitsInSecond = (calculateTotalOverlappingWeight(secondBusiestTree, node1) - node2.getWeight() + node1.getWeight())
+                        <= inputReader.getServerCapacity();
+
+                if (fitsInFirst && fitsInSecond) {
+                    // Bereken huidige totale drukte
+                    int currentBusyTime = busiestTree.calculateTotalBusyTime() + secondBusiestTree.calculateTotalBusyTime();
+
+                    // Simuleer de swap
+                    N firstDeletion = busiestTree.delete(node1);
+                    N secondDeletion = secondBusiestTree.delete(node2);
+                    busiestTree.insert(secondDeletion);
+                    secondBusiestTree.insert(firstDeletion);
+
+                    // Bereken nieuwe totale drukte
+                    int newBusyTime = busiestTree.calculateTotalBusyTime() + secondBusiestTree.calculateTotalBusyTime();
+
+                    // Controleer of de swap winst oplevert
+                    if (newBusyTime < currentBusyTime) {
+                        // Swap is winstgevend; stop verdere checks
+                        System.out.println("Swap is winstgevend!");
+                        return;
+                    } else {
+                        // Rollback als de swap geen winst oplevert
+                        busiestTree.delete(secondDeletion);
+                        secondBusiestTree.delete(firstDeletion);
+                        busiestTree.insert(firstDeletion);
+                        secondBusiestTree.insert(secondDeletion);
+                    }
+                }
+            }
+        }
+    }
+
+    private int calculateTotalOverlappingWeight(T tree, N node) {
+        return tree.findAllOverlapping(node.getInterval())
+                .stream()
+                .mapToInt(IntervalNode::getWeight)
+                .sum();
+    }
+
 
     private int calculateTotalBusyTime(Solution<T> solution) {
         int totalBusyTime = 0;

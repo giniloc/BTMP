@@ -234,6 +234,9 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
     @Override
     public IntervalNode getMaxEndTimeNode() {
         IntervalNode newNode = getMaxEndTimeNodeInternal(root);
+        if (newNode == null) {
+            return null;
+        }
         IntervalNode copyNode = new IntervalNode(newNode.getInterval(), newNode.getWeight(), newNode.getID());
         decoupleNode(copyNode);
         return copyNode;

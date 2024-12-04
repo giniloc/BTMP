@@ -21,7 +21,6 @@ Request ID: 63
 Request ID: 74
 Request ID: 90
 Request ID: 91
-Request ID: 96
 
 Server 3:
 Request ID: 4
@@ -49,7 +48,6 @@ Request ID: 11
 Request ID: 60
 Request ID: 61
 Request ID: 69
-Request ID: 99
 
 Server 6:
 Request ID: 12
@@ -122,4 +120,8 @@ Request ID: 41
 Request ID: 56
 Request ID: 57
 
-Total busy time: 1120
+Server 13:
+Request ID: 96
+Request ID: 99
+
+Total busy time: 1104

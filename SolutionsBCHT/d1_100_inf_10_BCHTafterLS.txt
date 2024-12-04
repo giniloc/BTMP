@@ -85,9 +85,6 @@ Request ID: 91
 Request ID: 92
 Request ID: 93
 Request ID: 94
-Request ID: 95
-Request ID: 97
-Request ID: 98
 
 Server 2:
 Request ID: 2
@@ -101,7 +98,14 @@ Request ID: 15
 Request ID: 16
 Request ID: 46
 Request ID: 51
-Request ID: 96
+
+Server 4:
+Request ID: 97
 Request ID: 99
 
-Total busy time: 40044
+Server 5:
+Request ID: 95
+Request ID: 96
+Request ID: 98
+
+Total busy time: 29246

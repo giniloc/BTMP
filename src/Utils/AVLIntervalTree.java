@@ -354,6 +354,9 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
     @Override
     public AVLIntervalNode getMaxEndTimeNode() {
         AVLIntervalNode newNode = getMaxEndTimeNodeInternal(root);
+        if (newNode == null) {
+            return null;
+        }
         AVLIntervalNode copyNode = new AVLIntervalNode(newNode.getInterval(), newNode.getWeight(), newNode.getID());
         decoupleNode(copyNode);
         return copyNode;

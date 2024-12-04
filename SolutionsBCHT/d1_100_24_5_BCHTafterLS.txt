@@ -11,10 +11,6 @@ Request ID: 39
 Request ID: 41
 Request ID: 42
 Request ID: 45
-Request ID: 47
-Request ID: 53
-Request ID: 56
-Request ID: 57
 
 Server 2:
 Request ID: 2
@@ -90,18 +86,32 @@ Request ID: 22
 Request ID: 25
 Request ID: 26
 Request ID: 38
+Request ID: 47
 Request ID: 48
 Request ID: 52
 Request ID: 61
 Request ID: 63
-Request ID: 67
-Request ID: 69
-Request ID: 70
+
+Server 4:
+Request ID: 90
+Request ID: 91
+
+Server 5:
 Request ID: 80
 Request ID: 87
 Request ID: 88
 Request ID: 89
-Request ID: 90
-Request ID: 91
 
-Total busy time: 47513
+Server 6:
+Request ID: 67
+Request ID: 69
+Request ID: 70
+
+Server 7:
+Request ID: 53
+
+Server 8:
+Request ID: 56
+Request ID: 57
+
+Total busy time: 40769

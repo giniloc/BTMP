@@ -19,7 +19,7 @@ public class Main {
     static Path baseDirectory = Paths.get("./TestInstances");
 
     public static void main(String[] args) {
-        boolean processAllInputFiles = false;
+        boolean processAllInputFiles = true;
         List<Path> inputFiles;
         // Create a LinkedHashMap to maintain insertion order
         Map<String, LocalSearchResult> localSearchResults = new LinkedHashMap<>();
@@ -28,7 +28,7 @@ public class Main {
             inputFiles = getInputFiles();
         else {
             inputFiles = new ArrayList<>();
-            inputFiles.add(baseDirectory.resolve("d2/10000_inf_10.txt"));
+            inputFiles.add(baseDirectory.resolve("a2/n1000 t1000 LonLr\\cap100_n1000_t1000_LonLr_1.txt"));
         }
 
         var treeType = BalancedTreeType.BCHT; //change this to BCHTRB or BCHTAVL to test different tree types
@@ -55,14 +55,14 @@ public class Main {
                     runner.run(bcht, requests);
                    // var localSearchBCHT = new LocalSearchGeneric<IntervalTree, IntervalNode>(bcht.getSolution(), bcht, deepCopyRollback,inputReader);
                     var localSearchBCHT = new LocalSearchOwn<IntervalTree, IntervalNode>(bcht.getSolution(), bcht, deepCopyRollback,inputReader);
-                    result = localSearchBCHT.run(nrOfTrees);
+                    result = localSearchBCHT.run();
                     break;
                 case BCHTRB:
                     bcht = new BCHT<RBIntervalTree>(inputReader, new RBIntervalTreeFactory(), "BCHTRB");
                     runner.run(bcht, requests);
                    // var localSearchRB = new LocalSearchGeneric<RBIntervalTree, RBIntervalNode>(bcht.getSolution(), bcht, deepCopyRollback, inputReader);
                     var localSearchRB = new LocalSearchOwn<RBIntervalTree, RBIntervalNode>(bcht.getSolution(), bcht, deepCopyRollback, inputReader);
-                    result = localSearchRB.run(nrOfIterations);
+                    result = localSearchRB.run();
                     break;
                 case BCHTAVL:
                 default:
@@ -70,7 +70,7 @@ public class Main {
                     runner.run(bcht, requests);
                    // var localSearchAVL = new LocalSearchGeneric<AVLIntervalTree, AVLIntervalNode>(bcht.getSolution(), bcht, deepCopyRollback, inputReader);
                     var localSearchAVL = new LocalSearchOwn<AVLIntervalTree, AVLIntervalNode>(bcht.getSolution(), bcht, deepCopyRollback, inputReader);
-                    result = localSearchAVL.run(nrOfIterations);
+                    result = localSearchAVL.run();
                     break;
             }
 
@@ -83,9 +83,9 @@ public class Main {
 
         // Write the results to a CSV file if we processed all files
         if (processAllInputFiles) {
-            String suffix = deepCopyRollback ? "_RDC" : "_RM";
-            String outputCsvFile = "local_searchOwn_results_" + treeType.name() + "_i" + nrOfIterations + "_j" + nrOfTrees + suffix  +  ".csv";
-            LocalSearchResultsWriter.writeToCsv(localSearchResults, outputCsvFile);
+//            String suffix = deepCopyRollback ? "_RDC" : "_RM";
+//            String outputCsvFile = "local_searchOwn_results_" + treeType.name() + "_i" + nrOfIterations + "_j" + nrOfTrees + suffix  +  ".csv";
+//            LocalSearchResultsWriter.writeToCsv(localSearchResults, outputCsvFile);
         }
     }
 
