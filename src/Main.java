@@ -28,10 +28,10 @@ public class Main {
             inputFiles = getInputFiles();
         else {
             inputFiles = new ArrayList<>();
-            inputFiles.add(baseDirectory.resolve("c2\\exp2_1600_1600_20_4.txt"));
+            inputFiles.add(baseDirectory.resolve("n50 t60 ShSm\\\\cap100_n50_t60_ShSm_5.txt"));
         }
 
-        var treeType = BalancedTreeType.BCHTRB; //change this to BCHTRB or BCHTAVL to test different tree types
+        var treeType = BalancedTreeType.BCHT; //change this to BCHTRB or BCHTAVL to test different tree types
         var nrOfIterations = 10_000; // i in results filename
         var nrOfTrees = 10; // j in results filename = nr of trees used to remove nodes from (generate neighbor)
         boolean deepCopyRollback = true; // change this to true to test deep copy rollback
@@ -53,9 +53,9 @@ public class Main {
                 case BCHT:
                     bcht = new BCHT<IntervalTree>(inputReader, new IntervalTreeFactory(), "BCHT");
                     runner.run(bcht, requests);
-                   // var localSearchBCHT = new LocalSearchGeneric<IntervalTree, IntervalNode>(bcht.getSolution(), bcht, deepCopyRollback,inputReader);
-                    var localSearchBCHT = new LocalSearchOwn<IntervalTree, IntervalNode>(bcht.getSolution(), bcht, deepCopyRollback,inputReader);
-                    result = localSearchBCHT.run();
+                    var localSearchBCHT = new LocalSearchGeneric<IntervalTree, IntervalNode>(bcht.getSolution(), bcht, deepCopyRollback,inputReader);
+                   // var localSearchBCHT = new LocalSearchOwn<IntervalTree, IntervalNode>(bcht.getSolution(), bcht, deepCopyRollback,inputReader);
+                    result = localSearchBCHT.run(nrOfTrees);
                     break;
                 case BCHTRB:
                     bcht = new BCHT<RBIntervalTree>(inputReader, new RBIntervalTreeFactory(), "BCHTRB");

@@ -35,7 +35,7 @@ public class BCHT<T extends IIntervalTree<? extends IIntervalNode>> implements I
                 }
 
                 // Check if server has enough capacity for request
-                if (sum + request.getWeight() <= inputReader.getServerCapacity()) {
+                if (sum + request.getWeight() <= inputReader.getServerCapacity() && sum != 0) {
                     // search for server with least extra busy time
                     if (bestTree == null || intervalTree.calculateExtraBusyTime(interval) < bestTree.calculateExtraBusyTime(interval)) {
                         bestTree = intervalTree;

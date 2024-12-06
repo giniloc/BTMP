@@ -1,6 +1,7 @@
 package Utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -165,11 +166,11 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         findOverlappingNodes(root.getRight(), newInterval, overlappingNodes);
     }
 
-    private void inorderTraversal(RBIntervalNode node, List<RBIntervalNode> nodes) {
+    private void inOrderTraversal(RBIntervalNode node, List<RBIntervalNode> nodes) {
         if (node != null) {
-            inorderTraversal(node.getLeft(), nodes);
+            inOrderTraversal(node.getLeft(), nodes);
             nodes.add(node);
-            inorderTraversal(node.getRight(), nodes);
+            inOrderTraversal(node.getRight(), nodes);
         }
     }
 
@@ -229,11 +230,23 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
 
     public RBIntervalNode getRandomNode() {
         List<RBIntervalNode> nodes = new ArrayList<>();
-        inorderTraversal(root, nodes);
+        inOrderTraversal(root, nodes);
         if (nodes.isEmpty()) {
             return null;
         }
         return nodes.get(random.nextInt(nodes.size()));
+    }
+    @Override
+    public List<RBIntervalNode> getRandomNodes(int nodesToRemove) {
+        List<RBIntervalNode> nodes = new ArrayList<>();
+        inOrderTraversal(root, nodes);
+
+        if (nodesToRemove >= nodes.size()) {
+            return new ArrayList<>(nodes);
+        }
+
+        Collections.shuffle(nodes, random);
+        return nodes.subList(0, nodesToRemove);
     }
     //endregion
 

@@ -17,8 +17,6 @@ public class LocalSearchGeneric<
     private List<Move<N>> moves;
     private IIntervalTreeFactory<T> intervalTreeFactory;
     private InputReader inputReader;
-
-    // TODO We need to inject a RollBack strategy instead of using a boolean.
     private boolean deepCopyRollback;
 
     public LocalSearchGeneric(Solution<T> initialSolution, IHeuristic heuristic, boolean deepCopyRollback, InputReader inputReader) {
@@ -120,15 +118,16 @@ public LocalSearchResult run(int nrOfTrees) {
         List<Request> requestList = new ArrayList<>();
 
         for (T tree : selectedTrees) {
-            var randomNode = tree.getRandomNode();
+            int nodesToRemove = Math.max(1, tree.getNodeCount() / 4);
+            List<N> nodesToDelete = tree.getRandomNodes(nodesToRemove);
 
-            if (randomNode != null) {
-                Request request = createRequestFromNode(randomNode);
+            for (N node : nodesToDelete) {
+                Request request = createRequestFromNode(node);
                 requestList.add(request);
 
-                var deletedNode = tree.delete(randomNode);
+                var deletedNode = tree.delete(node);
 
-                if (!deepCopyRollback){
+                if (!deepCopyRollback) {
                     var deleteMove = new Move<N>(true, tree, deletedNode);
                     moves.add(deleteMove);
                 }
@@ -137,6 +136,7 @@ public LocalSearchResult run(int nrOfTrees) {
 
         reInsertNodes(requestList);
     }
+
 
     private int calculateTotalBusyTime(Solution<T> solution) {
         return solution.getIntervalTrees().stream()

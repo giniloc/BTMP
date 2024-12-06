@@ -8,6 +8,7 @@
  */
 package Utils;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -51,6 +52,18 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
             return null;
         }
         return nodes.get(random.nextInt(nodes.size()));
+    }
+    @Override
+    public List<IntervalNode> getRandomNodes(int nodesToRemove) {
+        List<IntervalNode> nodes = new ArrayList<>();
+        inOrderTraversal(root, nodes);
+
+        if (nodesToRemove >= nodes.size()) {
+            return new ArrayList<>(nodes);
+        }
+
+        Collections.shuffle(nodes, random);
+        return nodes.subList(0, nodesToRemove);
     }
 
     public List<IntervalNode> findAllOverlapping(Interval newInterval) {

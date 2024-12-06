@@ -10,6 +10,7 @@ public interface IIntervalTree<T extends IntervalNode> {
     int calculateTotalBusyTime();
     T delete(IntervalNode node);
     T getRandomNode();
+    List<T> getRandomNodes(int nodesToRemove);
     IIntervalTree<T> deepCopy();
 
     T findNode(IntervalNode node);
@@ -17,5 +18,6 @@ public interface IIntervalTree<T extends IntervalNode> {
     T getMaxEndTimeNode();
 
     int getNodeCount();
+
 
 }

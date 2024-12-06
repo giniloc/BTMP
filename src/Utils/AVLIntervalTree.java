@@ -9,6 +9,7 @@
 package Utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -189,18 +190,30 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
 
     public AVLIntervalNode getRandomNode() {
         List<AVLIntervalNode> nodes = new ArrayList<>();
-        inorderTraversal(root, nodes);
+        inOrderTraversal(root, nodes);
         if (nodes.isEmpty()) {
             return null;
         }
         return nodes.get(random.nextInt(nodes.size()));
     }
+    @Override
+    public List<AVLIntervalNode> getRandomNodes(int nodesToRemove) {
+        List<AVLIntervalNode> nodes = new ArrayList<>();
+        inOrderTraversal(root, nodes);
 
-    private void inorderTraversal(AVLIntervalNode node, List<AVLIntervalNode> nodes) {
+        if (nodesToRemove >= nodes.size()) {
+            return new ArrayList<>(nodes); 
+        }
+
+        Collections.shuffle(nodes, random); 
+        return nodes.subList(0, nodesToRemove); 
+    }
+
+    private void inOrderTraversal(AVLIntervalNode node, List<AVLIntervalNode> nodes) {
         if (node != null) {
-            inorderTraversal(node.getLeft(), nodes);
+            inOrderTraversal(node.getLeft(), nodes);
             nodes.add(node);
-            inorderTraversal(node.getRight(), nodes);
+            inOrderTraversal(node.getRight(), nodes);
         }
     }
 
