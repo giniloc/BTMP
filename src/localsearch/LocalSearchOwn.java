@@ -276,54 +276,94 @@ public class LocalSearchOwn <T extends IIntervalTree<N>,N extends IntervalNode> 
         newServer.insert(node2);
         currentSolution.getIntervalTrees().add(newServer);
     }
+//    private void swapNodes(List<T> allTrees) {
+//        List<T> sortedTrees = allTrees.stream()
+//                .sorted(Comparator.comparingInt(T::calculateTotalBusyTime).reversed())
+//                .toList();
+//        T busiestTree = sortedTrees.get(0);
+//        T secondBusiestTree = sortedTrees.get(1);
+//        N busiestNode = busiestTree.getMaxEndTimeNode();
+//        List<N> overlappingNodesFirst = busiestTree.findAllOverlapping(busiestNode.getInterval());
+//        List<N> overlappingNodesSecond = secondBusiestTree.findAllOverlapping(busiestNode.getInterval());
+//
+//        // Itereer door combinaties van nodes uit beide bomen
+//        for (N node1 : overlappingNodesFirst) {
+//            for (N node2 : overlappingNodesSecond) {
+//                // Controleer capaciteiten na de swap
+//                boolean fitsInFirst = (calculateTotalOverlappingWeight(busiestTree, node2) - node1.getWeight() + node2.getWeight())
+//                        <= inputReader.getServerCapacity();
+//                boolean fitsInSecond = (calculateTotalOverlappingWeight(secondBusiestTree, node1) - node2.getWeight() + node1.getWeight())
+//                        <= inputReader.getServerCapacity();
+//
+//                if (fitsInFirst && fitsInSecond) {
+//                    // Bereken huidige totale drukte
+//                    int currentBusyTime = busiestTree.calculateTotalBusyTime() + secondBusiestTree.calculateTotalBusyTime();
+//
+//                    // Simuleer de swap
+//                    N firstDeletion = busiestTree.delete(node1);
+//                    N secondDeletion = secondBusiestTree.delete(node2);
+//                    busiestTree.insert(secondDeletion);
+//                    secondBusiestTree.insert(firstDeletion);
+//
+//                    // Bereken nieuwe totale drukte
+//                    int newBusyTime = busiestTree.calculateTotalBusyTime() + secondBusiestTree.calculateTotalBusyTime();
+//
+//                    // Controleer of de swap winst oplevert
+//                    if (newBusyTime < currentBusyTime) {
+//                        // Swap is winstgevend; stop verdere checks
+//                        System.out.println("Swap is winstgevend!");
+//                        return;
+//                    } else {
+//                        // Rollback als de swap geen winst oplevert
+//                        busiestTree.delete(secondDeletion);
+//                        secondBusiestTree.delete(firstDeletion);
+//                        busiestTree.insert(firstDeletion);
+//                        secondBusiestTree.insert(secondDeletion);
+//                    }
+//                }
+//            }
+//        }
+//    }
     private void swapNodes(List<T> allTrees) {
         List<T> sortedTrees = allTrees.stream()
                 .sorted(Comparator.comparingInt(T::calculateTotalBusyTime).reversed())
                 .toList();
+
         T busiestTree = sortedTrees.get(0);
-        T secondBusiestTree = sortedTrees.get(1);
-        N busiestNode = busiestTree.getMaxEndTimeNode();
-        List<N> overlappingNodesFirst = busiestTree.findAllOverlapping(busiestNode.getInterval());
-        List<N> overlappingNodesSecond = secondBusiestTree.findAllOverlapping(busiestNode.getInterval());
+        T secondBusiestTree = sortedTrees.get(random.nextInt(sortedTrees.size() - 1));
 
-        // Itereer door combinaties van nodes uit beide bomen
-        for (N node1 : overlappingNodesFirst) {
-            for (N node2 : overlappingNodesSecond) {
-                // Controleer capaciteiten na de swap
-                boolean fitsInFirst = (calculateTotalOverlappingWeight(busiestTree, node2) - node1.getWeight() + node2.getWeight())
-                        <= inputReader.getServerCapacity();
-                boolean fitsInSecond = (calculateTotalOverlappingWeight(secondBusiestTree, node1) - node2.getWeight() + node1.getWeight())
-                        <= inputReader.getServerCapacity();
+        List<N> nodesFirstTree = busiestTree.findAllOverlapping(new Interval(0, 999999999));
+        List<N> nodesSecondTree = secondBusiestTree.findAllOverlapping(new Interval(0, 999999999));
 
-                if (fitsInFirst && fitsInSecond) {
-                    // Bereken huidige totale drukte
-                    int currentBusyTime = busiestTree.calculateTotalBusyTime() + secondBusiestTree.calculateTotalBusyTime();
+        for (N node1 : nodesFirstTree) {
+            for (N node2 : nodesSecondTree) {
+                if (node2.getID() == node1.getID()) {
+                    continue;
+                }
+                int currentBusyTime = busiestTree.calculateTotalBusyTime() + secondBusiestTree.calculateTotalBusyTime();
 
-                    // Simuleer de swap
-                    N firstDeletion = busiestTree.delete(node1);
-                    N secondDeletion = secondBusiestTree.delete(node2);
-                    busiestTree.insert(secondDeletion);
-                    secondBusiestTree.insert(firstDeletion);
+                N deletedNodeFirst = busiestTree.delete(node1);
+                N deletedNodeSecond = secondBusiestTree.delete(node2);
 
-                    // Bereken nieuwe totale drukte
-                    int newBusyTime = busiestTree.calculateTotalBusyTime() + secondBusiestTree.calculateTotalBusyTime();
+                busiestTree.insert(deletedNodeSecond);
+                secondBusiestTree.insert(deletedNodeFirst);
 
-                    // Controleer of de swap winst oplevert
-                    if (newBusyTime < currentBusyTime) {
-                        // Swap is winstgevend; stop verdere checks
-                        System.out.println("Swap is winstgevend!");
-                        return;
-                    } else {
-                        // Rollback als de swap geen winst oplevert
-                        busiestTree.delete(secondDeletion);
-                        secondBusiestTree.delete(firstDeletion);
-                        busiestTree.insert(firstDeletion);
-                        secondBusiestTree.insert(secondDeletion);
-                    }
+                int newBusyTime = busiestTree.calculateTotalBusyTime() + secondBusiestTree.calculateTotalBusyTime();
+
+                if (newBusyTime < currentBusyTime && busiestTree.calculateTotalBusyTime() <= inputReader.getServerCapacity() && secondBusiestTree.calculateTotalBusyTime() <= inputReader.getServerCapacity()) {
+                    System.out.println("Winstgevende swap gevonden!");
+                    return;
+                } else {
+                    N recoveryNodeFirst = busiestTree.delete(deletedNodeSecond);
+                    N recoveryNodeSecond = secondBusiestTree.delete(deletedNodeFirst);
+
+                    busiestTree.insert(recoveryNodeSecond);
+                    secondBusiestTree.insert(recoveryNodeFirst);
                 }
             }
         }
     }
+
 
     private int calculateTotalOverlappingWeight(T tree, N node) {
         return tree.findAllOverlapping(node.getInterval())

@@ -12,6 +12,7 @@ import static Utils.Randomizer.random;
 public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
 
     private RBIntervalNode root;
+    private int nodeCount;
 
     public RBIntervalTree() {
         this.root = null;
@@ -39,6 +40,7 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         redBlackNode.setColor(RED);
         this.root = insertRecursive(this.root, redBlackNode);
         insertFixup(redBlackNode);
+        this.nodeCount++;
     }
 
     // Recursive function to insert the new node in the correct position
@@ -418,6 +420,7 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
 
         // make sure the nodeToDelete is no longer attached to any node of the tree
         decoupleNode(nodeToDelete);
+        this.nodeCount--;
 
         return nodeToDelete;
     }
@@ -1012,5 +1015,8 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
         return newNode;
     }
 
+    public int getNodeCount() {
+        return nodeCount;
+    }
     //endregion
 }

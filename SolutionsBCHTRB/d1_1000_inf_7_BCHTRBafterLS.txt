@@ -384,13 +384,15 @@ Request ID: 900
 Request ID: 942
 Request ID: 950
 Request ID: 952
+Request ID: 960
+Request ID: 961
+Request ID: 963
+Request ID: 971
+Request ID: 972
 Request ID: 981
 Request ID: 982
 Request ID: 983
 Request ID: 984
-Request ID: 993
-Request ID: 994
-Request ID: 995
 
 Server 6:
 Request ID: 12
@@ -423,9 +425,6 @@ Request ID: 127
 Request ID: 130
 Request ID: 157
 Request ID: 451
-Request ID: 618
-Request ID: 986
-Request ID: 987
 
 Server 10:
 Request ID: 23
@@ -570,6 +569,7 @@ Request ID: 977
 Request ID: 978
 Request ID: 979
 Request ID: 988
+Request ID: 995
 Request ID: 996
 Request ID: 998
 Request ID: 999
@@ -712,6 +712,7 @@ Request ID: 943
 Request ID: 951
 Request ID: 954
 Request ID: 991
+Request ID: 994
 
 Server 12:
 Request ID: 27
@@ -962,7 +963,6 @@ Request ID: 327
 Request ID: 393
 Request ID: 414
 Request ID: 450
-Request ID: 997
 
 Server 15:
 Request ID: 35
@@ -1015,17 +1015,27 @@ Request ID: 940
 Request ID: 941
 Request ID: 944
 Request ID: 945
-Request ID: 960
-Request ID: 961
-Request ID: 963
+
+Server 16:
+Request ID: 986
+Request ID: 987
+
+Server 17:
 Request ID: 968
-Request ID: 971
-Request ID: 972
 Request ID: 973
 Request ID: 974
 Request ID: 980
 Request ID: 985
 Request ID: 989
-Request ID: 990
+Request ID: 997
 
-Total busy time: 183968
+Server 18:
+Request ID: 618
+
+Server 19:
+
+Server 20:
+Request ID: 990
+Request ID: 993
+
+Total busy time: 155005

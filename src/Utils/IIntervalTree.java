@@ -16,4 +16,6 @@ public interface IIntervalTree<T extends IntervalNode> {
 
     T getMaxEndTimeNode();
 
+    int getNodeCount();
+
 }

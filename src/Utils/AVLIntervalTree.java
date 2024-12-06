@@ -17,6 +17,7 @@ import static Utils.Randomizer.random;
 public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
 
     private AVLIntervalNode root;
+    private int nodeCount;
 
     public AVLIntervalTree() {
         this.root = null;
@@ -33,6 +34,7 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
     public void insert(IntervalNode node) {
         AVLIntervalNode newNode = new AVLIntervalNode(node.getInterval(), node.getWeight(), node.getID());
         this.root = insertRecursive(this.root, newNode);
+        this.nodeCount++;
     }
 
     public List<AVLIntervalNode> findAllOverlapping(Interval newInterval) {
@@ -105,6 +107,7 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
 
         nodeToDelete = deleteClone;
         decoupleNode(nodeToDelete);
+        this.nodeCount--;
 
         return nodeToDelete;
     }
@@ -428,5 +431,8 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
         replClone.setLeft(node.getLeft());
         replClone.setRight(node.getRight());
         return replClone;
+    }
+    public int getNodeCount() {
+        return this.nodeCount;
     }
 }

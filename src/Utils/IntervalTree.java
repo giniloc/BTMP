@@ -15,7 +15,7 @@ import static Utils.Randomizer.random;
 
 public class IntervalTree implements IIntervalTree<IntervalNode> {
     private IntervalNode root;
-
+    private int nodeCount;
     public IntervalTree() {
         this.root = null;
     }
@@ -27,6 +27,7 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
     public void insert(IntervalNode node) {
         IntervalNode newNode = new IntervalNode(node.getInterval(), node.getWeight(), node.getID());
         this.root = insertRecursive(this.root, newNode, null);
+        this.nodeCount++;
     }
 
     public IntervalNode delete(IntervalNode node) {
@@ -36,6 +37,7 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
 
         node = deleteClone;
         decoupleNode(node);
+        this.nodeCount--;
 
         return node;
     }
@@ -282,5 +284,8 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
          node.setLeft(null);
          node.setRight(null);
          node.setParent(null);
+    }
+    public int getNodeCount(){
+        return nodeCount;
     }
 }
