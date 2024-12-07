@@ -333,7 +333,9 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
     public AVLIntervalTree deepCopy() {
         AVLIntervalTree newTree = new AVLIntervalTree();
         newTree.root = copyNode(this.root); // Start copying from the root
-        return newTree;
+        newTree.setNodeCount(this.getNodeCount());
+
+       return newTree;
     }
 
     /**
@@ -447,5 +449,8 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
     }
     public int getNodeCount() {
         return this.nodeCount;
+    }
+    public void setNodeCount(int nodeCount) {
+        this.nodeCount = nodeCount;
     }
 }

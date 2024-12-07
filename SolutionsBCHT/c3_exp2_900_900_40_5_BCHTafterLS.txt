@@ -356,7 +356,6 @@ Request ID: 224
 Request ID: 253
 Request ID: 330
 Request ID: 293
-Request ID: 321
 
 Server 21:
 Request ID: 365
@@ -443,7 +442,6 @@ Server 28:
 Request ID: 97
 Request ID: 79
 Request ID: 372
-Request ID: 581
 
 Server 29:
 Request ID: 852
@@ -1114,4 +1112,8 @@ Request ID: 890
 Server 108:
 Request ID: 898
 
-Total busy time: 22256
+Server 109:
+Request ID: 321
+Request ID: 581
+
+Total busy time: 22207

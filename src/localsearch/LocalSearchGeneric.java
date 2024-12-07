@@ -30,50 +30,20 @@ public class LocalSearchGeneric<
         this.deepCopyRollback = deepCopyRollback;
         this.inputReader = inputReader;
     }
-
-    /**
-     *
-     * @param iterations how many iterations do we perform
-     * @param nrOfTrees how many trees do i use to remove a node from
-     * @return
-     */
-    public LocalSearchResult run(int iterations, int nrOfTrees) {
-        long startTime = System.currentTimeMillis();
-        for (int i = 0; i < iterations; i++) {
-            generateNeighbor(currentSolution, nrOfTrees);
-            int newBusyTime = calculateTotalBusyTime(currentSolution);
-
-            if (newBusyTime < bestBusyTime) {
-                bestBusyTime = newBusyTime;
-                bestSolution = new Solution<>(currentSolution);
-                if(deepCopyRollback) oldSolution = new Solution<>(currentSolution);
-                if (!deepCopyRollback) moves.clear();
-            } else {
-                if (deepCopyRollback) this.currentSolution = new Solution<>(oldSolution);
-                else rollback();
-            }
-        }
-
-        long endTime = System.currentTimeMillis();
-        long elapsedTime = endTime - startTime;
-        System.out.println("Elapsed time: "+ elapsedTime);
-
-        SolutionWriter.writeSolutionToFile(bestSolution, heuristic.getInputReader().getTestInstance(), heuristic.getHeuristicName(), bestBusyTime);
-
-        return new LocalSearchResult(elapsedTime, bestBusyTime);
-    }
+    
 public LocalSearchResult run(int nrOfTrees) {
     int counter = 0;
    // int iterationIndex = 0;
     long startTime = System.currentTimeMillis();
-    //long maxDuration = 1800000; // 30 minutes in milliseconds
+    long maxDuration = 1800000; // 30 minutes in milliseconds
 
-    //while ((System.currentTimeMillis()- startTime) < maxDuration) {
-        while (counter < 100_000){
+    while ((System.currentTimeMillis()- startTime) < maxDuration) {
+     //   while (counter < 100_000){
         generateNeighbor(currentSolution, nrOfTrees);
         int newBusyTime = calculateTotalBusyTime(currentSolution);
 
         if (newBusyTime < bestBusyTime) {
+            System.out.println("New best solution found! Busy time Changed from: " + bestBusyTime + " to " + newBusyTime);
             bestBusyTime = newBusyTime;
             bestSolution = new Solution<>(currentSolution);
 

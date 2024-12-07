@@ -19,11 +19,11 @@ Request ID: 29
 
 Server 4:
 Request ID: 7
-Request ID: 8
+Request ID: 10
 
 Server 5:
+Request ID: 8
 Request ID: 9
-Request ID: 10
 Request ID: 34
 Request ID: 39
 Request ID: 40
@@ -40,7 +40,7 @@ Server 7:
 Request ID: 13
 Request ID: 14
 Request ID: 25
-Request ID: 41
+Request ID: 42
 
 Server 8:
 Request ID: 16
@@ -63,15 +63,15 @@ Request ID: 32
 Request ID: 35
 
 Server 11:
-Request ID: 48
-Request ID: 49
-
-Server 12:
-Request ID: 42
-Request ID: 43
-
-Server 13:
 Request ID: 28
 Request ID: 30
 
-Total busy time: 473
+Server 12:
+Request ID: 41
+Request ID: 43
+
+Server 13:
+Request ID: 48
+Request ID: 49
+
+Total busy time: 471

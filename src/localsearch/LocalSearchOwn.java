@@ -45,6 +45,7 @@ public class LocalSearchOwn <T extends IIntervalTree<N>,N extends IntervalNode> 
             int newBusyTime = calculateTotalBusyTime(currentSolution);
 
             if (newBusyTime < bestBusyTime) {
+                System.out.println("New best solution found!" + newBusyTime);
                 bestBusyTime = newBusyTime;
                 bestSolution = new Solution<>(currentSolution);
                 if(deepCopyRollback) oldSolution = new Solution<>(currentSolution);
@@ -65,12 +66,12 @@ public class LocalSearchOwn <T extends IIntervalTree<N>,N extends IntervalNode> 
     }
     public LocalSearchResult run() {
         int counter = 0;
-       // int iterationIndex = 0;
+        int iterationIndex = 0;
         long startTime = System.currentTimeMillis();
-       // long maxDuration = 1800000; // 30 minutes in milliseconds
+        long maxDuration = 1800000; // 30 minutes in milliseconds
 
-       // while ((System.currentTimeMillis()- startTime) < maxDuration) {
-        while (counter < 100_000){
+        while ((System.currentTimeMillis()- startTime) < maxDuration) {
+      //  while (counter < 100_000){
             generateNeighbor(currentSolution);
             int newBusyTime = calculateTotalBusyTime(currentSolution);
 
@@ -143,9 +144,8 @@ public class LocalSearchOwn <T extends IIntervalTree<N>,N extends IntervalNode> 
             N firstDeletedNode = currentTree.delete(nodeToRemove);
             int profitCurrent = busyTimeCurrentBefore - currentTree.calculateTotalBusyTime();
 
-            // Test elke andere tree voor een mogelijke verhuizing of combinatie
             for (int j = 0; j < busiestTrees.size(); j++) {
-                if (i == j) continue; // Sla dezelfde boom over
+                if (i == j) continue;
 
                 T targetTree = busiestTrees.get(j);
                 int overlappingWeight = targetTree.findAllOverlapping(nodeToRemove.getInterval())
@@ -153,7 +153,6 @@ public class LocalSearchOwn <T extends IIntervalTree<N>,N extends IntervalNode> 
                         .mapToInt(IntervalNode::getWeight)
                         .sum();
 
-                // Case 1: Verplaats de node naar de target tree
                 if (overlappingWeight + nodeToRemove.getWeight() <= inputReader.getServerCapacity()) {
                     int extraCost = targetTree.calculateExtraBusyTime(nodeToRemove.getInterval());
                     if (extraCost < profitCurrent) {
@@ -162,7 +161,6 @@ public class LocalSearchOwn <T extends IIntervalTree<N>,N extends IntervalNode> 
                     }
                 }
 
-                // Case 2: Bekijk combinaties van nodes uit de target tree
                 List<N> overlappingNodesTarget = targetTree.findAllOverlapping(nodeToRemove.getInterval());
                 Map<N, Integer> profitMap = new TreeMap<>(Comparator.comparingInt(node -> -node.getInterval().getEndTime()));
                 calculateProfitMap(targetTree, profitMap, overlappingNodesTarget);
@@ -350,7 +348,8 @@ public class LocalSearchOwn <T extends IIntervalTree<N>,N extends IntervalNode> 
 
                 int newBusyTime = busiestTree.calculateTotalBusyTime() + secondBusiestTree.calculateTotalBusyTime();
 
-                if (newBusyTime < currentBusyTime && busiestTree.calculateTotalBusyTime() <= inputReader.getServerCapacity() && secondBusiestTree.calculateTotalBusyTime() <= inputReader.getServerCapacity()) {
+                if (newBusyTime < currentBusyTime && calculateTotalOverlappingWeight(busiestTree, deletedNodeSecond)<= inputReader.getServerCapacity()
+                        && calculateTotalOverlappingWeight(secondBusiestTree, deletedNodeFirst)<= inputReader.getServerCapacity()) {
                     System.out.println("Winstgevende swap gevonden!");
                     return;
                 } else {

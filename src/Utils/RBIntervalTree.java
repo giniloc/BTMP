@@ -1001,6 +1001,7 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
     public RBIntervalTree deepCopy() {
         RBIntervalTree newTree = new RBIntervalTree();
         newTree.root = copyNode(this.root, null); // Start copying from the root
+        newTree.setNodeCount(this.getNodeCount());
         return newTree;
     }
 
@@ -1030,6 +1031,9 @@ public class RBIntervalTree implements IIntervalTree<RBIntervalNode> {
 
     public int getNodeCount() {
         return nodeCount;
+    }
+    public void setNodeCount(int nodeCount) {
+        this.nodeCount = nodeCount;
     }
     //endregion
 }

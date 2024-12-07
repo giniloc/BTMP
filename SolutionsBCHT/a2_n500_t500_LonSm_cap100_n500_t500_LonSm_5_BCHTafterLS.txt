@@ -102,8 +102,6 @@ Request ID: 401
 Request ID: 426
 Request ID: 451
 Request ID: 453
-Request ID: 482
-Request ID: 484
 
 Server 9:
 Request ID: 20
@@ -276,7 +274,7 @@ Request ID: 430
 Request ID: 444
 Request ID: 448
 Request ID: 461
-Request ID: 479
+Request ID: 484
 
 Server 25:
 Request ID: 80
@@ -630,4 +628,8 @@ Request ID: 490
 Server 66:
 Request ID: 499
 
-Total busy time: 9219
+Server 67:
+Request ID: 479
+Request ID: 482
+
+Total busy time: 9215

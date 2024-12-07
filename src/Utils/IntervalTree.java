@@ -220,6 +220,7 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
     public IntervalTree deepCopy() {
         IntervalTree copy = new IntervalTree();
         copy.root = deepCopyRecursive(this.root, null);
+        copy.setNodeCount(this.getNodeCount());
         return copy;
     }
 
@@ -300,5 +301,8 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
     }
     public int getNodeCount(){
         return nodeCount;
+    }
+    public void setNodeCount(int count){
+        nodeCount = count;
     }
 }

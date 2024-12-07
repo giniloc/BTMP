@@ -19,7 +19,7 @@ public class Main {
     static Path baseDirectory = Paths.get("./TestInstances");
 
     public static void main(String[] args) {
-        boolean processAllInputFiles = true;
+        boolean processAllInputFiles = false;
         List<Path> inputFiles;
         // Create a LinkedHashMap to maintain insertion order
         Map<String, LocalSearchResult> localSearchResults = new LinkedHashMap<>();
@@ -28,7 +28,7 @@ public class Main {
             inputFiles = getInputFiles();
         else {
             inputFiles = new ArrayList<>();
-            inputFiles.add(baseDirectory.resolve("n50 t60 ShSm\\\\cap100_n50_t60_ShSm_5.txt"));
+            inputFiles.add(baseDirectory.resolve("n50 t60 ShSm\\cap100_n50_t60_ShSm_5.txt"));
         }
 
         var treeType = BalancedTreeType.BCHT; //change this to BCHTRB or BCHTAVL to test different tree types
@@ -83,9 +83,9 @@ public class Main {
 
         // Write the results to a CSV file if we processed all files
         if (processAllInputFiles) {
-//            String suffix = deepCopyRollback ? "_RDC" : "_RM";
-//            String outputCsvFile = "local_searchOwn_results_" + treeType.name() + "_i" + nrOfIterations + "_j" + nrOfTrees + suffix  +  ".csv";
-//            LocalSearchResultsWriter.writeToCsv(localSearchResults, outputCsvFile);
+            String suffix = deepCopyRollback ? "_RDC" : "_RM";
+            String outputCsvFile = "local_searchOwn_results_" + treeType.name() + "_i" + nrOfIterations + "_j" + nrOfTrees + suffix  +  ".csv";
+            LocalSearchResultsWriter.writeToCsv(localSearchResults, outputCsvFile);
         }
     }
 

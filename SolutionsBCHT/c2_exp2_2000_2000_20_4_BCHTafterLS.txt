@@ -684,7 +684,6 @@ Request ID: 111
 Request ID: 1105
 Request ID: 106
 Request ID: 131
-Request ID: 1886
 
 Server 45:
 Request ID: 1467
@@ -2462,7 +2461,6 @@ Request ID: 1771
 Request ID: 1600
 
 Server 266:
-Request ID: 1607
 Request ID: 1781
 Request ID: 1796
 
@@ -2592,4 +2590,8 @@ Request ID: 1972
 Server 297:
 Request ID: 1988
 
-Total busy time: 26797
+Server 298:
+Request ID: 1886
+Request ID: 1607
+
+Total busy time: 26795
