@@ -30,51 +30,65 @@ public class LocalSearchGeneric<
         this.deepCopyRollback = deepCopyRollback;
         this.inputReader = inputReader;
     }
-    
-public LocalSearchResult run(int nrOfTrees) {
-    int counter = 0;
-   // int iterationIndex = 0;
-    long startTime = System.currentTimeMillis();
-    long maxDuration = 1800000; // 30 minutes in milliseconds
 
-    while ((System.currentTimeMillis()- startTime) < maxDuration) {
-     //   while (counter < 100_000){
-        generateNeighbor(currentSolution, nrOfTrees);
-        int newBusyTime = calculateTotalBusyTime(currentSolution);
+    public LocalSearchResult run(int nrOfTrees) {
+        long startTime = System.currentTimeMillis();
+        long maxDuration = 180_000; // 30 minutes in milliseconds
 
-        if (newBusyTime < bestBusyTime) {
-            System.out.println("New best solution found! Busy time Changed from: " + bestBusyTime + " to " + newBusyTime);
-            bestBusyTime = newBusyTime;
-            bestSolution = new Solution<>(currentSolution);
+        // Simulated Annealing parameters
+        double initialTemperature = 10000.0;
+        double finalTemperature = 1.0;
+        double coolingRate = 0.9999; // Cooling factor, adjust for faster/slower cooling
+        double temperature = initialTemperature;
 
-            if (deepCopyRollback) {
-                oldSolution = new Solution<>(currentSolution);
-            }
-            if (!deepCopyRollback) {
-                moves.clear();
-            }
-            counter = 0;
-        } else {
-            counter++;
-            if (deepCopyRollback) {
-                this.currentSolution = new Solution<>(oldSolution);
+        while ((System.currentTimeMillis() - startTime) < maxDuration && temperature > finalTemperature) {
+            generateNeighbor(currentSolution, nrOfTrees);
+            int newBusyTime = calculateTotalBusyTime(currentSolution);
+
+            // Calculate the change in busy time
+            int delta = newBusyTime - currentSolution.getTotalBusyTime();
+
+            if (delta < 0 || acceptWorseSolution(delta, temperature)) {
+                if (newBusyTime < bestBusyTime) {
+                    bestBusyTime = newBusyTime;
+                    bestSolution = new Solution<>(currentSolution);
+                    System.out.println("New best solution found!");
+                }
+                if (deepCopyRollback) {
+                    oldSolution = new Solution<>(currentSolution);
+                }
+                if (!deepCopyRollback) {
+                    moves.clear();
+                }
             } else {
-                rollback();
+                if (deepCopyRollback) {
+                    currentSolution = new Solution<>(oldSolution);
+                } else {
+                    rollback();
+                }
             }
+
+
+            // Reduce the temperature
+            temperature *= coolingRate;
         }
-     //   SolutionWriter.solutionAnalysis(heuristic.getHeuristicName(),inputReader.getTestInstance(), iterationIndex, bestBusyTime);//This is for solution analysis
-     //   iterationIndex++;
+
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+
+        System.out.println("Elapsed time: " + elapsedTime);
+
+        SolutionWriter.writeSolutionToFile(bestSolution, heuristic.getInputReader().getTestInstance(), heuristic.getHeuristicName(), bestBusyTime);
+
+        return new LocalSearchResult(elapsedTime, bestBusyTime);
     }
 
-    long endTime = System.currentTimeMillis();
-    long elapsedTime = endTime - startTime;
-
-    System.out.println("Elapsed time: " + elapsedTime);
-
-    SolutionWriter.writeSolutionToFile(bestSolution, heuristic.getInputReader().getTestInstance(), heuristic.getHeuristicName(), bestBusyTime);
-
-    return new LocalSearchResult(elapsedTime, bestBusyTime);
-}
+    private boolean acceptWorseSolution(int delta, double temperature) {
+        // Calculate the acceptance probability
+        double probability = Math.exp(-delta / temperature);
+        // Accept the worse solution with this probability
+        return Math.random() < probability;
+    }
 
 
 
@@ -90,6 +104,7 @@ public LocalSearchResult run(int nrOfTrees) {
         for (T tree : selectedTrees) {
             int nodesToRemove = Math.max(1, tree.getNodeCount() / 4);
             List<N> nodesToDelete = tree.getRandomNodes(nodesToRemove);
+            Collections.shuffle(nodesToDelete, random);
 
             for (N node : nodesToDelete) {
                 Request request = createRequestFromNode(node);
@@ -130,7 +145,7 @@ public LocalSearchResult run(int nrOfTrees) {
         var randomTrees = new ArrayList<>(intervalTrees);
         randomTrees.removeAll(busiestTrees);
         Collections.shuffle(randomTrees, random);
-        var selectedRandomTrees = randomTrees.stream().limit(count - halfCount).toList();
+        var selectedRandomTrees = randomTrees.stream().limit(solution.getIntervalTrees().size()/2).toList();
 
         var selectedTrees = new ArrayList<>(busiestTrees);
         selectedTrees.addAll(selectedRandomTrees);
@@ -150,7 +165,7 @@ public LocalSearchResult run(int nrOfTrees) {
                     .filter(intervalTree -> {
                         var overlappingNodes = intervalTree.findAllOverlapping(interval);
                         int sum = overlappingNodes.stream().mapToInt(IntervalNode::getWeight).sum();
-                        return sum + request.getWeight() <= inputReader.getServerCapacity();
+                        return sum + request.getWeight() <= inputReader.getServerCapacity() && sum != 0;
                     })
                     .reduce((currentBest, intervalTree) -> {
                         if (currentBest == null) {

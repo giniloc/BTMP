@@ -28,7 +28,7 @@ public class Main {
             inputFiles = getInputFiles();
         else {
             inputFiles = new ArrayList<>();
-            inputFiles.add(baseDirectory.resolve("n50 t60 ShSm\\cap100_n50_t60_ShSm_5.txt"));
+            inputFiles.add(baseDirectory.resolve("n50 t50 LonLr\\cap100_n50_t50_LonLr_1.txt"));
         }
 
         var treeType = BalancedTreeType.BCHT; //change this to BCHTRB or BCHTAVL to test different tree types
@@ -53,9 +53,9 @@ public class Main {
                 case BCHT:
                     bcht = new BCHT<IntervalTree>(inputReader, new IntervalTreeFactory(), "BCHT");
                     runner.run(bcht, requests);
-                    var localSearchBCHT = new LocalSearchGeneric<IntervalTree, IntervalNode>(bcht.getSolution(), bcht, deepCopyRollback,inputReader);
-                   // var localSearchBCHT = new LocalSearchOwn<IntervalTree, IntervalNode>(bcht.getSolution(), bcht, deepCopyRollback,inputReader);
-                    result = localSearchBCHT.run(nrOfTrees);
+                   // var localSearchBCHT = new LocalSearchGeneric<IntervalTree, IntervalNode>(bcht.getSolution(), bcht, deepCopyRollback,inputReader);
+                    var localSearchBCHT = new LocalSearchOwn<IntervalTree, IntervalNode>(bcht.getSolution(), bcht, deepCopyRollback,inputReader);
+                    result = localSearchBCHT.run();
                     break;
                 case BCHTRB:
                     bcht = new BCHT<RBIntervalTree>(inputReader, new RBIntervalTreeFactory(), "BCHTRB");
