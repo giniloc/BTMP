@@ -73,12 +73,20 @@ public class IntervalTree implements IIntervalTree<IntervalNode> {
     }
 
     public int calculateExtraBusyTime(Interval newInterval) {
-        if (root == null) return newInterval.getEndTime() - newInterval.getStartTime();
-        if (newInterval.getEndTime() > root.getMaxEndTime()) {
-            // The extra busy time is the difference between the new interval's end time and the current maxEndTime
+        if (root == null) {
+            return newInterval.getEndTime() - newInterval.getStartTime();
+        }
+
+        // Check if the new interval ends after the current maxEndTime
+        if (newInterval.getEndTime() > root.getMaxEndTime() && newInterval.getStartTime() >= root.getMinStartTime()) {
             return newInterval.getEndTime() - root.getMaxEndTime();
-        } else {
-            // If the new interval's end time is less than or equal to the maxEndTime, there is no extra busy time
+        } else if (newInterval.getStartTime() < root.getMinStartTime() && newInterval.getEndTime() <= root.getMaxEndTime()) {
+            return root.getMinStartTime() - newInterval.getStartTime();
+        }
+        else if (newInterval.getStartTime() < root.getMinStartTime() && newInterval.getEndTime() > root.getMaxEndTime()) {
+            return newInterval.getEndTime() - newInterval.getStartTime();
+        }
+        else {
             return 0;
         }
     }

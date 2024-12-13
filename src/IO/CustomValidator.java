@@ -21,9 +21,8 @@ public class CustomValidator {
     }
 
     public static void main(String[] args) {
-        String inputFilePath = "TestInstances/n50 t50 LonLr/cap100_n50_t50_LonLr_1.txt";
+        String inputFilePath = "TestInstances\\n50 t50 LonLr\\cap100_n50_t50_LonLr_1.txt";
         String solution = "{38;40}|{35;47}|{30;23}|{36;29}|{41;28}|{26;43}|{31;24}|{19;22}|{21;15}|{9;20;46}|{18;16}|{17;34;11}|{12;14;39;48}|{10;13}|{3;45;8}|{5;7}|{33;6;32}|{1;4;49;25;27}|{2;37;50}|{42;44}";
-
         Map<Integer, Request> requests = parseInputFile(inputFilePath);
         List<List<Integer>> solutionAssignments = parseSolution(solution);
 

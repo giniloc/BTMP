@@ -46,11 +46,19 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
 
     public int calculateExtraBusyTime(Interval newInterval) {
         if (root == null) {
-            return 0;
+            return newInterval.getEndTime() - newInterval.getStartTime();
         }
-        if (newInterval.getEndTime() > root.getMaxEndTime()) {
+
+        // Check if the new interval ends after the current maxEndTime
+        if (newInterval.getEndTime() > root.getMaxEndTime() && newInterval.getStartTime() >= root.getMinStartTime()) {
             return newInterval.getEndTime() - root.getMaxEndTime();
-        } else {
+        } else if (newInterval.getStartTime() < root.getMinStartTime() && newInterval.getEndTime() <= root.getMaxEndTime()) {
+            return root.getMaxEndTime() - newInterval.getStartTime();
+        }
+        else if (newInterval.getStartTime() < root.getMinStartTime() && newInterval.getEndTime() > root.getMaxEndTime()) {
+            return newInterval.getEndTime() - newInterval.getStartTime();
+        }
+        else {
             return 0;
         }
     }
@@ -93,7 +101,14 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
             }
         }
         updateMaxEndTime(current);
+        updateMinStartTime(current);
         return rebalance(current);
+    }
+
+    private void updateMinStartTime(AVLIntervalNode current) {
+        int leftMinStartTime = (current.getLeft() != null) ? findMinStartTime(current.getLeft()) : Integer.MAX_VALUE;
+        int rightMinStartTime = (current.getRight() != null) ? findMinStartTime(current.getRight()) : Integer.MAX_VALUE;
+        current.setMinStartTime(Math.min(current.getInterval().getStartTime(), Math.min(leftMinStartTime, rightMinStartTime)));
     }
 
     public AVLIntervalNode delete(IntervalNode node) {
@@ -169,7 +184,7 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
         }
         AVLIntervalNode balancedNode = rebalance(current);
         updateMaxEndTime(balancedNode);
-
+        updateMinStartTime(balancedNode);
         return balancedNode;
     }
 
@@ -251,6 +266,7 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
         AVLIntervalNode current = x;
         while (current != null) {
             updateMaxEndTime(current);
+            updateMinStartTime(current);
             current = current.getParent();
         }
 
@@ -280,6 +296,7 @@ public class AVLIntervalTree implements IIntervalTree<AVLIntervalNode> {
         AVLIntervalNode current = y;
         while (current != null) {
             updateMaxEndTime(current);
+            updateMinStartTime(current);
             current = current.getParent();
         }
 

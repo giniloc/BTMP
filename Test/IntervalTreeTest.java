@@ -14,9 +14,9 @@ public class IntervalTreeTest {
     IntervalNode node5 = new IntervalNode(new Interval(11, 18), 30, 5);
     IntervalNode node6 = new IntervalNode(new Interval(15, 38), 35, 6);
     IntervalNode node7 = new IntervalNode(new Interval(25, 38), 40, 7);
-    IntervalNode node8 = new IntervalNode(new Interval(6, 38), 45, 8);
-    IntervalNode node9 = new IntervalNode(new Interval(22, 38), 55, 9);
-    IntervalNode node10 = new IntervalNode(new Interval(27, 38), 60, 10);
+    IntervalNode node8 = new IntervalNode(new Interval(6, 37), 45, 8);
+    IntervalNode node9 = new IntervalNode(new Interval(22, 36), 55, 9);
+    IntervalNode node10 = new IntervalNode(new Interval(27, 36), 60, 10);
     private IntervalTree buildTree(){
         IntervalTree IntervalTree = new IntervalTree();
 
@@ -81,5 +81,15 @@ public class IntervalTreeTest {
         var maxEndTimeNode = tree.getMaxEndTimeNode();
         // Assert
         assertEquals(maxEndTimeNode.getMaxEndTime(), 38);
+    }
+    @Test
+    public void calculateExtraBusyTime() {
+        // Arrange
+        var tree = buildTree();
+        // Act
+        var extraBusyTime = tree.calculateExtraBusyTime(new Interval(0, 250));
+
+        // Assert
+        assertEquals(extraBusyTime, 0);
     }
 }

@@ -36,7 +36,7 @@ public class LocalSearchGeneric<
         long maxDuration = 180_000; // 30 minutes in milliseconds
 
         // Simulated Annealing parameters
-        double initialTemperature = 10000.0;
+        double initialTemperature = 50_000.0;
         double finalTemperature = 1.0;
         double coolingRate = 0.9999; // Cooling factor, adjust for faster/slower cooling
         double temperature = initialTemperature;

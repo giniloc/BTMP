@@ -19,7 +19,7 @@ public class Main {
     static Path baseDirectory = Paths.get("./TestInstances");
 
     public static void main(String[] args) {
-        boolean processAllInputFiles = false;
+        boolean processAllInputFiles = true;
         List<Path> inputFiles;
         // Create a LinkedHashMap to maintain insertion order
         Map<String, LocalSearchResult> localSearchResults = new LinkedHashMap<>();
@@ -33,7 +33,7 @@ public class Main {
 
         var treeType = BalancedTreeType.BCHT; //change this to BCHTRB or BCHTAVL to test different tree types
         var nrOfIterations = 10_000; // i in results filename
-        var nrOfTrees = 10; // j in results filename = nr of trees used to remove nodes from (generate neighbor)
+        var nrOfTrees = 20; // j in results filename = nr of trees used to remove nodes from (generate neighbor)
         boolean deepCopyRollback = true; // change this to true to test deep copy rollback
 
         for (var f : inputFiles){
@@ -53,9 +53,9 @@ public class Main {
                 case BCHT:
                     bcht = new BCHT<IntervalTree>(inputReader, new IntervalTreeFactory(), "BCHT");
                     runner.run(bcht, requests);
-                   // var localSearchBCHT = new LocalSearchGeneric<IntervalTree, IntervalNode>(bcht.getSolution(), bcht, deepCopyRollback,inputReader);
-                    var localSearchBCHT = new LocalSearchOwn<IntervalTree, IntervalNode>(bcht.getSolution(), bcht, deepCopyRollback,inputReader);
-                    result = localSearchBCHT.run();
+                    var localSearchBCHT = new LocalSearchGeneric<IntervalTree, IntervalNode>(bcht.getSolution(), bcht, deepCopyRollback,inputReader);
+                   // var localSearchBCHT = new LocalSearchOwn<IntervalTree, IntervalNode>(bcht.getSolution(), bcht, deepCopyRollback,inputReader);
+                    result = localSearchBCHT.run(nrOfTrees);
                     break;
                 case BCHTRB:
                     bcht = new BCHT<RBIntervalTree>(inputReader, new RBIntervalTreeFactory(), "BCHTRB");
