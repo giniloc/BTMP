@@ -4,6 +4,8 @@ import IO.InputReader;
 import IO.SolutionWriter;
 import Utils.*;
 import java.util.List;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class BCHT<T extends IIntervalTree<? extends IIntervalNode>> implements IHeuristic {
     private InputReader inputReader;
@@ -21,6 +23,8 @@ public class BCHT<T extends IIntervalTree<? extends IIntervalNode>> implements I
     }
 
     public void applyHeuristic(List<Request> requests) {
+        long startTime = System.nanoTime();
+
         for (Request request : requests) {
             Interval interval = new Interval(request.getStartTime(), request.getEndTime());
             IntervalNode node = new IntervalNode(interval, request.getWeight(), request.getVmId());
@@ -41,36 +45,53 @@ public class BCHT<T extends IIntervalTree<? extends IIntervalNode>> implements I
                         bestTree = intervalTree;
                     }
                 }
-
             }
 
             // if no bestTree was found, create a new one
             if (bestTree == null) {
-                bestTree = factory.create(); //new T();
+                bestTree = factory.create();
                 solution.add(bestTree);
             }
-
 
             bestTree.insert(node);
         }
 
-//        int totalBusyTime = 0;
-//        for (var intervalTree : solution.getIntervalTrees()) {
-//            totalBusyTime += intervalTree.calculateTotalBusyTime();
-//        }
-//
-//        SolutionWriter.writeSolutionToFile(solution, inputReader.getTestInstance(), this.heuristicName, totalBusyTime);
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime) / 1_000_000; // runtime in milliseconds
+
+        writeRuntimeToCSV(duration);
+
+        // int totalBusyTime = 0;
+        // for (var intervalTree : solution.getIntervalTrees()) {
+        //     totalBusyTime += intervalTree.calculateTotalBusyTime();
+        // }
+
+        // SolutionWriter.writeSolutionToFile(solution, inputReader.getTestInstance(), this.heuristicName, totalBusyTime);
     }
+
+    private void writeRuntimeToCSV(long duration) {
+        try (FileWriter writer = new FileWriter("runtime.csv", true)) {
+            writer.append(',')
+                    .append(Long.toString(duration))
+                    .append('\n');
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public Solution<T> getSolution() {
         return solution;
     }
 
-    public void setSolution(Solution<T> solution){
+    public void setSolution(Solution<T> solution) {
         this.solution = solution;
     }
+
     public InputReader getInputReader() {
         return inputReader;
     }
+
     public IIntervalTreeFactory<T> getFactory() {
         return factory;
     }

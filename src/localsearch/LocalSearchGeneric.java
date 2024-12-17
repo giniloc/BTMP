@@ -30,6 +30,32 @@ public class LocalSearchGeneric<
         this.deepCopyRollback = deepCopyRollback;
         this.inputReader = inputReader;
     }
+    public LocalSearchResult run(int iterations, int nrOfTrees) {
+        long startTime = System.currentTimeMillis();
+        for (int i = 0; i < iterations; i++) {
+            System.out.println("Iteration " + i);
+            generateNeighbor(currentSolution, nrOfTrees);
+            int newBusyTime = calculateTotalBusyTime(currentSolution);
+
+            if (newBusyTime < bestBusyTime) {
+                bestBusyTime = newBusyTime;
+                bestSolution = new Solution<>(currentSolution);
+                if(deepCopyRollback) oldSolution = new Solution<>(currentSolution);
+                if (!deepCopyRollback) moves.clear();
+            } else {
+                if (deepCopyRollback) this.currentSolution = new Solution<>(oldSolution);
+                else rollback();
+            }
+        }
+
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+        System.out.println("Elapsed time: "+ elapsedTime);
+
+        SolutionWriter.writeSolutionToFile(bestSolution, heuristic.getInputReader().getTestInstance(), heuristic.getHeuristicName(), bestBusyTime);
+
+        return new LocalSearchResult(elapsedTime, bestBusyTime);
+    }
 
     public LocalSearchResult run(int nrOfTrees) {
         long startTime = System.currentTimeMillis();

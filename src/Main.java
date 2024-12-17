@@ -16,7 +16,7 @@ import Utils.*;
 import localsearch.*;
 
 public class Main {
-    static Path baseDirectory = Paths.get("./TestInstances");
+    static Path baseDirectory = Paths.get("./TestInstances/a2");
 
     public static void main(String[] args) {
         boolean processAllInputFiles = true;
@@ -32,9 +32,9 @@ public class Main {
         }
 
         var treeType = BalancedTreeType.BCHT; //change this to BCHTRB or BCHTAVL to test different tree types
-        var nrOfIterations = 10_000; // i in results filename
-        var nrOfTrees = 20; // j in results filename = nr of trees used to remove nodes from (generate neighbor)
-        boolean deepCopyRollback = true; // change this to true to test deep copy rollback
+        var nrOfIterations = 1_000; // i in results filename
+        var nrOfTrees = 10; // j in results filename = nr of trees used to remove nodes from (generate neighbor)
+        boolean deepCopyRollback = false; // change this to true to test deep copy rollback
 
         for (var f : inputFiles){
             System.out.println();
@@ -55,22 +55,22 @@ public class Main {
                     runner.run(bcht, requests);
                     var localSearchBCHT = new LocalSearchGeneric<IntervalTree, IntervalNode>(bcht.getSolution(), bcht, deepCopyRollback,inputReader);
                    // var localSearchBCHT = new LocalSearchOwn<IntervalTree, IntervalNode>(bcht.getSolution(), bcht, deepCopyRollback,inputReader);
-                    result = localSearchBCHT.run(nrOfTrees);
+                    result = localSearchBCHT.run(nrOfIterations, nrOfTrees);
                     break;
                 case BCHTRB:
                     bcht = new BCHT<RBIntervalTree>(inputReader, new RBIntervalTreeFactory(), "BCHTRB");
                     runner.run(bcht, requests);
-                   // var localSearchRB = new LocalSearchGeneric<RBIntervalTree, RBIntervalNode>(bcht.getSolution(), bcht, deepCopyRollback, inputReader);
-                    var localSearchRB = new LocalSearchOwn<RBIntervalTree, RBIntervalNode>(bcht.getSolution(), bcht, deepCopyRollback, inputReader);
-                    result = localSearchRB.run();
+                    var localSearchRB = new LocalSearchGeneric<RBIntervalTree, RBIntervalNode>(bcht.getSolution(), bcht, deepCopyRollback, inputReader);
+                   // var localSearchRB = new LocalSearchOwn<RBIntervalTree, RBIntervalNode>(bcht.getSolution(), bcht, deepCopyRollback, inputReader);
+                    result = localSearchRB.run(nrOfIterations, nrOfTrees);
                     break;
                 case BCHTAVL:
                 default:
                     bcht = new BCHT<AVLIntervalTree>(inputReader, new AVLIntervalTreeFactory(), "BCHTAVL");
                     runner.run(bcht, requests);
-                   // var localSearchAVL = new LocalSearchGeneric<AVLIntervalTree, AVLIntervalNode>(bcht.getSolution(), bcht, deepCopyRollback, inputReader);
-                    var localSearchAVL = new LocalSearchOwn<AVLIntervalTree, AVLIntervalNode>(bcht.getSolution(), bcht, deepCopyRollback, inputReader);
-                    result = localSearchAVL.run();
+                    var localSearchAVL = new LocalSearchGeneric<AVLIntervalTree, AVLIntervalNode>(bcht.getSolution(), bcht, deepCopyRollback, inputReader);
+                  //  var localSearchAVL = new LocalSearchOwn<AVLIntervalTree, AVLIntervalNode>(bcht.getSolution(), bcht, deepCopyRollback, inputReader);
+                    result = localSearchAVL.run(nrOfIterations, nrOfTrees);
                     break;
             }
 
