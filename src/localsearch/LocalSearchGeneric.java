@@ -31,6 +31,8 @@ public class LocalSearchGeneric<
         this.inputReader = inputReader;
     }
     public LocalSearchResult run(int iterations, int nrOfTrees) {
+        int iterationIndex = 0;
+        int counter = 0;
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < iterations; i++) {
             System.out.println("Iteration " + i);
@@ -42,10 +44,17 @@ public class LocalSearchGeneric<
                 bestSolution = new Solution<>(currentSolution);
                 if(deepCopyRollback) oldSolution = new Solution<>(currentSolution);
                 if (!deepCopyRollback) moves.clear();
+                counter = 0;
+
             } else {
+                counter++;
                 if (deepCopyRollback) this.currentSolution = new Solution<>(oldSolution);
                 else rollback();
             }
+            iterationIndex++;
+            SolutionWriter.solutionAnalysis(heuristic.getHeuristicName(),inputReader.getTestInstance(), iterationIndex, bestBusyTime);//This is for solution analysis
+
+
         }
 
         long endTime = System.currentTimeMillis();
@@ -53,18 +62,20 @@ public class LocalSearchGeneric<
         System.out.println("Elapsed time: "+ elapsedTime);
 
         SolutionWriter.writeSolutionToFile(bestSolution, heuristic.getInputReader().getTestInstance(), heuristic.getHeuristicName(), bestBusyTime);
-
+        SolutionWriter.solutionAnalysis(heuristic.getHeuristicName(),inputReader.getTestInstance(), iterationIndex, bestBusyTime);//This is for solution analysis
         return new LocalSearchResult(elapsedTime, bestBusyTime);
     }
 
     public LocalSearchResult run(int nrOfTrees) {
+        System.out.println("initial busy time: " + currentSolution.getTotalBusyTime());
         long startTime = System.currentTimeMillis();
         long maxDuration = 180_000; // 30 minutes in milliseconds
+        int iterationIndex = 0;
 
         // Simulated Annealing parameters
         double initialTemperature = 50_000.0;
         double finalTemperature = 1.0;
-        double coolingRate = 0.9999; // Cooling factor, adjust for faster/slower cooling
+        double coolingRate = 0.999; // Cooling factor, adjust for faster/slower cooling
         double temperature = initialTemperature;
 
         while ((System.currentTimeMillis() - startTime) < maxDuration && temperature > finalTemperature) {
@@ -78,7 +89,7 @@ public class LocalSearchGeneric<
                 if (newBusyTime < bestBusyTime) {
                     bestBusyTime = newBusyTime;
                     bestSolution = new Solution<>(currentSolution);
-                    System.out.println("New best solution found!");
+                    System.out.println("New best solution found: " + bestBusyTime + " after iteration " + iterationIndex);
                 }
                 if (deepCopyRollback) {
                     oldSolution = new Solution<>(currentSolution);
@@ -97,11 +108,12 @@ public class LocalSearchGeneric<
 
             // Reduce the temperature
             temperature *= coolingRate;
+            iterationIndex++;
         }
 
         long endTime = System.currentTimeMillis();
         long elapsedTime = endTime - startTime;
-
+        System.out.println("total iterations: " + iterationIndex);
         System.out.println("Elapsed time: " + elapsedTime);
 
         SolutionWriter.writeSolutionToFile(bestSolution, heuristic.getInputReader().getTestInstance(), heuristic.getHeuristicName(), bestBusyTime);

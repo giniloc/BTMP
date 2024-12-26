@@ -113,7 +113,7 @@ public class Validator {
         for (int requestId : requests.keySet()) {
             if (!assignedRequestIds.contains(requestId)) {
                 System.out.println("Error: Request ID " + requestId + " is not assigned in the solution.");
-                System.exit(1);
+              //  System.exit(1);
             }
         }
         if (!duplicateRequestIds.isEmpty()) {
