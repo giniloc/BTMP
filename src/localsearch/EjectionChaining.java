@@ -72,6 +72,7 @@ public class EjectionChaining <T extends IIntervalTree<N>,N extends IntervalNode
 
         long startTime = System.currentTimeMillis();
         int maxIterations = 100_000;        // Maximaal aantal iteraties
+        System.out.println("Initial busy time: " + bestBusyTime);
 
         while (iterationIndex < maxIterations && temperature > 1e-3) { // Stop als de temperatuur laag is of max iteraties bereikt
             generateNeighbor(currentSolution);
@@ -85,7 +86,6 @@ public class EjectionChaining <T extends IIntervalTree<N>,N extends IntervalNode
                     bestBusyTime = newBusyTime;
                     bestSolution = new Solution<>(currentSolution);
                 }
-
                 if (deepCopyRollback) {
                     oldSolution = new Solution<>(currentSolution);
                 } else {
@@ -137,28 +137,13 @@ public class EjectionChaining <T extends IIntervalTree<N>,N extends IntervalNode
     }
 
     private void makeCombination(List<T> allTrees) {
-        boolean improvementFound = false;
         for (int i = 0; i < allTrees.size(); i++) {
-            if (improvementFound) break; // Stop als een verbetering is gevonden
-
-            T currentTree = allTrees.get(i);
+            T currentTree = allTrees.get(random.nextInt(allTrees.size()));
             N randomNode = currentTree.getRandomNode();
             if (randomNode == null) continue;
-
             N deletedNode = currentTree.delete(randomNode);
-
             if (deletedNode != null) {
-                improvementFound = ejectionChaining(currentTree, deletedNode, 0);
-
-                // Controleer of de huidige oplossing beter is dan de beste oplossing
-                int newBusyTime = calculateTotalBusyTime(currentSolution);
-                if (newBusyTime < bestBusyTime) {
-                    bestBusyTime = newBusyTime;
-                    bestSolution = new Solution<>(currentSolution);
-                    System.out.println("Nieuwe beste oplossing gevonden! " + newBusyTime);
-                    improvementFound = true; // Stop verdere iteraties
-                }
-
+               ejectionChaining(currentTree, deletedNode);
             }
         }
     }
@@ -182,62 +167,84 @@ public class EjectionChaining <T extends IIntervalTree<N>,N extends IntervalNode
         }
         moves.clear();
     }
-    private boolean ejectionChaining(T sourceTree, N node, int depth) {
-        if (depth > 1000) {
-            sourceTree.insert(node);
-            return false;
-        }
-
+    private void ejectionChaining(T sourceTree, N node) {
         for (T targetTree : currentSolution.getIntervalTrees()) {
             if (sourceTree == targetTree) continue;
-
-            int overlappingWeight = targetTree.findAllOverlapping(node.getInterval())
-                    .stream()
-                    .mapToInt(IntervalNode::getWeight)
-                    .sum();
-
-            if (overlappingWeight + node.getWeight() <= inputReader.getServerCapacity() && overlappingWeight != 0) {
-                    N ejectedNode = insertWithEjection(sourceTree, targetTree, node);
-                    if (ejectedNode == null) {
-                        return true;
-                    } else {
-                        return ejectionChaining(targetTree, ejectedNode, depth + 1);
-                }
+            List<N> overlappingNodes = targetTree.findAllOverlapping(node.getInterval());
+            int overlapWeight = 0;
+            for (N overlappingNode : overlappingNodes) {
+                overlapWeight += overlappingNode.getWeight();
+            }
+            if (overlapWeight + node.getWeight() <= inputReader.getServerCapacity()) {//if the node can be inserted in the target tree, do it
+                targetTree.insert(node);
+                return;
+            }
+            N ejectedNode = insertWithEjection(sourceTree, targetTree, node, overlapWeight);
+            int newbusyTime = currentSolution.getTotalBusyTime();
+            if (newbusyTime < bestBusyTime) {
+                System.out.println("New best solution found! " + newbusyTime);
+                bestBusyTime = newbusyTime;
+                bestSolution = new Solution<>(currentSolution);
+                return;
+            }
+            if (ejectedNode == null) continue;
+            if (ejectedNode.getID() == node.getID()) {
+                sourceTree.insert(ejectedNode);
+            }
+            else {
+                ejectionChaining(targetTree, ejectedNode);
             }
         }
-        sourceTree.insert(node);
-        return false;
     }
 
 
-
-    public N insertWithEjection(T sourcetree, T targetTree, N newNode) { //TODO check this method for design flaws
+    private N insertWithEjection(T sourceTree, T targetTree, N newNode, int overlapWeight) {//the overlapweight is from the target tree
         List<N> overlappingNodes = targetTree.findAllOverlapping(newNode.getInterval());
-
-        int totalWeight = newNode.getWeight();
-        for (N node : overlappingNodes) {
-            totalWeight += node.getWeight();
-        }
-
-        if (totalWeight <= inputReader.getServerCapacity() && !overlappingNodes.isEmpty()) {
+        N mostOverlappingNode = findMostOverlappingNode(overlappingNodes, newNode);
+        if (mostOverlappingNode == null) {
             targetTree.insert(newNode);
+            return null;
         }
+        List<N> overlappingNodesSource = sourceTree.findAllOverlapping(mostOverlappingNode.getInterval());
+        int overlapWeightSource = 0;
+        for (N overlappingNode : overlappingNodesSource) {
+            overlapWeightSource += overlappingNode.getWeight();
+        }
+        if (overlapWeightSource + newNode.getWeight() + mostOverlappingNode.getWeight() <= inputReader.getServerCapacity()
+                && calculateOverlap(newNode, mostOverlappingNode) <= calculateOverlap(mostOverlappingNode, findMostOverlappingNode(overlappingNodes, mostOverlappingNode))) {
+            sourceTree.insert(newNode);
+            N deletedNode = targetTree.delete(mostOverlappingNode);
+            sourceTree.insert(deletedNode);
+            return null;
+        }
+        if(overlapWeight - mostOverlappingNode.getWeight() + newNode.getWeight() <= inputReader.getServerCapacity()) {
+            targetTree.insert(newNode);
+            return mostOverlappingNode;
+        }
+        return newNode;
+}
 
-
-        N nodeToEject = null;
+    private N findMostOverlappingNode(List<N> overlappingNodes, N newNode) {
+        N mostOverlappingNode = null;
+        int maxOverlap = 0;
         for (N node : overlappingNodes) {
-            if (totalWeight - node.getWeight() <= inputReader.getServerCapacity()) {
-                nodeToEject = node;
-                break;
+            int overlap = calculateOverlap(node, newNode);
+            if (overlap > maxOverlap) {
+                maxOverlap = overlap;
+                mostOverlappingNode = node;
             }
         }
-        if (nodeToEject != null) {
-            N deletednode = targetTree.delete(nodeToEject);
-            targetTree.insert(newNode);
-            return deletednode;
-        }
-
-        return newNode;
+        return mostOverlappingNode;
     }
 
+    private int calculateOverlap(N node, N newNode) {
+        if (node.getInterval().getEndTime() <= newNode.getInterval().getStartTime() ||
+                node.getInterval().getStartTime() >= newNode.getInterval().getEndTime()) {
+            return 0;
+        }
+        else {
+            return Math.min(node.getInterval().getEndTime(), newNode.getInterval().getEndTime()) -
+                    Math.max(node.getInterval().getStartTime(), newNode.getInterval().getStartTime());
+        }
+    }
 }
